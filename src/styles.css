@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.layout-header {
+    position: fixed;
+    top: 0;
+    height: 116px;
+    width: 100%;
+    padding: 0;
+    background-color: #666666;
+    z-index: 50;
+}
+
+.layout-header .page-title .part1 {
+    color: white;
+}
+
+.layout-header .page-title {
+    font-size: 30px;
+    padding-top: 30px;
+    padding-left: 20px;
+    float: left;
+}
+
+
