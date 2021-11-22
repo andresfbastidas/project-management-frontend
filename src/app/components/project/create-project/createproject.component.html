@@ -15,7 +15,7 @@
             </label>
         </div>
         <div class="col-lg-3" >
-            <select name="selectDirector"
+            <select name="selectDirector" style="width: 85%;"
                         class="select-text" required>
                            <option class="dropdown-item"  disabled selected value="undefined"></option>
                            <option 
@@ -31,18 +31,14 @@
             </label>
         </div>
         <div class="col-lg-3">
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
+            <textarea class="ui-inputtext col-10 border "></textarea>
         </div>
         <div class="col-lg-3">
             <label for="residenceCountry">Justificacion
             </label>
         </div>
         <div class="col-lg-3" >
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
+            <textarea class="ui-inputtext col-10 border "></textarea>
         </div>
     </div> 
     <br>
@@ -52,9 +48,7 @@
             </label>
         </div>
         <div class="col-lg-3">
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
+            <textarea class="ui-inputtext col-10 border "></textarea>
         </div>
         <div class="col-lg-3">
             <label for="residenceCountry">Fecha inicio
@@ -77,9 +71,7 @@
             </label>
         </div>
         <div class="col-lg-3">
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
+            <textarea class="ui-inputtext col-10 border "></textarea>
         </div>
         <div class="col-lg-3">
             <label for="residenceCountry">Fecha fin
@@ -111,9 +103,7 @@
             </label>
         </div>
         <div class="col-lg-3" >
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
+            <textarea class="ui-inputtext col-10 border "></textarea>
         </div>
     </div> 
     <br>
@@ -123,7 +113,7 @@
             </label>
         </div>
         <div class="col-lg-3">
-            <select name="selectDirector"
+            <select name="selectDirector" style="width: 85%;"
             class="select-text" required>
                <option class="dropdown-item"  disabled selected value="undefined"></option>
                <option 
@@ -131,17 +121,30 @@
                class="dropdown-item">{{option.name}}</option>
             </select>
         </div>
+        <div class="col-lg-3">
+            <label for="residenceCountry">Estado
+            </label>
+        </div>
+        <div class="col-lg-3">
+            <select name="selectDirector" style="width: 85%;"
+            class="select-text" required>
+               <option class="dropdown-item"  disabled selected value="undefined"></option>
+               <option 
+                *ngFor="let option of myObjArray3;let x = index"
+               class="dropdown-item">{{option.name}}</option>
+            </select>
+        </div>
     </div> 
     <br>
     <div class="row ">
         <div class="col-lg-6" style="text-align: right;">
-            <button class="btn btn-info btn-sm btn-space" style="background-color: #999999;color: white;"
+            <button class="btn btn-info btn-lg btn-space" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
             id="cleanBtn" name="cleanBtn" type="button">
             Limpiar
         </button>
         </div>
         <div class="col-lg-6">
-            <button class="btn btn-info btn-sm btn-space" style="background-color: #999999;color: white;"
+            <button class="btn btn-info btn-lg btn-space" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
             id="cleanBtn" name="cleanBtn" type="button">
             Crear proyecto
         </button>

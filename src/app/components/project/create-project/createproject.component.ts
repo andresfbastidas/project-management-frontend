@@ -21,6 +21,12 @@ export class CreateprojectComponent implements OnInit {
     {id: 3, name: "Tesis de maestria" }
   ];
 
+  myObjArray3 = [
+    {id: 1, name: "EN REVISIÓN" },
+    {id: 2, name: "EN PROGRESO" },
+    {id: 3, name: "CERRADO" }
+  ];
+
   ngOnInit(): void {
     this.getDirectorList();
   }
