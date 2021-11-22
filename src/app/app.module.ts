@@ -9,6 +9,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/security/login/login.component';
 import { MenuBarComponent } from './components/menubar/menu-bar-component';
+import {MenuModule} from 'primeng/menu';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MenuBarComponent } from './components/menubar/menu-bar-component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
