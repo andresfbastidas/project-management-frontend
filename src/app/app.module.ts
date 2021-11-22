@@ -10,14 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/security/login/login.component';
 import { MenuBarComponent } from './components/menubar/menu-bar-component';
 import {MenuModule} from 'primeng/menu';
-
+import { CreateprojectComponent } from './components/project/create-project/createproject.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+    import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    CreateprojectComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,9 @@ import {MenuModule} from 'primeng/menu';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MenuModule
+    MenuModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
