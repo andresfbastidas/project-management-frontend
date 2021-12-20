@@ -19,6 +19,13 @@ body {
     color: white;
 }
 
+.layout-menu {
+    position: fixed;
+    margin-top: 117px;
+    top: 0;
+    height: 100%;
+}
+
 .layout-header .page-title {
     font-size: 30px;
     padding-top: 30px;

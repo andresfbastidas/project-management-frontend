@@ -13,6 +13,9 @@ import {MenuModule} from 'primeng/menu';
 import { CreateprojectComponent } from './components/project/create-project/createproject.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
     import { MatNativeDateModule } from '@angular/material/core';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +23,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FooterComponent,
     LoginComponent,
     MenuBarComponent,
-    CreateprojectComponent
+    CreateprojectComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ReactiveFormsModule,
     MenuModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ProgressSpinnerModule,
+    ProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
