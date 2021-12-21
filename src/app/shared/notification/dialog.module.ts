@@ -3,6 +3,7 @@ import { DialogComponent } from './dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NotificationComponent } from './notification.component';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     CommonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   entryComponents: [
     NotificationComponent

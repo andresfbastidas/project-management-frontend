@@ -16,6 +16,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { DialogModule } from './shared/notification/dialog.module';
+import { Idle, NgIdleModule } from '@ng-idle/core';
+import { MessageService } from 'primeng/api';
+import { DialogComponent } from './shared/notification/dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +41,12 @@ import { ProgressBarModule } from 'primeng/progressbar';
     MatNativeDateModule,
     MatDatepickerModule,
     ProgressSpinnerModule,
-    ProgressBarModule
+    ProgressBarModule,
+    DialogModule,
+    NgIdleModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [MessageService, DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
