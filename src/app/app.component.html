@@ -1,17 +1,19 @@
 <div class="h-100">
   <app-header class="layout-header mat-elevation-z2"></app-header>
   <app-loader></app-loader>
-  <div class="layout-menu">
-    <app-menubar></app-menubar>
-</div>
-  <div class="layout-main">
-      <div class="card mx-auto main-card">
-          <div class="card-header" id="title-page">{{title}}</div>
-          <div class="card-body">
-              <router-outlet ></router-outlet>
-              <div class="text-center text-warning"></div>
-          </div>
+  <div [ngClass]="{}" class="layout-main">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="layout-menu">
+          <app-menubar></app-menubar>
+        </div>
       </div>
+      <div class="col-lg-9">
+        <router-outlet *ngIf="!loading"></router-outlet>
+        <div *ngIf="loading" class="text-center text-warning"><em class="pi pi-spin pi-spinner"
+            style="font-size: 5em"></em></div>
+      </div>
+    </div> 
   </div>
   <app-footer class="layout-footer"></app-footer>
 </div>

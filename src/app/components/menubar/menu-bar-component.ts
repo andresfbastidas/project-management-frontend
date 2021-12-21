@@ -17,7 +17,7 @@ export class MenuBarComponent implements OnInit {
             {
               label: 'Crear Proyecto', 
               icon: 'pi pi-fw pi-file',
-              routerLink: ['customer/query']
+              routerLink: ['create-project']
             }
         ]
       }

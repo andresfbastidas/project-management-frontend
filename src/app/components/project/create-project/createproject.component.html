@@ -1,154 +1,153 @@
-<form #createProjectForm="ngForm">
-    <div class="card-body">
-    <div class="row ">
-        <div class="col-lg-3" style="text-align: end;">
-            <label for="titlleProject">Titulo del proyecto
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Director del proyecto
-            </label>
-        </div>
-        <div class="col-lg-3" >
-            <select name="selectDirector" style="width: 85%;"
-                        class="select-text" required>
-                           <option class="dropdown-item"  disabled selected value="undefined"></option>
-                           <option 
-                            *ngFor="let option of myObjArray;let x = index"
-                           class="dropdown-item">{{option.name}}</option>
-                        </select>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-3">
-            <label for="residenceCountry">Problema u objeto de investigacion
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <textarea class="ui-inputtext col-10 border "></textarea>
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Justificacion
-            </label>
-        </div>
-        <div class="col-lg-3" >
-            <textarea class="ui-inputtext col-10 border "></textarea>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-3">
-            <label for="residenceCountry">Objetivo general
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <textarea class="ui-inputtext col-10 border "></textarea>
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Fecha inicio
-            </label>
-        </div>
-        <div class="col-lg-3" >
-            <div class="ui-inputgroup pb-2">
-                <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
-                <input matInput [matDatepicker]="matBirthdate2" name="birthdate" id="birthdate" placeholder="Seleccione la fecha"
-                   class="ui-inputtext border" required [readonly]="true">
-                <mat-datepicker-toggle matSuffix [for]="matBirthdate2" id="dpt-birthdate"></mat-datepicker-toggle>
-                <mat-datepicker #matBirthdate2 disabled="false" id="date-pickerBirthdate"></mat-datepicker>
-              </div>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-3">
-            <label for="residenceCountry">Resumen de la propuesta
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <textarea class="ui-inputtext col-10 border "></textarea>
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Fecha fin
-            </label>
-        </div>
-        <div class="col-lg-3" >
-            <div class="ui-inputgroup pb-2">
-                <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
-                <input matInput [matDatepicker]="matBirthdate" name="birthdate" id="birthdate" placeholder="Seleccione la fecha"
-                   class="ui-inputtext border" required [readonly]="true">
-                <mat-datepicker-toggle matSuffix [for]="matBirthdate" id="dpt-birthdate"></mat-datepicker-toggle>
-                <mat-datepicker #matBirthdate disabled="false" id="date-pickerBirthdate"></mat-datepicker>
-              </div>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-3">
-            <label for="residenceCountry">Metodologia del proyecto
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <input class="ui-inputtext col-10 border " type="text" aria-label="Selecciona" matInput 
-             required 
-            name="residenceCountry" id="residenceCountry">
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Entregables
-            </label>
-        </div>
-        <div class="col-lg-3" >
-            <textarea class="ui-inputtext col-10 border "></textarea>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-3">
-            <label for="residenceCountry">Tipologia de investigación
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <select name="selectDirector" style="width: 85%;"
-            class="select-text" required>
-               <option class="dropdown-item"  disabled selected value="undefined"></option>
-               <option 
-                *ngFor="let option of myObjArray2;let x = index"
-               class="dropdown-item">{{option.name}}</option>
-            </select>
-        </div>
-        <div class="col-lg-3">
-            <label for="residenceCountry">Estado
-            </label>
-        </div>
-        <div class="col-lg-3">
-            <select name="selectDirector" style="width: 85%;"
-            class="select-text" required>
-               <option class="dropdown-item"  disabled selected value="undefined"></option>
-               <option 
-                *ngFor="let option of myObjArray3;let x = index"
-               class="dropdown-item">{{option.name}}</option>
-            </select>
-        </div>
-    </div> 
-    <br>
-    <div class="row ">
-        <div class="col-lg-6" style="text-align: right;">
-            <button class="btn btn-info btn-lg btn-space" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-            id="cleanBtn" name="cleanBtn" type="button">
-            Limpiar
-        </button>
-        </div>
-        <div class="col-lg-6">
-            <button class="btn btn-info btn-lg btn-space" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-            id="cleanBtn" name="cleanBtn" type="button">
-            Crear proyecto
-        </button>
-        </div>
-    </div> 
+<div id="create-project-component" class="card mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Crear Proyecto
     </div>
-</form>
+    <div class="card-body">
+        <form #createProjectForm="ngForm">
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="titlleProject">Titulo del proyecto
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Director del proyecto
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectDirector"  class="select-text" required>
+                        <option class="dropdown-item" disabled selected value="undefined"></option>
+                        <option *ngFor="let option of myObjArray;let x = index" class="dropdown-item">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Problema u objeto de investigacion
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-lg-10 border "></textarea>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Justificacion
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Objetivo general
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Fecha inicio
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="matBirthdate2" name="birthdate" id="birthdate"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true">
+                        <mat-datepicker-toggle matSuffix [for]="matBirthdate2" id="dpt-birthdate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #matBirthdate2 disabled="false" id="date-pickerBirthdate"></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Resumen de la propuesta
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Fecha fin
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="matBirthdate" name="birthdate" id="birthdate"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true">
+                        <mat-datepicker-toggle matSuffix [for]="matBirthdate" id="dpt-birthdate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #matBirthdate disabled="false" id="date-pickerBirthdate"></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Metodologia del proyecto
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Entregables
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border "></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Tipologia de investigación
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectDirector" class="select-text" required>
+                        <option class="dropdown-item" disabled selected value="undefined"></option>
+                        <option *ngFor="let option of myObjArray2;let x = index" class="dropdown-item">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <label for="residenceCountry">Estado
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectDirector"  class="select-text" required>
+                        <option class="dropdown-item" disabled selected value="undefined"></option>
+                        <option *ngFor="let option of myObjArray3;let x = index" class="dropdown-item">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-lg-6" style="text-align: right;">
+                    <button class="btn btn-info btn btn-space"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                        id="cleanBtn" name="cleanBtn" type="button">
+                        Limpiar
+                    </button>
+                </div>
+                <div class="col-lg-6">
+                    <button class="btn btn-info btn btn-space"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                        id="cleanBtn" name="cleanBtn" type="button">
+                        Crear proyecto
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
