@@ -1,6 +1,8 @@
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Delivery } from 'src/app/core/models/delivery';
+import { Profile } from 'src/app/core/models/profile';
 import { Project } from 'src/app/core/models/project';
 import { ProjectRequest } from 'src/app/core/models/project-request';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
@@ -8,7 +10,9 @@ import { State } from 'src/app/core/models/state';
 import { UserApp } from 'src/app/core/models/userApp';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
+import { SharedService } from 'src/app/core/services/shared.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 
 @Component({
   selector: 'app-createproject',
@@ -40,7 +44,7 @@ export class CreateprojectComponent implements OnInit {
   state!:State;
   specificObjetives!:string;
   constructor(private userService:UserService, private genericListService:GenericListService,
-    private projectService:ProjectService) { }
+    private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService) { }
 
   ngOnInit(): void {
      this.getDeliveries();
@@ -80,7 +84,6 @@ export class CreateprojectComponent implements OnInit {
     for (var i = 0; i < this.deliveriesList.length; i++) {
       if (this.deliveriesList[i].isSelected) {
         this.checkedList.push(this.deliveriesList[i]);
-        this.idDelivery =this.deliveriesList[i].deliveryId;
       }
     }
   }
@@ -92,6 +95,7 @@ export class CreateprojectComponent implements OnInit {
     }
     this.getCheckedItemList();
   }
+
 
   checkIfAllSelected() {
     this.selectedAll = this.deliveriesList.every(function(transactions:any) {
@@ -124,7 +128,21 @@ export class CreateprojectComponent implements OnInit {
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
       this.specificObjetives);
       let state = new State(this.selectedStateModel);
-     this.projectRequest = new ProjectRequest(project, state, this.deliveriesList)
+      let profile = new Profile();
+      let userapp = new UserApp("","","","","","",this.selectedDirectorModel,profile);
+     this.projectRequest = new ProjectRequest(project, state, this.checkedList, userapp);
+     this.projectService.createProject(this.projectRequest).subscribe({
+      next: (response: any) =>  {
+        this.sharedMessage.msgInfo(response.message);
+      },
+      error: (err) => {
+        this.dialog.show({
+          title: "Error",
+          content: this.dialog.formatError(err),
+          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+        });
+      }
+    });
   }
 
 }

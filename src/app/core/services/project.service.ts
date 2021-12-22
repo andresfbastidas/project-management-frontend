@@ -17,7 +17,8 @@ import { ProjectRequest } from "../models/project-request";
         const allRequest: any = {
             project: projectRequest.project,
             state: projectRequest.state,
-            deliveries: projectRequest.deliveries
+            deliveries: projectRequest.deliveries,
+            userapp:projectRequest.userapp
         }
         return this.httpClient.post<any>(`${this.urlEndPoint}/project/createProject`, allRequest).pipe(
             map((response: any) => response),

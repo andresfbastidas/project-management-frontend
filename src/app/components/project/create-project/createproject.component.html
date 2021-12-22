@@ -181,7 +181,7 @@
                                     <th scope="row" class="text-center">
                                         <input type="checkbox" name="chk-{{delivery.deliveryId}}"
                                             id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
-                                            (change)="checkIfAllSelected()" [value]="delivery.deliveryId" required>
+                                            (change)="checkIfAllSelected()" [value]="delivery.deliveryId">
                                     </th>
                                     <td>{{delivery.deliveryName}}</td>
                                     <td>{{delivery.deliveryType}}</td>
@@ -258,7 +258,7 @@
                     </button>
                 </div>
                 <div class="col-lg-6">
-                    <button class="btn btn-info btn btn-space" [disabled]="createProjectForm.form.valid"
+                    <button class="btn btn-info btn btn-space" [disabled]="!createProjectForm.form.valid && checkedList==0"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                         id="cleanBtn" name="cleanBtn" type="button" (click)="createProject()">
                         Crear proyecto

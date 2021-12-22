@@ -19,7 +19,7 @@ export class UserApp{
             this.secondName = secondName;
             this.secondSurname = secondSurname;
             this.userName = userName;
-            this,profile = profile;
+            this.profile = profile;
             this.surname = surname;
         }
 }
