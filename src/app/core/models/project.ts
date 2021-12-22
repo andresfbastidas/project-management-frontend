@@ -11,5 +11,18 @@ export class Project {
     projectResearchTypologyId!:number;
     projectSummary!:String;
     specificObjetive!:String;
-    state!:State;
+
+    constructor(projectTitle:String, dateFrom:Date, dateUntil:Date, generalObjetive:String,
+        justification:string, projectMethology:string, projectResearchTypologyId:number,
+        projectSummary:string, specificObjetive:string){
+        this.projectTitle = projectTitle;
+        this.dateFrom = dateFrom;
+        this.dateUntil = dateUntil;
+        this.generalObjetive = generalObjetive;
+        this.justification = justification;
+        this.projectMethology = projectMethology;
+        this.projectResearchTypologyId = projectResearchTypologyId;
+        this.projectSummary = projectSummary;
+        this.specificObjetive = specificObjetive;
+    }
 }
