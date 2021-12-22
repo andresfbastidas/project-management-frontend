@@ -25,9 +25,9 @@
                 </div>
                 <div class="col-lg-3">
                     <select name="selectDirector" class="select-text" id="selectDirector" 
-                    (change)="valueChange($event)" [(ngModel)]="selectedDirectorModel" #selectedDirector="ngModel" required>
+                    (change)="valueChangeDirector($event)" [(ngModel)]="selectedDirectorModel" #selectedDirector="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of userListProfile;let x = index" class="dropdown-item">
+                        <option [value]="option.userName" *ngFor="let option of userListProfile;let x = index" class="dropdown-item">
                             {{option.firtsName}} {{option.surname}}
                         </option>
                     </select>
@@ -170,7 +170,7 @@
                                 <tr>
                                     <th scope="col" class="colActions">
                                         <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
-                                            (change)="toggleAll(createProjectForm)"> Seleccionar
+                                            (change)="selectAll()" (ngModelChange)="onNgModelChange($event)"> Seleccionar
                                     </th>
                                     <th scope="col">Nombre entregable</th>
                                     <th scope="col">Tipo entregable</th>
@@ -181,7 +181,7 @@
                                     <th scope="row" class="text-center">
                                         <input type="checkbox" name="chk-{{delivery.deliveryId}}"
                                             id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
-                                            (change)="checkIfAllSelected(createProjectForm)" required>
+                                            (change)="checkIfAllSelected()" [value]="delivery.deliveryId" required>
                                     </th>
                                     <td>{{delivery.deliveryName}}</td>
                                     <td>{{delivery.deliveryType}}</td>
@@ -199,10 +199,10 @@
                 </div>
                 <div class="col-lg-3">
                     <select name="selectTypology" class="select-text"   
-                    (change)="valueChange($event)" [(ngModel)]="researchTypologyModel" 
+                    (change)="valueChangeResearch($event)" [(ngModel)]="researchTypologyModel" 
                     #validateTypology="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of researchTypologys;let x = index" class="dropdown-item">
+                        <option [value]="option.projectResearchTypologyId" *ngFor="let option of researchTypologys;let x = index" class="dropdown-item">
                             {{option.typologyDescription}}
                         </option>
                     </select>
@@ -217,10 +217,10 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <select name="selectState" class="select-text" (change)="valueChange($event)" [(ngModel)]="selectedStateModel" 
+                    <select name="selectState" class="select-text" (change)="valueChangeState($event)" [(ngModel)]="selectedStateModel" 
                     #validateState="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of statesList;let x = index" class="dropdown-item">
+                        <option  [value]="option.stateId" *ngFor="let option of statesList;let x = index" class="dropdown-item">
                             {{option.stateName}}
                         </option>
                     </select>
@@ -231,6 +231,7 @@
                 </small>
                 </div>
             </div>
+            <br>
             <div class="row " style="justify-content: center;">
                 <div class="col-lg-2">
                     <label for="specificObjetives">Objetivos Especificos
@@ -257,9 +258,9 @@
                     </button>
                 </div>
                 <div class="col-lg-6">
-                    <button class="btn btn-info btn btn-space" [disabled]="!createProjectForm.form.valid"
+                    <button class="btn btn-info btn btn-space" [disabled]="createProjectForm.form.valid"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                        id="cleanBtn" name="cleanBtn" type="button">
+                        id="cleanBtn" name="cleanBtn" type="button" (click)="createProject()">
                         Crear proyecto
                     </button>
                 </div>

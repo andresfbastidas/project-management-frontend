@@ -16,15 +16,17 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class CreateprojectComponent implements OnInit {
 
+  selectedOption:any;
   deliveriesList!:Array<Delivery>;
   researchTypologys!:Array<ResearchTypology>;
   userListProfile!:Array<UserApp>;
+  userListProfileS!:Array<UserApp>;
   statesList!:Array<State>;
   selectedAll!:boolean;
   checkedList: any;
   idDelivery!: number;
   titleProjectModel!:String;
-  selectedDirectorModel!:any;
+  selectedDirectorModel!:string;
   problemInvestigationModel!:string;
   justificationModel!:string;
   generalObjetiveModel!:string;
@@ -56,12 +58,14 @@ export class CreateprojectComponent implements OnInit {
   getResearchTypologys(){
     this.genericListService.getResearchTypologys().subscribe(response => {
       this.researchTypologys = response.genericList as Array<ResearchTypology>;
+       console.log(this.researchTypologys);
     });
   }
 
   getUsersDirectors(){
      this.userService.getUsersProfileDirectors().subscribe(response =>{
        this.userListProfile = response.genericList as Array<UserApp>
+       console.log(this.userListProfile);
      })
   }
 
@@ -81,31 +85,46 @@ export class CreateprojectComponent implements OnInit {
     }
   }
 
-  checkIfAllSelected(f:NgForm):void {
-    this.selectedAll = Object.keys(f.controls).every(element => {
-        return (element!=='chk-all')?f.controls[element].value === true:true;
-    });
+
+  selectAll() {
+    for (var i = 0; i < this.deliveriesList.length; i++) {
+      this.deliveriesList[i].isSelected = this.selectedAll;
+    }
     this.getCheckedItemList();
-  }//checkIfAllSelected
+  }
 
-  toggleAll(f:NgForm):void{
-    Object.keys(f.controls).forEach(element => {
-      if(element!=='chk-all'){
-        f.controls[element].setValue(this.selectedAll);
-      }
-    });
-  }//toggleAll
+  checkIfAllSelected() {
+    this.selectedAll = this.deliveriesList.every(function(transactions:any) {
+        return transactions.isSelected;
+      })
+      this.getCheckedItemList();
+  }
 
-  valueChange(event: any) {
-    event.target.value.description = this.selectedDirectorModel;
+  onNgModelChange($event:any){
+    this.selectedOption=$event;
+
+  }
+
+
+  valueChangeDirector(event: any) {
+    event.target.value = this.selectedDirectorModel;
+  }
+
+  valueChangeState(event: any) {
+    event.target.value = this.selectedStateModel;
+  }
+
+  valueChangeResearch(event: any) {
+    event.target.value = this.researchTypologyModel;
   }
 
   createProject(){
     let project = new Project(this.titleProjectModel, this.dateFromModel, 
       this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
-      this.specificObjetives)
-     this.projectRequest = new ProjectRequest(project, this.selectedStateModel, this.deliveriesList)
+      this.specificObjetives);
+      let state = new State(this.selectedStateModel);
+     this.projectRequest = new ProjectRequest(project, state, this.deliveriesList)
   }
 
 }

@@ -20,5 +20,6 @@ export class UserApp{
             this.secondSurname = secondSurname;
             this.userName = userName;
             this,profile = profile;
+            this.surname = surname;
         }
 }
