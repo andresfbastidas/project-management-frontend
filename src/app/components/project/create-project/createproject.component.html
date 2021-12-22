@@ -10,20 +10,32 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border " name="textTitleProject"
-                        id="textTitleProject"></textarea>
+                    <textarea class="ui-inputtext col-10 border " name="textTitleProject" type="text"
+                        id="textTitleProject" #titleProject="ngModel" [(ngModel)]="titleProjectModel" pattern="[a-zA-Z]*" required ></textarea>
+                        <br>
+                        <small *ngIf="titleProject.invalid && titleProject.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="titleProject.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="titleProject.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
                 </div>
                 <div class="col-lg-2">
                     <label for="projectDirector">Director del proyecto
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <select name="selectDirector" class="select-text" required>
+                    <select name="selectDirector" class="select-text" id="selectDirector" 
+                    (change)="valueChange($event)" [(ngModel)]="selectedDirectorModel" #selectedDirector="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
                         <option *ngFor="let option of userListProfile;let x = index" class="dropdown-item">
                             {{option.firtsName}} {{option.surname}}
                         </option>
                     </select>
+                    <br>
+                        <small *ngIf="selectedDirector.invalid && selectedDirector.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="selectedDirector.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
                 </div>
             </div>
             <br>
@@ -109,7 +121,7 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <div class="table-responsive">
+                    <div class="table-responsive-xl">
                         <table id="tbl-list" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -173,7 +185,7 @@
                     </button>
                 </div>
                 <div class="col-lg-6">
-                    <button class="btn btn-info btn btn-space"
+                    <button class="btn btn-info btn btn-space" [disabled]="!createProjectForm.form.valid"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                         id="cleanBtn" name="cleanBtn" type="button">
                         Crear proyecto

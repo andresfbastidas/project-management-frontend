@@ -20,6 +20,17 @@ export class CreateprojectComponent implements OnInit {
   selectedAll!:boolean;
   checkedList: any;
   idDelivery!: number;
+  titleProjectModel!:String;
+  selectedDirectorModel!:any;
+  problemInvestigationModel!:string;
+  justificationModel!:string;
+  generalObjetiveModel!:string;
+  dateFromModel!:Date;
+  dateFromUntil!:Date;
+  summaryModel!:string;
+  projectMethologyModel!:string;
+  researchTypologyModel!:number;
+  selectedStateModel!:any;
   constructor(private userService:UserService, private genericListService:GenericListService) { }
 
   ngOnInit(): void {
@@ -77,5 +88,9 @@ export class CreateprojectComponent implements OnInit {
       }
     });
   }//toggleAll
+
+  valueChange(event: any) {
+    event.target.value.description = this.selectedDirectorModel;
+  }
 
 }
