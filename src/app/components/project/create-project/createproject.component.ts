@@ -43,6 +43,7 @@ export class CreateprojectComponent implements OnInit {
   projectRequest!:ProjectRequest;
   state!:State;
   specificObjetives!:string;
+  createProjectForm!:NgForm;
   constructor(private userService:UserService, private genericListService:GenericListService,
     private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService) { }
 
@@ -109,7 +110,10 @@ export class CreateprojectComponent implements OnInit {
 
   }
 
-
+  clean(createProjectForm: any) {
+    createProjectForm.resetForm();
+    this.checkedList = 0;
+  }
   valueChangeDirector(event: any) {
     event.target.value = this.selectedDirectorModel;
   }
@@ -134,8 +138,10 @@ export class CreateprojectComponent implements OnInit {
      this.projectService.createProject(this.projectRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
+        this.clean(this.createProjectForm);
       },
       error: (err) => {
+        this.clean(this.createProjectForm);
         this.dialog.show({
           title: "Error",
           content: this.dialog.formatError(err),
