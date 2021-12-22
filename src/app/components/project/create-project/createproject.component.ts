@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Delivery } from 'src/app/core/models/delivery';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
 import { State } from 'src/app/core/models/state';
@@ -16,12 +17,16 @@ export class CreateprojectComponent implements OnInit {
   researchTypologys!:Array<ResearchTypology>;
   userListProfile!:Array<UserApp>;
   statesList!:Array<State>;
+  selectedAll!:boolean;
+  checkedList: any;
+  idDelivery!: number;
   constructor(private userService:UserService, private genericListService:GenericListService) { }
 
   ngOnInit(): void {
      this.getDeliveries();
      this.getResearchTypologys();
      this.getUsersDirectors();
+     this.getStates();
   }
 
   getDeliveries(){
@@ -47,5 +52,30 @@ export class CreateprojectComponent implements OnInit {
       this.statesList = response.genericList as Array<State>;
     });
   }
+
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.deliveriesList.length; i++) {
+      if (this.deliveriesList[i].isSelected) {
+        this.checkedList.push(this.deliveriesList[i]);
+        this.idDelivery =this.deliveriesList[i].deliveryId;
+      }
+    }
+  }
+
+  checkIfAllSelected(f:NgForm):void {
+    this.selectedAll = Object.keys(f.controls).every(element => {
+        return (element!=='chk-all')?f.controls[element].value === true:true;
+    });
+    this.getCheckedItemList();
+  }//checkIfAllSelected
+
+  toggleAll(f:NgForm):void{
+    Object.keys(f.controls).forEach(element => {
+      if(element!=='chk-all'){
+        f.controls[element].setValue(this.selectedAll);
+      }
+    });
+  }//toggleAll
 
 }

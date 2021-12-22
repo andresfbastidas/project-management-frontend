@@ -10,16 +10,18 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border " name="textTitleProject" id="textTitleProject"></textarea>
+                    <textarea class="ui-inputtext col-10 border " name="textTitleProject"
+                        id="textTitleProject"></textarea>
                 </div>
                 <div class="col-lg-2">
                     <label for="projectDirector">Director del proyecto
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <select name="selectDirector"  class="select-text" required>
+                    <select name="selectDirector" class="select-text" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of userListProfile;let x = index" class="dropdown-item">{{option.firtsName}}
+                        <option *ngFor="let option of userListProfile;let x = index" class="dropdown-item">
+                            {{option.firtsName}} {{option.surname}}
                         </option>
                     </select>
                 </div>
@@ -31,14 +33,16 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-lg-10 border " name="textProblemInvestigation" id="textProblemInvestigation"></textarea>
+                    <textarea class="ui-inputtext col-lg-10 border " name="textProblemInvestigation"
+                        id="textProblemInvestigation"></textarea>
                 </div>
                 <div class="col-lg-2">
-                    <label for="justification" >Justificacion
+                    <label for="justification">Justificacion
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border " name="textJustification" id="textJustification"></textarea>
+                    <textarea class="ui-inputtext col-10 border " name="textJustification"
+                        id="textJustification"></textarea>
                 </div>
             </div>
             <br>
@@ -48,7 +52,8 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border " name="textGeneralObjetive" id="textGeneralObjetive"></textarea>
+                    <textarea class="ui-inputtext col-10 border " name="textGeneralObjetive"
+                        id="textGeneralObjetive"></textarea>
                 </div>
                 <div class="col-lg-2">
                     <label for="dateFrom">Fecha inicio
@@ -96,14 +101,39 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border " name="textProjectMethology" id="textProjectMethology"></textarea>
+                    <textarea class="ui-inputtext col-10 border " name="textProjectMethology"
+                        id="textProjectMethology"></textarea>
                 </div>
                 <div class="col-lg-2">
                     <label for="deliverys">Entregables
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <textarea class="ui-inputtext col-10 border "></textarea>
+                    <div class="table-responsive">
+                        <table id="tbl-list" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="colActions">
+                                        <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
+                                            (change)="toggleAll(createProjectForm)"> Seleccionar
+                                    </th>
+                                    <th scope="col">Nombre entregable</th>
+                                    <th scope="col">Tipo entregable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let delivery of deliveriesList">
+                                    <th scope="row" class="text-center">
+                                        <input type="checkbox" name="chk-{{delivery.deliveryId}}"
+                                            id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
+                                            (change)="checkIfAllSelected(createProjectForm)">
+                                    </th>
+                                    <td>{{delivery.deliveryName}}</td>
+                                    <td>{{delivery.deliveryType}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <br>
@@ -115,7 +145,8 @@
                 <div class="col-lg-3">
                     <select name="selectDirector" class="select-text" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of researchTypologys;let x = index" class="dropdown-item">{{option.typologyDescription}}
+                        <option *ngFor="let option of researchTypologys;let x = index" class="dropdown-item">
+                            {{option.typologyDescription}}
                         </option>
                     </select>
                 </div>
@@ -124,9 +155,10 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <select name="selectState"  class="select-text" required>
+                    <select name="selectState" class="select-text" required>
                         <option class="dropdown-item" disabled selected value="undefined"></option>
-                        <option *ngFor="let option of statesList;let x = index" class="dropdown-item">{{option.stateName}}
+                        <option *ngFor="let option of statesList;let x = index" class="dropdown-item">
+                            {{option.stateName}}
                         </option>
                     </select>
                 </div>
