@@ -30,18 +30,13 @@ export class LoginComponent implements OnInit {
         this.username=response.username;
       },
       error: (err) => {
-        this.dialog.show({
-          title: "Error",
-          content: this.dialog.formatError(err),
-          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
-        });
-        if (err.status == 0){ //or whatever condition you like to put
+        if(err.status == 500){
           this.dialog.show({
-            title: "Sistema", content:"Hubo un inconveninete de comunicación con el servidor.Por favor contacte al administrador.", type:"error",
-            defaultButtonClass:"btn-danger", footer:new Date().toLocaleString(),
-            textTech:"El servicio backend no esta respondiendo apropiadamente."}
-        );
-          }
+            title: "Error",
+            content: this.dialog.formatError(err),
+            type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+          });
+        }
       }
     });
   }

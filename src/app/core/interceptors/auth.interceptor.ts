@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, finalize, tap,retry } from 'rxjs/operators';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
-import { Observable , throwError} from 'rxjs';
+import { Observable , throwError, map} from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 
@@ -21,11 +21,21 @@ export class AuthInterceptor implements HttpInterceptor {
     if (token != null) {
       // for Spring Boot back-end
       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-      
       // for Node.js Express back-end
       // authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, token) });
     }
-    return result
+    return result.pipe(
+      catchError((error: HttpErrorResponse) => {
+          if ((error.status === 0)) {
+            this.dialog.show({
+              title: "Sistema", content:"Hubo un inconveniente de comunicación con el servidor.", type:"error",
+              defaultButtonClass:"btn-danger", footer:new Date().toLocaleString(),
+              textTech:"El servicio backend no esta respondiendo apropiadamente."}
+          );
+          }
+          return throwError(() =>error);
+      })
+  );
   }
 }
 

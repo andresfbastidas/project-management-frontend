@@ -49,8 +49,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     NgIdleModule.forRoot(),
     HttpClientModule
   ],
-  providers: [MessageService, DialogComponent, AuthInterceptor
-  ],
+  providers: [MessageService, DialogComponent,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
