@@ -33,6 +33,11 @@
         </div>
     </div>
     <div *ngIf="data.showTechInfo" class="dialog-tech">
+        <p class="text-right">
+          <a class="btn-outline-info" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            {{data.linkTech}}
+          </a>
+        </p>
         <div class="collapse" id="collapseExample">
           <div class="card text-center">
             <textarea readonly id="md-textarea-info">{{data.textTech}}</textarea>
