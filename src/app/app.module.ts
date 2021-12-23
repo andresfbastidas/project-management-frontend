@@ -19,6 +19,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from './shared/notification/dialog.module';
 import { NgIdleModule } from '@ng-idle/core';
 import { MessageService } from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 import { DialogComponent } from './shared/notification/dialog.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
@@ -47,7 +48,9 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     ProgressBarModule,
     DialogModule,
     NgIdleModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
+    
   ],
   providers: [MessageService, DialogComponent,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-1" style="text-align: center;margin: auto;">
             <div *ngIf="authService.isAuthenticated()" class="user-info">
-                {{userName}}
+                {{authService.getUser()}}
                </div>
         </div>
             <div class="col-lg-2" style="text-align: center;margin: auto;">
@@ -20,4 +20,4 @@
                 </div> 
     </div>
 </div>
-
+<p-toast key="timeOutWarning" position="top-right"></p-toast>

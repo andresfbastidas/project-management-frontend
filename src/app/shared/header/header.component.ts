@@ -14,7 +14,6 @@ export class HeaderComponent implements OnInit {
   idleState = 'Not started.';
   timedOut = false;
   readonly monitor = 'ilde Monitor';
-  userName!:any;
 
   constructor(private readonly router: Router,
     private readonly idle: Idle,
@@ -25,16 +24,12 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log(this.authService.getUser());
-    this.userName = this.authService.getUser();
-    console.log(this.userName);
   }
 
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.userName = null;
   }//logout
 
   private setIldeMonitor(): void {

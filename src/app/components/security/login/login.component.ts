@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Idle } from '@ng-idle/core';
 import { LoginRequest } from 'src/app/core/models/login-request';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   password!: string;
   loginRequest!: LoginRequest;
   constructor(private authService: AuthService, private readonly router: Router,
-    private readonly dialog: DialogComponent) { }
+    private readonly dialog: DialogComponent, private readonly idle: Idle) { }
 
   ngOnInit(): void {
   }
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
         this.authService.saveUser(response.username);
         this.authService.isAuthenticated();
         this.username=response.username;
+        this.idle.watch();
       },
       error: (err) => {
         if(err.status == 500){
