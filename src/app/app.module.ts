@@ -20,8 +20,9 @@ import { DialogModule } from './shared/notification/dialog.module';
 import { NgIdleModule } from '@ng-idle/core';
 import { MessageService } from 'primeng/api';
 import { DialogComponent } from './shared/notification/dialog.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { CreateUserComponent } from './components/user/create-user/create-user.c
     NgIdleModule.forRoot(),
     HttpClientModule
   ],
-  providers: [MessageService, DialogComponent],
+  providers: [MessageService, DialogComponent, AuthInterceptor
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
