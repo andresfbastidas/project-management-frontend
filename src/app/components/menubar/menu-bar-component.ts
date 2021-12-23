@@ -7,11 +7,25 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class MenuBarComponent implements OnInit {
 
-  items!: MenuItem[];
+  menuDirector!: MenuItem[];
+  menuEstudianteProfesor!: MenuItem[];
   constructor(public readonly authService:AuthService) { }
 
   ngOnInit(): void {
-    this.items = [
+   this.menuDirector = [
+      {
+        label: 'Gestión de Proyectos',
+        items: [
+            {
+              label: 'Crear Proyecto', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['create-project']
+            }
+        ]
+      }
+    ];
+
+    this.menuEstudianteProfesor = [
       {
         label: 'Gestión de Proyectos',
         items: [

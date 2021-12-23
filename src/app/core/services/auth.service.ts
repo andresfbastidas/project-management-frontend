@@ -13,6 +13,8 @@ export class AuthService {
 
   private readonly  TOKEN_KEY = 'auth-token';
   private readonly  USER_KEY = 'auth-user';
+  private readonly  ROL_KEY = 'auth-user-rol';
+  private rol!:Array<any>;
   private readonly urlEndPoint: string = environment.backendBasePath;
   constructor(private readonly httpClient: HttpClient, private readonly idle: Idle) { }
 
@@ -34,6 +36,7 @@ export class AuthService {
     sessionStorage.clear();
     sessionStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.USER_KEY);
+    sessionStorage.removeItem(this.ROL_KEY);
   }//logout
 
   public isAuthenticated(): boolean {
@@ -67,10 +70,25 @@ export class AuthService {
     window.sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
   }
 
+  public saveRol(rol: any): void {
+    window.sessionStorage.removeItem(this.ROL_KEY);
+    window.sessionStorage.setItem(this.ROL_KEY, JSON.stringify(rol));
+  }
+
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(this.USER_KEY);
     if (user) {
       return JSON.parse(user);
+    }
+
+    return {};
+  }
+
+  public getRol(){
+    const rol = window.sessionStorage.getItem(this.ROL_KEY);
+    if (rol) {
+      return JSON.parse(rol);
     }
 
     return {};

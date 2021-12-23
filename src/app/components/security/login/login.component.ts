@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/create-project']);
         this.authService.saveToken(response.accessToken);
         this.authService.saveUser(response.username);
+        this.authService.saveRol(response.roles[0]);
         this.authService.isAuthenticated();
         this.username=response.username;
         this.idle.watch();
