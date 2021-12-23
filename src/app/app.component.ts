@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs';
+import { AuthService } from './core/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,11 +11,14 @@ export class AppComponent {
   readonly title = 'Administrador de Proyectos';
   customTitle = '';
   loading = false;
+  isLoggedIn = false;
+  username?: string;
 
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly titleService: Title
+    private readonly titleService: Title,
+    private readonly authService:AuthService
   ) {
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
@@ -26,7 +30,6 @@ export class AppComponent {
   }//constructor
 
   ngOnInit() {
-    //to change page title dynamically
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => this.activatedRoute),

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/core/models/login-request';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 
 @Component({
@@ -15,8 +14,7 @@ export class LoginComponent implements OnInit {
   password!: string;
   loginRequest!: LoginRequest;
   constructor(private authService: AuthService, private readonly router: Router,
-    private readonly dialog: DialogComponent,
-    private tokenStorage: TokenStorageService) { }
+    private readonly dialog: DialogComponent) { }
 
   ngOnInit(): void {
   }
@@ -25,11 +23,11 @@ export class LoginComponent implements OnInit {
     this.loginRequest = new LoginRequest(this.username, this.password);
     this.authService.login(this.loginRequest).subscribe({
       next: (response: any) =>  {
-        this.tokenStorage.saveToken(response.accessToken);
-        this.tokenStorage.saveUser(response);
-       
-        this.username=response.username;
         this.router.navigate(['/create-project']);
+        this.authService.saveToken(response.accessToken);
+        this.authService.saveUser(response.username);
+        this.authService.isAuthenticated();
+        this.username=response.username;
       },
       error: (err) => {
         this.dialog.show({

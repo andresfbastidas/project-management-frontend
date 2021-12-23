@@ -37,4 +37,13 @@ export class GenericListService {
       })
     );
   }
+
+  getAllProfiles(): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findAllProfiles`).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
 }

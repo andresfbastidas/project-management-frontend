@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { MessageService } from 'primeng/api';
@@ -14,21 +14,27 @@ export class HeaderComponent implements OnInit {
   idleState = 'Not started.';
   timedOut = false;
   readonly monitor = 'ilde Monitor';
+  userName!:any;
 
   constructor(private readonly router: Router,
     private readonly idle: Idle,
     private readonly loggerService: LoggerService,
     private readonly messageService: MessageService,
-    private readonly authService:AuthService) { 
+    public readonly authService:AuthService) { 
       this.setIldeMonitor();
     }
 
   ngOnInit(): void {
+    console.log(this.authService.getUser());
+    this.userName = this.authService.getUser();
+    console.log(this.userName);
   }
+
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.userName = null;
   }//logout
 
   private setIldeMonitor(): void {

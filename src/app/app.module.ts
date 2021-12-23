@@ -17,10 +17,11 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from './shared/notification/dialog.module';
-import { Idle, NgIdleModule } from '@ng-idle/core';
+import { NgIdleModule } from '@ng-idle/core';
 import { MessageService } from 'primeng/api';
 import { DialogComponent } from './shared/notification/dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateUserComponent } from './components/user/create-user/create-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     MenuBarComponent,
     CreateprojectComponent,
     LoaderComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

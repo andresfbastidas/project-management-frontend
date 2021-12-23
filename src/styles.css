@@ -214,3 +214,17 @@ body {
     font-size: 14px;
   }
 
+  .ui-progressbar {
+    height: 4px!important;
+}
+
+.layout-header .user-info {
+  font-size: 20px;
+  padding-top: 43px;
+  padding-left: 20px;
+  font-weight: bold;
+  float: left;
+  color: white;
+}
+
+

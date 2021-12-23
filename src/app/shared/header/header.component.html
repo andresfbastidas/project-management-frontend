@@ -8,9 +8,16 @@
                 <span class="part1">Administrador Proyectos</span>
               </div>
         </div>
-            <div class="col-lg-4" style="text-align: center;margin: auto;">
+        <div class="col-lg-1" style="text-align: center;margin: auto;">
+            <div *ngIf="authService.isAuthenticated()" class="user-info">
+                {{userName}}
+               </div>
+        </div>
+            <div class="col-lg-3" style="text-align: center;margin: auto;">
                 <div class="sesion">
-                    <a  class="btn" style="color: white;background-color: #999999" >Ingresar</a>
+                  
+                    <a *ngIf="!authService.isAuthenticated()" class="btn" style="color: white;background-color: #999999" [routerLink]="[ '/login' ]">Ingresar</a>
+                    <a *ngIf="authService.isAuthenticated()" class="btn" style="color: white;background-color: #999999" (click)="logout()">Salir</a>
                   </div>
                 </div> 
     </div>
