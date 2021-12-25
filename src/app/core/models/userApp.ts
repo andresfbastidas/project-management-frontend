@@ -3,18 +3,18 @@ import { Profile } from "./profile";
 export class UserApp{
 
     email!:string;
-    firtsName!:string;
+    firstName!:string;
     password!:string;
     secondName!:string;
     secondSurname!:string;
     surname!:string;
     userName!:string;
     profile!:Profile;
-    constructor(email:string, firtsName:string, password:string,
+    constructor(email:string, firstName:string, password:string,
         secondName:string, secondSurname:string, surname:string,
         userName:string, profile:Profile){
             this.email = email;
-            this.firtsName = firtsName;
+            this.firstName = firstName;
             this.password = password;
             this.secondName = secondName;
             this.secondSurname = secondSurname;

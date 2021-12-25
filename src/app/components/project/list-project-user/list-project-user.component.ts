@@ -20,6 +20,7 @@ export class ListProjectUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListProjectsByUserName(this.authService.getUser());
+    this.checkedList = 0;
   }
 
   getCheckedItemList() {
