@@ -27,4 +27,13 @@ import { ProjectRequest } from "../models/project-request";
             })
         );
     }
+
+    getListProjectsByUserName(userName:String): Observable<any> {
+      return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsByUserName/`+userName).pipe(
+          map((response: any) => response),
+          catchError(error => {
+            return throwError(() => error);
+          })
+      );
+  }
   }

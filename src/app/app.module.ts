@@ -24,6 +24,7 @@ import { DialogComponent } from './shared/notification/dialog.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ListProjectUserComponent } from './components/project/list-project-user/list-project-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     CreateprojectComponent,
     LoaderComponent,
     CreateUserComponent,
+    ListProjectUserComponent,
   ],
   imports: [
     BrowserModule,

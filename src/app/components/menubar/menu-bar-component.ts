@@ -20,6 +20,11 @@ export class MenuBarComponent implements OnInit {
               label: 'Crear Proyecto', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['create-project']
+            },
+            {
+              label: 'Proyectos asignados', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['list-project-user']
             }
         ]
       }
@@ -33,6 +38,11 @@ export class MenuBarComponent implements OnInit {
               label: 'Crear Proyecto', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['create-project']
+            },
+            {
+              label: 'Proyectos asignados', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['list-project-user']
             }
         ]
       }

@@ -2,6 +2,7 @@ import { State } from "./state";
 
 export class Project {
 
+    projectId!:number;
     projectTitle!:String;
     dateFrom!:Date;
     dateUntil!:Date;
@@ -11,6 +12,9 @@ export class Project {
     projectResearchTypologyId!:number;
     projectSummary!:String;
     specificObjetive!:String;
+    isSelected!:boolean;
+    directorName!:string;
+    state!:State;
 
     constructor(projectTitle:String, dateFrom:Date, dateUntil:Date, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,

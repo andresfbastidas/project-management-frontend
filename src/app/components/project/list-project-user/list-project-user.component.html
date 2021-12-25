@@ -1,0 +1,54 @@
+<div id="list-project-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Proyectos Asignados
+    </div>
+    <div class="card-body">
+    <div class="table-responsive-xl">
+        <div *ngIf="projectList?.length==0" class="alert alert-info my-a mat-elevation-z1">
+            No hay registros de clientes.
+        </div>
+        <form #processForm="ngForm">
+        <table id="tbl-list" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="colActions">
+                        <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
+                            (change)="selectAll()" (ngModelChange)="onNgModelChange($event)">
+                        Seleccionar
+                    </th>
+                    <th scope="col">Nombre del Proyecto</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Director del Proyecto</th>
+                    <th scope="col">Actvidades</th>
+                    <th scope="col">Actualizar Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let project of projectList">
+                    <th scope="row" class="text-center">
+                        <input type="checkbox" name="chk-{{project.projectId}}"
+                            id="chk-{{project.projectId}}" [(ngModel)]="project.isSelected"
+                            (change)="checkIfAllSelected()">
+                    </th>
+                    <td>{{project.projectTitle}}</td>
+                    <td>{{project.state.stateName}}</td>
+                    <td>{{project.dateFrom}}</td>
+                    <td>{{project.dateUntil}}</td>
+                    <td>{{project.directorName}}</td>
+                    <td>
+                        <button class="btn btn-sm"
+                        [disabled]="checkedList==0"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                        id="activities" name="activities" type="button">
+                        Gestionar actividades
+                    </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+    </div>
+</div>

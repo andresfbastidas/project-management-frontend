@@ -63,14 +63,12 @@ export class CreateprojectComponent implements OnInit {
   getResearchTypologys(){
     this.genericListService.getResearchTypologys().subscribe(response => {
       this.researchTypologys = response.genericList as Array<ResearchTypology>;
-       console.log(this.researchTypologys);
     });
   }
 
   getUsersDirectors(){
      this.userService.getUsersProfileDirectors().subscribe(response =>{
        this.userListProfile = response.genericList as Array<UserApp>
-       console.log(this.userListProfile);
      })
   }
 
@@ -141,12 +139,14 @@ export class CreateprojectComponent implements OnInit {
         this.clean(this.createProjectForm);
       },
       error: (err) => {
-        this.clean(this.createProjectForm);
-        this.dialog.show({
-          title: "Error",
-          content: this.dialog.formatError(err),
-          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
-        });
+        if(err.status == 500){
+          this.clean(this.createProjectForm);
+          this.dialog.show({
+            title: "Error",
+            content: this.dialog.formatError(err),
+            type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+          });
+        }
       }
     });
   }

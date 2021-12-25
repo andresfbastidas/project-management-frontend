@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   backendBasePath: 'http://localhost:8090/ProjectManager/api/1.0',
-  maxIdleSeconds: 600,
+  maxIdleSeconds: 40,
   timeOutSeconds: 30,
   idleIntervalAlert: 5,
 };
