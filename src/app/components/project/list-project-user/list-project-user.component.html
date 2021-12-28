@@ -3,52 +3,60 @@
         Proyectos Asignados
     </div>
     <div class="card-body">
-    <div class="table-responsive-xl">
-        <div *ngIf="projectList?.length==0" class="alert alert-info my-a mat-elevation-z1">
-            No hay registros de clientes.
-        </div>
-        <form #processForm="ngForm">
-        <table id="tbl-list" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th scope="col" class="colActions">
-                        <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
-                            (change)="selectAll()" (ngModelChange)="onNgModelChange($event)">
-                        Seleccionar
-                    </th>
-                    <th scope="col">Nombre del Proyecto</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Fecha inicio</th>
-                    <th scope="col">Fecha fin</th>
-                    <th scope="col">Director del Proyecto</th>
-                    <th scope="col">Actvidades</th>
-                    <th scope="col">Actualizar Proyecto</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let project of projectList">
-                    <th scope="row" class="text-center">
-                        <input type="checkbox" name="chk-{{project.projectId}}"
-                            id="chk-{{project.projectId}}" [(ngModel)]="project.isSelected"
-                            (change)="checkIfAllSelected()">
-                    </th>
-                    <td>{{project.projectTitle}}</td>
-                    <td>{{project.state.stateName}}</td>
-                    <td>{{project.dateFrom}}</td>
-                    <td>{{project.dateUntil}}</td>
-                    <td>{{project.directorName}}</td>
-                    <td>
-                        <button class="btn btn-sm"
-                        [disabled]="checkedList==0"
-                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                        id="activities" name="activities" type="button">
-                        Gestionar actividades
+        <div class="table-responsive-xl">
+            <div *ngIf="projectList?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay proyectos asignados.
+            </div>
+            <form #projectListForm="ngForm">
+                <div class="table-responsive">
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de proyectos</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Nombre del Proyecto</th>
+                                <th scope="col" style="width: 130px;color: white;">Estado</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
+                                <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
+                                <th scope="col" style="color: white;">Actvidades</th>
+                                <th scope="col" style="color: white;">Actualizar Proyecto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectList;let idx=index; let even=even"
+                                (click)="RowSelected(project)"
+                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
+                                (click)="changeTableRowColor(idx)">
+                                <td>{{project.projectTitle}}</td>
+                                <td>{{project.state.stateName}}</td>
+                                <td>{{project.dateFrom}}</td>
+                                <td>{{project.dateUntil}}</td>
+                                <td>{{project.directorName}}</td>
+                                <td>
+                                    <button class="btn btn-sm" [disabled]="enabled"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        (click)="listActivities()" id="activities" name="activities" type="button">
+                                        Gestionar actividades
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm" [disabled]="!enabled"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="activities" name="activities" type="button">
+                                        Gestionar actividades
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-md"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
+                        name="clean" type="button" (click)="clean(projectListForm)">
+                        Limpiar
                     </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

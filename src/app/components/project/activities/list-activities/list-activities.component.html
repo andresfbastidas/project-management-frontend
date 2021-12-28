@@ -1,0 +1,57 @@
+<div id="list-activities-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Actividades
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <div *ngIf="listActivities?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay actividades asignadas al proyecto.
+            </div>
+            <form #activitiesListForm="ngForm">
+                <div class="table-responsive">
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de actividades</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Nombre Actividad</th>
+                                <th scope="col" style="width: 130px;color: white;">Estado</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
+                                <th scope="col" style="width: 110px;color: white;">Usuario asignado</th>
+                                <th scope="col" style="color: white;">Enlaces</th>
+                                <th scope="col" style="color: white;">Comenterios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let activity of listActivities;let idx=index; let even=even"
+                                (click)="RowSelected(activity)"
+                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
+                                (click)="changeTableRowColor(idx)">
+                                <td>{{activity.activityName}}</td>
+                                <td>{{activity.stateActivity.nameStateActivity}}</td>
+                                <td>{{activity.dateFrom}}</td>
+                                <td>{{activity.dateUntil}}</td>
+                                <td>{{activity.assignedUser}}</td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                         id="links" name="links" type="button">
+                                        Adjuntar enlaces
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="comments" name="comments" type="button">
+                                        Comentarios
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

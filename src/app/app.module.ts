@@ -25,6 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ListProjectUserComponent } from './components/project/list-project-user/list-project-user.component';
+import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { ListProjectUserComponent } from './components/project/list-project-user
     LoaderComponent,
     CreateUserComponent,
     ListProjectUserComponent,
+    ListActivitiesComponent,
   ],
   imports: [
     BrowserModule,

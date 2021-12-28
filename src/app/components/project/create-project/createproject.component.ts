@@ -52,7 +52,7 @@ export class CreateprojectComponent implements OnInit {
      this.getResearchTypologys();
      this.getUsersDirectors();
      this.getStates();
-     this.clean(this.createProjectForm);
+     this.checkedList=0;
   }
 
   getDeliveries(){
