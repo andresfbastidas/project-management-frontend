@@ -30,7 +30,16 @@ export class GenericListService {
   }
 
   getStates(): Observable<any> {
-    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findAllStates`).pipe(
+    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findStatesProgressAvalaible`).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getStateSolini(): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findStateSolini`).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

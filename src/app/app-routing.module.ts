@@ -5,13 +5,15 @@ import { CreateprojectComponent } from './components/project/create-project/crea
 import { LoginComponent } from './components/security/login/login.component';
 import { ListProjectUserComponent } from './components/project/list-project-user/list-project-user.component';
 import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
+import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MenuBarComponent },
   { path: 'create-project', component: CreateprojectComponent },
   { path: 'list-project-user', component: ListProjectUserComponent },
-  { path: 'list-activities', component: ListActivitiesComponent }
+  { path: 'list-activities', component: ListActivitiesComponent },
+  { path: 'create-activity', component: CreateActivityComponent }
 ];
 
 @NgModule({

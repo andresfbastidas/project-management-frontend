@@ -1,0 +1,35 @@
+<div id="create-activity-component" class="card mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Crear Activitdad
+    </div>
+    <div class="card-body">
+        <form #createActivityForm="ngForm">
+            <div class="container">
+            <div class="row " style="justify-content: center;">
+                <div class="col-sm-3 col-sm-2" style="text-align: end;">
+                    <label for="nameActivity">Nombre de la actividad:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-4" >
+                    <input type="text" id="inputNameActivity" name="inputNameActivity" style="width: 85%;" required>
+                </div>
+                <div class="col-sm-2" style="text-align: end;">
+                    <label for="assignedUser">Asignado a:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3" >
+                    <select name="selectDirector" class="select-text" id="selectDirector" style="width: 85%;"
+                         required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option  *ngFor=""
+                            class="dropdown-item">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

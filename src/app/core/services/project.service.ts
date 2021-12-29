@@ -36,4 +36,12 @@ import { ProjectRequest } from "../models/project-request";
           })
       );
   }
+  getListUsersByProject(projectId:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllUsersByProject/`+projectId).pipe(
+        map((response: any) => response),
+        catchError(error => {
+          return throwError(() => error);
+        })
+    );
+}
   }

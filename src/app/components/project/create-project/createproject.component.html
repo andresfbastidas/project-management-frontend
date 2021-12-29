@@ -13,7 +13,7 @@
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textTitleProject" type="text"
                         id="textTitleProject" #titleProject="ngModel" [(ngModel)]="titleProjectModel"
-                        pattern="[a-zA-Z]*" required></textarea>
+                         required></textarea>
                     <br>
                     <small *ngIf="titleProject.invalid && titleProject.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="titleProject.errors?.['required']" class="required">No puede ser vacio.</span>
@@ -52,11 +52,10 @@
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-lg-10 border " name="textProblemInvestigation"
                         id="textProblemInvestigation" type="text" #investigation="ngModel"
-                        [(ngModel)]="problemInvestigationModel" pattern="[a-zA-Z]*" required></textarea>
+                        [(ngModel)]="problemInvestigationModel" required></textarea>
                     <br>
                     <small *ngIf="investigation.invalid && investigation.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="investigation.errors?.['required']" class="required">No puede ser vacio.</span>
-                        <small *ngIf="investigation.errors?.['pattern']" class="required">Formato inválido</small>
                     </small>
                 </div>
                 <div class="col-lg-2">
@@ -66,12 +65,11 @@
                 </div>
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textJustification" id="textJustification"
-                        type="text" #justification="ngModel" [(ngModel)]="justificationModel" pattern="[a-zA-Z]*"
+                        type="text" #justification="ngModel" [(ngModel)]="justificationModel"
                         required></textarea>
                     <br>
                     <small *ngIf="justification.invalid && justification.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="justification.errors?.['required']" class="required">No puede ser vacio.</span>
-                        <small *ngIf="justification.errors?.['pattern']" class="required">Formato inválido</small>
                     </small>
                 </div>
             </div>
@@ -84,12 +82,11 @@
                 </div>
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textGeneralObjetive" id="textGeneralObjetive"
-                        type="text" #genObjetive="ngModel" [(ngModel)]="generalObjetiveModel" pattern="[a-zA-Z]*"
+                        type="text" #genObjetive="ngModel" [(ngModel)]="generalObjetiveModel" p
                         required></textarea>
                     <br>
                     <small *ngIf="genObjetive.invalid && genObjetive.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="genObjetive.errors?.['required']" class="required">No puede ser vacio.</span>
-                        <small *ngIf="genObjetive.errors?.['pattern']" class="required">Formato inválido</small>
                     </small>
                 </div>
                 <div class="col-lg-2">
@@ -123,11 +120,10 @@
                 </div>
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textSummary" ç id="textSummary" type="text"
-                        #summaryValidate="ngModel" [(ngModel)]="summaryModel" pattern="[a-zA-Z]*" required></textarea>
+                        #summaryValidate="ngModel" [(ngModel)]="summaryModel" required></textarea>
                     <br>
                     <small *ngIf="summaryValidate.invalid && summaryValidate.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="summaryValidate.errors?.['required']" class="required">No puede ser vacio.</span>
-                        <small *ngIf="summaryValidate.errors?.['pattern']" class="required">Formato inválido</small>
                     </small>
                 </div>
                 <div class="col-lg-2">
@@ -162,14 +158,12 @@
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textProjectMethology" id="textProjectMethology"
                         type="text" #projectMethologyValidate="ngModel" [(ngModel)]="projectMethologyModel"
-                        pattern="[a-zA-Z]*" required></textarea>
+                         required></textarea>
                     <br>
                     <small *ngIf="projectMethologyValidate.invalid && projectMethologyValidate.touched"
                         class="alert-danger p-2 rounded">
                         <span *ngIf="projectMethologyValidate.errors?.['required']" class="required">No puede ser
                             vacio.</span>
-                        <small *ngIf="projectMethologyValidate.errors?.['pattern']" class="required">Formato
-                            inválido</small>
                     </small>
                 </div>
                 <div class="col-lg-2">
@@ -180,14 +174,12 @@
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-10 border " name="textSpecificObjetives" type="text"
                         id="textSpecificObjetives" #validateSpecificObjetives="ngModel" [(ngModel)]="specificObjetives"
-                        pattern="[a-zA-Z]*" required></textarea>
+                     required></textarea>
                     <br>
                     <small *ngIf="validateSpecificObjetives.invalid && validateSpecificObjetives.touched"
                         class="alert-danger p-2 rounded">
                         <span *ngIf="validateSpecificObjetives.errors?.['required']" class="required">No puede ser
                             vacio.</span>
-                        <small *ngIf="validateSpecificObjetives.errors?.['pattern']" class="required">Formato
-                            inválido</small>
                     </small>
                 </div>
             </div>
@@ -218,11 +210,25 @@
                     </label>
                     <label style="color: red">*</label>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3" *ngIf="authService.getRol()=='DIRECTOR'">
                     <select name="selectState" class="select-text" (change)="valueChangeState($event)" style="width: 85%;"
                         [(ngModel)]="selectedStateModel" #validateState="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
                         <option [value]="option.stateId" *ngFor="let option of statesList;let x = index"
+                            class="dropdown-item">
+                            {{option.stateName}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="validateState.invalid && validateState.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="validateState.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-3" *ngIf="authService.getRol()=='PROFESOR' || authService.getRol()=='ESTUDIANTE'">
+                    <select name="selectState" class="select-text" (change)="valueChangeState($event)" style="width: 85%;"
+                        [(ngModel)]="selectedStateModel" #validateState="ngModel" required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.stateId" *ngFor="let option of stateSolini;let x = index"
                             class="dropdown-item">
                             {{option.stateName}}
                         </option>

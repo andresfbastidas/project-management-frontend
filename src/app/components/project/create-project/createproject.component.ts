@@ -8,6 +8,7 @@ import { ProjectRequest } from 'src/app/core/models/project-request';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
 import { State } from 'src/app/core/models/state';
 import { UserApp } from 'src/app/core/models/userApp';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -26,6 +27,7 @@ export class CreateprojectComponent implements OnInit {
   userListProfile!:Array<UserApp>;
   userListProfileS!:Array<UserApp>;
   statesList!:Array<State>;
+  stateSolini!:Array<State>;
   selectedAll!:boolean;
   checkedList: any;
   idDelivery!: number;
@@ -45,13 +47,18 @@ export class CreateprojectComponent implements OnInit {
   specificObjetives!:string;
   createProjectForm!:NgForm;
   constructor(private userService:UserService, private genericListService:GenericListService,
-    private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService) { }
+    private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService,
+   public authService:AuthService) { }
 
   ngOnInit(): void {
      this.getDeliveries();
      this.getResearchTypologys();
      this.getUsersDirectors();
-     this.getStates();
+     if(this.authService.getRol() == 'DIRECTOR'){
+      this.getStates();
+     }else{
+       this.getStateSolini();
+     }
      this.checkedList=0;
   }
 
@@ -76,6 +83,12 @@ export class CreateprojectComponent implements OnInit {
   getStates(){
     this.genericListService.getStates().subscribe(response => {
       this.statesList = response.genericList as Array<State>;
+    });
+  }
+
+  getStateSolini(){
+    this.genericListService.getStateSolini().subscribe(response => {
+      this.stateSolini = response.genericList as Array<State>;
     });
   }
 
@@ -137,7 +150,7 @@ export class CreateprojectComponent implements OnInit {
      this.projectService.createProject(this.projectRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
-        this.clean(this.createProjectForm);
+        window.location.reload();
       },
       error: (err) => {
         if(err.status == 500){
