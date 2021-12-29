@@ -48,7 +48,6 @@ export class ListActivitiesComponent implements OnInit {
     this.activityService.getListActivitiesByProject(projectId).subscribe({
       next: (response: any) =>  {
         this.listActivities = response.listActivities as Array<Activity>;
-        console.log(this.projectId);
       },
       error: (err) => {
         this.dialog.show({

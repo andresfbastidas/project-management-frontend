@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Delivery } from 'src/app/core/models/delivery';
 import { Profile } from 'src/app/core/models/profile';
 import { Project } from 'src/app/core/models/project';
-import { ProjectRequest } from 'src/app/core/models/project-request';
+import { CreateProjectRequest } from 'src/app/core/models/create-project-request';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
 import { State } from 'src/app/core/models/state';
 import { UserApp } from 'src/app/core/models/userApp';
@@ -42,9 +42,10 @@ export class CreateprojectComponent implements OnInit {
   projectMethologyModel!:string;
   researchTypologyModel!:number;
   selectedStateModel!:any;
-  projectRequest!:ProjectRequest;
+  createProjectRequest!:CreateProjectRequest;
   state!:State;
   specificObjetives!:string;
+  createBy!:string;
   createProjectForm!:NgForm;
   constructor(private userService:UserService, private genericListService:GenericListService,
     private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService,
@@ -139,15 +140,16 @@ export class CreateprojectComponent implements OnInit {
   }
 
   createProject(){
+    this.createBy = this.authService.getUser();
     let project = new Project(this.titleProjectModel, this.dateFromModel, 
       this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
-      this.specificObjetives);
+      this.specificObjetives, this.createBy);
       let state = new State(this.selectedStateModel);
       let profile = new Profile();
       let userapp = new UserApp("","","","","","",this.selectedDirectorModel,profile);
-     this.projectRequest = new ProjectRequest(project, state, this.checkedList, userapp);
-     this.projectService.createProject(this.projectRequest).subscribe({
+     this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
+     this.projectService.createProject(this.createProjectRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
         window.location.reload();

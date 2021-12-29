@@ -3,7 +3,7 @@ import { Project } from "./project";
 import { State } from "./state";
 import { UserApp } from "./userApp";
 
-export class ProjectRequest{
+export class CreateProjectRequest{
 
     project!:Project;
     state!:State;
