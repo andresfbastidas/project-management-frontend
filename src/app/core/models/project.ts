@@ -13,7 +13,8 @@ export class Project {
     projectSummary!:String;
     specificObjetive!:String;
     isSelected!:boolean;
-    directorName!:string;
+    projectDirector!:string;
+    directorName!:string
     state!:State;
     createBy!:string;
     users!:string;
@@ -21,7 +22,7 @@ export class Project {
 
     constructor(projectTitle:String, dateFrom:Date, dateUntil:Date, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,
-        projectSummary:string, specificObjetive:string, directorName:string,createBy:string){
+        projectSummary:string, specificObjetive:string, projectDirector:string,createBy:string){
         this.projectTitle = projectTitle;
         this.dateFrom = dateFrom;
         this.dateUntil = dateUntil;
@@ -32,6 +33,6 @@ export class Project {
         this.projectSummary = projectSummary;
         this.specificObjetive = specificObjetive;
         this.createBy = createBy;
-        this.directorName = directorName;
+        this.projectDirector = projectDirector;
     }
 }
