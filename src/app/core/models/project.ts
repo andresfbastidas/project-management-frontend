@@ -21,7 +21,7 @@ export class Project {
 
     constructor(projectTitle:String, dateFrom:Date, dateUntil:Date, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,
-        projectSummary:string, specificObjetive:string, createBy:string){
+        projectSummary:string, specificObjetive:string, directorName:string,createBy:string){
         this.projectTitle = projectTitle;
         this.dateFrom = dateFrom;
         this.dateUntil = dateUntil;
@@ -32,5 +32,6 @@ export class Project {
         this.projectSummary = projectSummary;
         this.specificObjetive = specificObjetive;
         this.createBy = createBy;
+        this.directorName = directorName;
     }
 }

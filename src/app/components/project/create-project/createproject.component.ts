@@ -144,10 +144,10 @@ export class CreateprojectComponent implements OnInit {
     let project = new Project(this.titleProjectModel, this.dateFromModel, 
       this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
-      this.specificObjetives, this.createBy);
+      this.specificObjetives, this.selectedDirectorModel,this.createBy);
       let state = new State(this.selectedStateModel);
       let profile = new Profile();
-      let userapp = new UserApp("","","","","","",this.selectedDirectorModel,profile);
+      let userapp = new UserApp("","","","","","",this.authService.getUser(),profile);
      this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
      this.projectService.createProject(this.createProjectRequest).subscribe({
       next: (response: any) =>  {
@@ -156,7 +156,6 @@ export class CreateprojectComponent implements OnInit {
       },
       error: (err) => {
         if(err.status == 500){
-          this.clean(this.createProjectForm);
           this.dialog.show({
             title: "Error",
             content: this.dialog.formatError(err),
