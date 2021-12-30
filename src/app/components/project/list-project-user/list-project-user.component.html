@@ -19,6 +19,8 @@
                                 <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
                                 <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
+                                <th scope="col" style="width: 110px;color: white;">Creado por</th>
+                                <th scope="col" style="width: 110px;color: white;">Participantes del Proyecto</th>
                                 <th scope="col" style="color: white;">Actvidades</th>
                                 <th scope="col" style="color: white;">Actualizar Proyecto</th>
                             </tr>
@@ -33,6 +35,8 @@
                                 <td>{{project.dateFrom}}</td>
                                 <td>{{project.dateUntil}}</td>
                                 <td>{{project.directorName}}</td>
+                                <td>{{project.createByNames}}</td>
+                                <td>{{project.users}}</td>
                                 <td>
                                     <button class="btn btn-sm" [disabled]="enabled"
                                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"

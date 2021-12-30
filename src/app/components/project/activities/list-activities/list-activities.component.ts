@@ -44,6 +44,10 @@ export class ListActivitiesComponent implements OnInit {
     else this.rowClicked = idx;
   }
 
+  createActivity(){
+    this.router.navigate(['/create-activity']);
+  }
+
   getListActivitiesByProject(projectId:number){
     this.activityService.getListActivitiesByProject(projectId).subscribe({
       next: (response: any) =>  {

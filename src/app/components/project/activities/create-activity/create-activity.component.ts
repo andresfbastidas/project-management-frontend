@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateActivityComponent implements OnInit {
 
+  dateFromModel!:Date;
+  dateUntilModel!:Date;
   constructor() { }
 
   ngOnInit(): void {

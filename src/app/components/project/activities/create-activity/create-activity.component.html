@@ -1,32 +1,115 @@
-<div id="create-activity-component" class="card mat-elevation-z2">
+<div id="create-activity-component" class="card mat-elevation-z2" style="width: 800px;">
     <div class="card-header" id="title-form">
-        Crear Activitdad
+        Crear Actividad
     </div>
     <div class="card-body">
         <form #createActivityForm="ngForm">
             <div class="container">
-            <div class="row " style="justify-content: center;">
-                <div class="col-sm-3 col-sm-2" style="text-align: end;">
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
                     <label for="nameActivity">Nombre de la actividad:
                     </label>
                     <label style="color: red">*</label>
                 </div>
-                <div class="col-lg-4" >
-                    <input type="text" id="inputNameActivity" name="inputNameActivity" style="width: 85%;" required>
+                <div class="col-lg-6" >
+                    <input type="text" id="inputNameActivity" name="inputNameActivity" style="width: 200px" required>
                 </div>
-                <div class="col-sm-2" style="text-align: end;">
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
                     <label for="assignedUser">Asignado a:
                     </label>
                     <label style="color: red">*</label>
                 </div>
-                <div class="col-lg-3" >
-                    <select name="selectDirector" class="select-text" id="selectDirector" style="width: 85%;"
+                <div class="col-sm-6" style="width: 260px;">
+                    <select name="assignedUserSelector" class="select-text" id="assignedUserSelector" style="width: 85%;"
                          required>
                         <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
                         <option  *ngFor=""
                             class="dropdown-item">
                         </option>
                     </select>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="dateFrom">Fecha inicio
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateFrom" name="dateFrom" id="dateFrom"
+                           placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateFromTmp="ngModel" [(ngModel)]="dateFromModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateFrom" id="dpt-dateFrom">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dateFrom disabled="false" id="date-pickerDateFrom"></mat-datepicker>
+                        <small *ngIf="currentDateFromTmp.invalid && currentDateFromTmp.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="currentDateFromTmp.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small> 
+                    </div>      
+                </div>
+            </div>
+            <div class="row " >
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="stateActivity">Estado:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6" style="width: 260px;">
+                    <select name="stateActivitySelect" class="select-text" id="stateActivitySelect" style="width: 85%;"
+                         required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option  *ngFor=""
+                            class="dropdown-item">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="dateUntil">Fecha fin
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateUntilDate" name="dateUntilDate" id="dateUntilDate"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateUntilTmp="ngModel" [(ngModel)]="dateUntilModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateUntilDate" id="dpt-birthdate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dateUntilDate disabled="false" id="date-pickerDateUntilDate"></mat-datepicker>
+                        <small *ngIf="currentDateUntilTmp.invalid && currentDateUntilTmp.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="currentDateUntilTmp.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-8" style="text-align: end;">
+                    <button class="btn btn-sm"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newActivity" name="newActivity" type="button">
+                    Crear Actividad
+                </button>
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-sm"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newActivity" name="newActivity" type="button">
+                    Limpiar
+                </button>
                 </div>
             </div>
         </div>
