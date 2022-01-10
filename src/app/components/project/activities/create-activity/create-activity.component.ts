@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Activity } from 'src/app/core/models/activity';
 import { ActivityRequest } from 'src/app/core/models/activity-request';
 import { Project } from 'src/app/core/models/project';
@@ -21,18 +23,20 @@ export class CreateActivityComponent implements OnInit {
   activityRequest!:ActivityRequest;
   activityNameModel!:string;
   assignedUserModel!:string;
-  project!:Project;
   projectId!:any;
   selectedStateModel!:number;
   listAssignedUsers!:Array<UserApp>;
-  listStatesActivities!:Array<StateActivity>
+  listStatesActivities!:Array<StateActivity>;
+  createActivityForm!:NgForm;
   constructor(private activityService:ActivityService, private dialog:DialogComponent,
     private sharedMessage:SharedService, private projectService:ProjectService,
-    private shareData:ShareDataService) { }
+    private shareData:ShareDataService, private router:Router) { }
 
   ngOnInit(): void {
     this.getData();
-    this.getListUsersByProject(this.projectId);
+    if(this.projectId != null){
+      this.getListUsersByProject(this.projectId);
+    }
     this.getListStatesActivities();
   }
 
@@ -43,6 +47,9 @@ export class CreateActivityComponent implements OnInit {
     console.log(this.projectId);
   }
 
+  clean(createActivityForm: any) {
+    createActivityForm.resetForm();
+  }
   valueChangeUserAssigned(event: any) {
     event.target.value = this.assignedUserModel;
   }
@@ -67,12 +74,13 @@ export class CreateActivityComponent implements OnInit {
   createActivity(){
     let stateActivity = new StateActivity(this.selectedStateModel);
    let activity = new Activity(this.activityNameModel,this.dateFromModel,this.dateUntilModel, 
-    this.assignedUserModel, stateActivity,this.project);
-    this.activityRequest = new ActivityRequest(activity);
+    this.assignedUserModel, stateActivity);
+    this.activityRequest = new ActivityRequest(activity, this.projectId);
     this.activityService.createActivity(this.activityRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
-        window.location.reload();
+        this.router.navigate(['/list-activities']);
+        this.projectId = 0;
       },
       error: (err) => {
         if(err.status == 500){

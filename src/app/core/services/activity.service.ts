@@ -23,9 +23,10 @@ export class ActivityService {
 
   createActivity(activityRequest: ActivityRequest):Observable<any> {
     const allRequest: any = {
-      activity: activityRequest.activity
+      activity: activityRequest.activity,
+      projectId:activityRequest.projectId
     }
-    return this.httpClient.post<any>(`${this.urlEndPoint}/project/createProject`, allRequest).pipe(
+    return this.httpClient.post<any>(`${this.urlEndPoint}/activity/createActivity`, allRequest).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

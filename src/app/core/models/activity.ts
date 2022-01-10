@@ -7,15 +7,13 @@ export class Activity{
     dateUntil!:Date;
     assignedUser!:string;
     stateActivity!:StateActivity;
-    project!:Project;
 
     constructor(activityName:string, dateFrom:Date, dateUntil:Date, 
-        assignedUser:string, stateActivity:StateActivity, project:Project){
+        assignedUser:string, stateActivity:StateActivity){
        this.activityName = activityName;
        this.dateFrom = dateFrom;
        this.dateUntil = dateUntil;
        this.assignedUser = assignedUser;
        this.stateActivity = stateActivity;
-       this.project = project;
     }
 }
