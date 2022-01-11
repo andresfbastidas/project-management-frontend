@@ -11,9 +11,11 @@ import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 })
 export class LoginComponent implements OnInit {
 
-  username!: string;
-  password!: string;
+  usernameModel!: string;
+  passwordModel!: string;
   loginRequest!: LoginRequest;
+  hidePassword=true;
+  public showPasswordOnPress!: boolean;
   constructor(private authService: AuthService, private readonly router: Router,
     private readonly dialog: DialogComponent, private readonly idle: Idle) { }
 
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginRequest = new LoginRequest(this.username, this.password);
+    this.loginRequest = new LoginRequest(this.usernameModel, this.passwordModel);
     this.authService.login(this.loginRequest).subscribe({
       next: (response: any) =>  {
         this.router.navigate(['/create-project']);
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.authService.saveUser(response.username);
         this.authService.saveRol(response.roles[0]);
         this.authService.isAuthenticated();
-        this.username=response.username;
+        this.usernameModel=response.username;
         this.idle.watch();
       },
       error: (err) => {
