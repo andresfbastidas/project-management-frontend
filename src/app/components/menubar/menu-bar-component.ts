@@ -26,7 +26,17 @@ export class MenuBarComponent implements OnInit {
               icon: 'pi pi-fw pi-file',
               routerLink: ['list-project-user']
             }
-        ]
+        ],
+      },
+      {
+        label: 'Gestión de Usuarios',
+        items: [
+            {
+              label: 'Crear Usuario', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['create-user']
+            },
+        ],
       }
     ];
 

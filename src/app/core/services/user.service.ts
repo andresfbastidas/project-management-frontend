@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SignupRequest } from '../models/signup-request';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,19 @@ export class UserService {
       })
     );
   }
+
+  createUser(signupRequest:SignupRequest):Observable<any>{
+    const allRequest: any = {
+      userapp:signupRequest.userapp,
+      profileId:signupRequest.profileId
+  }
+    return this.httpClient.post<any>(`${this.urlEndPoint}/user/createUser`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+  );
+  }
+
 
 }

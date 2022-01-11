@@ -71,7 +71,7 @@ export class CreateActivityComponent implements OnInit {
   }
 
 
-  createActivity(){
+  createActivity(createActivityForm: any){
     let stateActivity = new StateActivity(this.selectedStateModel);
    let activity = new Activity(this.activityNameModel,this.dateFromModel,this.dateUntilModel, 
     this.assignedUserModel, stateActivity);
@@ -79,8 +79,7 @@ export class CreateActivityComponent implements OnInit {
     this.activityService.createActivity(this.activityRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
-        this.router.navigate(['/list-activities']);
-        this.projectId = 0;
+        this.clean(createActivityForm);
       },
       error: (err) => {
         if(err.status == 500){

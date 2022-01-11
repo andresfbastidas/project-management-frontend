@@ -1,1 +1,165 @@
-<p>create-user works!</p>
+<div id="create-user-component" class="card mat-elevation-z2" style="width: 800px;">
+    <div class="card-header" id="title-form">
+        Crear Usuario
+    </div>
+    <div class="card-body">
+        <form #createUserForm="ngForm">
+            <div class="container">
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="userName">Nombre de usuario
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="userNameModel" id="inputUserName" #userName="ngModel" name="inputUserName" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="userName.invalid && userName.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="userName.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="userName.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="email">Correo electronico
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="emailModel" id="inputEmail" #email="ngModel" name="inputEmail" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="email.invalid && email.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="email.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="email.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="password">Contraseña
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="passwordModel" id="inputPassword" #password="ngModel" name="inputPassword" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="password.invalid && password.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="password.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="password.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row " >
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="profile">Perfil:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6" style="width: 260px;">
+                    <select name="profileSelect" class="select-text" id="profileSelect" style="width: 85%;"
+                    (change)="valueChangeProfile($event)" [(ngModel)]="selectedProfile"
+                    #selectProfile="ngModel" required>
+                        <option class="dropdown-item"  disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.profileId" *ngFor="let option of listProfiles;let x = index"
+                            class="dropdown-item">
+                            {{option.profileName}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="selectProfile.invalid && selectProfile.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="selectProfile.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="firstName">Primer nombre
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="firstNameModel" id="inputfirstName" #firstName="ngModel" name="inputfirstName" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="firstName.invalid && firstName.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="firstName.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="firstName.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="userName">Segundo nombre
+                    </label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="secondNameModel" id="inputsecondNameModel" #secondName="ngModel" name="inputsecondNameModel" 
+                    style="width: 200px;margin-bottom: 1%;">
+                    <small *ngIf="secondName.invalid && secondName.touched" class="alert-danger p-2 rounded">
+                        <small *ngIf="secondName.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="surname">Primer apellido
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="surnameModel" id="inputsurname" #surname="ngModel" name="inputsurname" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="surname.invalid && surname.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="surname.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="surname.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="secondSurname">Segundo apellido
+                    </label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="secondSurnameModel" id="inputsecondSurname" #secondSurname="ngModel" name="inputsecondSurname" 
+                    style="width: 200px;margin-bottom: 1%;">
+                    <br>
+                    <small *ngIf="secondSurname.invalid && secondSurname.touched" class="alert-danger p-2 rounded">
+                        <small *ngIf="secondSurname.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-lg-8" style="text-align: end;">
+                    <button class="btn btn-sm"
+                    [disabled]="!createUserForm.form.valid" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    (click)="createUser(createUserForm)" id="createUserbtn" name="createUserbtn" type="button">
+                    Crear usuario
+                </button>
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-sm"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    (click)="clean(createUserForm)" id="cleanUserbtn" name="cleanUserbtn" type="button">
+                    Limpiar
+                </button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

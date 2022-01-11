@@ -139,7 +139,7 @@ export class CreateprojectComponent implements OnInit {
     event.target.value = this.researchTypologyModel;
   }
 
-  createProject(){
+  createProject(createProjectForm: any){
     this.createBy = this.authService.getUser();
     let project = new Project(this.titleProjectModel, this.dateFromModel, 
       this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
@@ -147,12 +147,12 @@ export class CreateprojectComponent implements OnInit {
       this.specificObjetives, this.selectedDirectorModel,this.createBy);
       let state = new State(this.selectedStateModel);
       let profile = new Profile();
-      let userapp = new UserApp("","","","","","",this.authService.getUser(),profile);
+      let userapp = new UserApp("","","","","","",this.authService.getUser());
      this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
      this.projectService.createProject(this.createProjectRequest).subscribe({
       next: (response: any) =>  {
         this.sharedMessage.msgInfo(response.message);
-        window.location.reload();
+        this.clean(createProjectForm);
       },
       error: (err) => {
         if(err.status == 500){

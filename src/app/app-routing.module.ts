@@ -6,6 +6,7 @@ import { LoginComponent } from './components/security/login/login.component';
 import { ListProjectUserComponent } from './components/project/list-project-user/list-project-user.component';
 import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
+import { CreateUserComponent } from './components/user/create-user/create-user.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'create-project', component: CreateprojectComponent },
   { path: 'list-project-user', component: ListProjectUserComponent },
   { path: 'list-activities', component: ListActivitiesComponent },
-  { path: 'create-activity', component: CreateActivityComponent }
+  { path: 'create-activity', component: CreateActivityComponent },
+  { path: 'create-user', component: CreateUserComponent }
 ];
 
 @NgModule({

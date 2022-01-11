@@ -121,15 +121,15 @@
             <div class="row ">
                 <div class="col-lg-8" style="text-align: end;">
                     <button class="btn btn-sm"
-                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                    (click)="createActivity()" id="newActivity" name="newActivity" type="button">
+                    [disabled]="!createActivityForm.form.valid" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    (click)="createActivity(createActivityForm)" id="newActivity" name="newActivity" type="button">
                     Crear Actividad
                 </button>
                 </div>
                 <div class="col-lg-4">
                     <button class="btn btn-sm"
                     style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                    click="clean(createActivityForm)" id="newActivity" name="newActivity" type="button">
+                    (click)="clean(createActivityForm)" id="newActivity" name="newActivity" type="button">
                     Limpiar
                 </button>
                 </div>
