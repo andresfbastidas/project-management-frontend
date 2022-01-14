@@ -7,6 +7,7 @@ import { ListProjectUserComponent } from './components/project/list-project-user
 import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
+import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'list-project-user', component: ListProjectUserComponent },
   { path: 'list-activities', component: ListActivitiesComponent },
   { path: 'create-activity', component: CreateActivityComponent },
-  { path: 'create-user', component: CreateUserComponent }
+  { path: 'create-user', component: CreateUserComponent },
+  { path: 'approval-projects', component: ApprovalDeclineProjectsComponent }
 ];
 
 @NgModule({

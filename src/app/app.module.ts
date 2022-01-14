@@ -27,6 +27,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ListProjectUserComponent } from './components/project/list-project-user/list-project-user.component';
 import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
+import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { CreateActivityComponent } from './components/project/activities/create-
     ListProjectUserComponent,
     ListActivitiesComponent,
     CreateActivityComponent,
+    ApprovalDeclineProjectsComponent,
   ],
   imports: [
     BrowserModule,

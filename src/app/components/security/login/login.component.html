@@ -28,9 +28,8 @@
                             <span class="ui-inputgroup-addon pointer">
                                 <span class="ui-inputgroup-addon pointer" (click)="hidePassword = !hidePassword"></span>
                                 <em *ngIf="hidePassword" (mousedown)="showPasswordOnPress = !showPasswordOnPress"
-                                    (mouseup)="showPasswordOnPress = !showPasswordOnPress" class="pi pi-eye-slash"
+                                    (mouseup)="showPasswordOnPress = !showPasswordOnPress" class="pi pi-eye"
                                     style="margin-left: 3px;"></em>
-                                <em *ngIf="!hidePassword" class="pi pi-eye" style="margin-left: 3px;"></em>
                             </span>
                     </div>
                     <small *ngIf="password.invalid && password.touched" class="alert-danger p-2 rounded">
