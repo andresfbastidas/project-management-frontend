@@ -25,6 +25,11 @@ export class MenuBarComponent implements OnInit {
               label: 'Proyectos asignados', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['list-project-user']
+            },
+            {
+              label: 'Añadir usuario a proyecto', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['add-user-project']
             }
         ],
       },

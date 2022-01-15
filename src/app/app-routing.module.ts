@@ -8,6 +8,7 @@ import { ListActivitiesComponent } from './components/project/activities/list-ac
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
+import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'list-activities', component: ListActivitiesComponent },
   { path: 'create-activity', component: CreateActivityComponent },
   { path: 'create-user', component: CreateUserComponent },
-  { path: 'approval-projects', component: ApprovalDeclineProjectsComponent }
+  { path: 'approval-projects', component: ApprovalDeclineProjectsComponent },
+  { path: 'add-user-project', component: AddUserProjectComponent }
 ];
 
 @NgModule({

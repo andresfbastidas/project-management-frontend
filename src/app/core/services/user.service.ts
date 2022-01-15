@@ -21,6 +21,15 @@ export class UserService {
     );
   }
 
+  findUserName(userName:string): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/user/findByUserName/`+userName).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   createUser(signupRequest:SignupRequest):Observable<any>{
     const allRequest: any = {
       userapp:signupRequest.userapp,

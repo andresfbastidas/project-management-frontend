@@ -29,6 +29,7 @@ import { ListActivitiesComponent } from './components/project/activities/list-ac
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ListActivitiesComponent,
     CreateActivityComponent,
     ApprovalDeclineProjectsComponent,
+    AddUserProjectComponent,
   ],
   imports: [
     BrowserModule,

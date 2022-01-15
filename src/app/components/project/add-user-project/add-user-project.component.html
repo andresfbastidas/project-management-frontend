@@ -1,0 +1,72 @@
+<div id="add-user-project-component" class="card mat-elevation-z2" style="width: 800px;">
+    <div class="card-header" id="title-form">
+        Añadir Usuario a Proyecto
+    </div>
+    <div class="card-body">
+        <form #addUserProjectForm="ngForm">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-3" style="text-align: end;">
+                        <label for="nameActivity">Buscar usuario:
+                        </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" style="margin-bottom: 1%;" [(ngModel)]="userNameModel" id="inputSearchUser"
+                            #searchUser="ngModel" name="inputSearchUser" required>
+                        <br>
+                        <small *ngIf="searchUser.invalid && searchUser.touched" class="alert-danger p-2 rounded">
+                            <span *ngIf="searchUser.errors?.['required']" class="required">No puede ser vacio.</span>
+                            <small *ngIf="searchUser.errors?.['pattern']" class="required">Formato inválido</small>
+                        </small>
+                    </div>
+                    <div class="col-lg-3">
+                        <button class="btn btn-sm" (click)="findUser()" [disabled]="!addUserProjectForm.form.valid" style="border-color:#999999;
+                        background-color: #999999;color: white;box-shadow: none;margin-right: 2%;" id="addUserBtn"
+                            name="addUserBtn" type="button">
+                            Buscar
+                        </button>
+                        <button class="btn btn-sm" (click)="clean(addUserProjectForm)"
+                            style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                            id="addUserBtn" name="addUserBtn" type="button">
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive-xl">
+                            <table id="tbl-list" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Seleccionar</th>
+                                        <th scope="col">Nombre de usuario</th>
+                                        <th scope="col">Primer Nombre</th>
+                                        <th scope="col">Primer Apellido</th>
+                                        <th scope="col">Perfil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <th scope="row" class="text-center">
+                                            <input type="checkbox" name="user"
+                                                id="user" 
+                                                (ngModelChange)="onNgModelChange($event)">
+                                        </th>
+                                        <td>{{userNameTable}}</td>
+                                        <td>{{firstNameTable}}</td>
+                                        <td>{{surNameTable}}</td>
+                                        <td>{{profiletable}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <app-list-project-user></app-list-project-user>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

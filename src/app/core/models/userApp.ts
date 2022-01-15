@@ -9,6 +9,7 @@ export class UserApp{
     secondSurname!:string;
     surname!:string;
     userName!:string;
+    isSelected!:boolean;
     constructor(email:string, firstName:string, password:string,
         secondName:string, secondSurname:string, surname:string,
         userName:string){
