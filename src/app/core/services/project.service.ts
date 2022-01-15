@@ -28,8 +28,8 @@ import { CreateProjectRequest } from "../models/create-project-request";
         );
     }
 
-    getListProjectsByUserName(userName:String): Observable<any> {
-      return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsByUserName/`+userName).pipe(
+    getListProjectsByUserName(userName:String,params:any): Observable<any> {
+      return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsByUserName/`+userName, { params }).pipe(
           map((response: any) => response),
           catchError(error => {
             return throwError(() => error);

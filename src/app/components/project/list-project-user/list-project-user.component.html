@@ -26,7 +26,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let project of projectList;let idx=index; let even=even"
+                            <tr *ngFor="let project of projectList | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page
+                              };let idx=index; let even=even"
                                 (click)="RowSelected(project)"
                                 [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
                                 (click)="changeTableRowColor(idx)">
@@ -54,6 +57,16 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <pagination-controls
+                              previousLabel="Atrás"
+                              nextLabel="Siguiente"
+                              [responsive]="true"
+                              (pageChange)="handlePageChange($event)"
+                            ></pagination-controls>
+                          </div>
+                    </div>
                     <button class="btn btn-md"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
                         name="clean" type="button" (click)="clean(projectListForm)">

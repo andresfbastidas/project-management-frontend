@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/core/models/project';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProjectService } from 'src/app/core/services/project.service';
@@ -19,12 +19,17 @@ export class ListProjectUserComponent implements OnInit {
   selectedProduct: any;
   rowClicked!: any;
   enabled!: boolean;
+  paginador: any;
+  routerPag: any;
+  page=0;
+  pageSize=10;
   constructor(private authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private sharedMessage: SharedService, private shareData: ShareDataService,
-    private router: Router) { }
+    private router: Router, private readonly activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getListProjectsByUserName(this.authService.getUser());
+      this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+    
   }
 
   sendData(data: any) {
@@ -48,8 +53,35 @@ export class ListProjectUserComponent implements OnInit {
     this.sendData(this.selectedProduct.projectId);
     this.router.navigate(['/list-activities']);
   }
-  getListProjectsByUserName(userName: string) {
-    this.projectService.getListProjectsByUserName(userName).subscribe({
+
+  getRequestParams(page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+  }
+
+  getListProjectsByUserName(userName: string, page:number, pageSize:number) {
+    const params = this.getRequestParams(page, pageSize);
+    this.projectService.getListProjectsByUserName(userName, params).subscribe({
       next: (response: any) => {
         this.projectList = response.projectList as Array<Project>;
       },

@@ -28,6 +28,7 @@ import { ListProjectUserComponent } from './components/project/list-project-user
 import { ListActivitiesComponent } from './components/project/activities/list-activities/list-activities.component';
 import { CreateActivityComponent } from './components/project/activities/create-activity/create-activity.component';
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ApprovalDeclineProjectsComponent } from './components/project/approval-
     DialogModule,
     NgIdleModule.forRoot(),
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    NgxPaginationModule
     
   ],
   providers: [MessageService, DialogComponent,

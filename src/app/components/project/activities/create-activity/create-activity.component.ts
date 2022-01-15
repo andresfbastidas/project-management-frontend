@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Activity } from 'src/app/core/models/activity';
 import { ActivityRequest } from 'src/app/core/models/activity-request';
-import { Project } from 'src/app/core/models/project';
 import { StateActivity } from 'src/app/core/models/state-activity';
 import { UserApp } from 'src/app/core/models/userApp';
 import { ActivityService } from 'src/app/core/services/activity.service';
