@@ -55,4 +55,13 @@ export class GenericListService {
       })
     );
   }
+
+  getAllStatesRequest(): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findAllStateProjectRequest`).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
 }

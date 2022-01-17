@@ -1,1 +1,80 @@
-<p>approval-decline-projects works!</p>
+<div id="approval-projects-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Proyectos Aprobados
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <div *ngIf="projectListRequest?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay solcitudes de proyectos.
+            </div>
+            <form #projectRequestListForm="ngForm">
+                <div class="row">
+                    <div class="col-lg-2" style="width: auto;">
+                        <label for="stateRequest">Filtrar por estado:
+                        </label>
+                    </div>
+                    <div class="col-lg-3">
+                        <select name="selectStateRequest" class="select-text" id="selectStateRequest" style="width: 85%;margin-bottom: 1%;"
+                            (change)="valueChangeStateRequest($event)" [(ngModel)]="selectedState"
+                            #selectStateValidate="ngModel" required>
+                            <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                            <option [value]="option.stateProjectRequestId" *ngFor="let option of listStateProjectRequest;let x = index"
+                                class="dropdown-item">
+                                {{option.stateNameProjectRequest}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Proyectos aprobados/declinados</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Nombre del Proyecto</th>
+                                <th scope="col" style="width: 130px;color: white;">Estado</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
+                                <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
+                                <th scope="col" style="width: 110px;color: white;">Creado por</th>
+                                <th scope="col" style="width: 110px;color: white;">Participantes del Proyecto</th>
+                                <th scope="col" style="color: white;">Actvidades</th>
+                                <th scope="col" style="color: white;">Actualizar Proyecto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let projectRequest of projectListRequest | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page
+                              };let idx=index; let even=even"
+                                (click)="RowSelected(projectRequest)"
+                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
+                                (click)="changeTableRowColor(idx)">
+                                <td>{{projectRequest.project.projectTitle}}</td>
+                                <td>{{projectRequest.project.state.stateName}}</td>
+                                <td>{{projectRequest.project.dateFrom}}</td>
+                                <td>{{projectRequest.project.dateUntil}}</td>
+                                <td>{{projectRequest.project.directorName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <pagination-controls
+                              previousLabel="Atrás"
+                              nextLabel="Siguiente"
+                              [responsive]="true"
+                              (pageChange)="handlePageChange($event)"
+                            ></pagination-controls>
+                          </div>
+                    </div>
+                    <button class="btn btn-md"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
+                        name="clean" type="button" (click)="clean(projectRequestListForm)">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

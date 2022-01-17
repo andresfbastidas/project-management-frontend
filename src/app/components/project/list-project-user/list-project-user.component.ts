@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/core/models/project';
@@ -23,6 +23,9 @@ export class ListProjectUserComponent implements OnInit {
   routerPag: any;
   page=0;
   pageSize=10;
+  projectId!:number;
+  @Output() projectEvent = new EventEmitter<any>();
+
   constructor(private authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private sharedMessage: SharedService, private shareData: ShareDataService,
     private router: Router, private readonly activatedRoute:ActivatedRoute) { }
@@ -38,6 +41,9 @@ export class ListProjectUserComponent implements OnInit {
 
   RowSelected(u: any) {
     this.selectedProduct = u;
+    this.projectId = this.selectedProduct.projectId;
+    this.getProjectId(this.projectId);
+    console.log(this.projectId);
   }
 
   clean(projectListForm: any) {
@@ -47,6 +53,10 @@ export class ListProjectUserComponent implements OnInit {
   changeTableRowColor(idx: any) {
     if (this.rowClicked === idx) this.rowClicked = -1;
     else this.rowClicked = idx;
+  }
+
+  getProjectId(projectId:any) {
+    this.projectEvent.emit(projectId);
   }
 
   listActivities() {

@@ -34,6 +34,16 @@ export class MenuBarComponent implements OnInit {
         ],
       },
       {
+        label: 'Gestión de Estados',
+        items: [
+            {
+              label: 'Aprobar Proyectos', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['approval-projects']
+            },
+        ],
+      },
+      {
         label: 'Gestión de Usuarios',
         items: [
             {
@@ -58,6 +68,16 @@ export class MenuBarComponent implements OnInit {
               label: 'Proyectos asignados', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['list-project-user']
+            }
+        ]
+      },
+      {
+        label: 'Gestión de Estados',
+        items: [
+            {
+              label: 'Proyectos aprobados', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['approval-projects']
             }
         ]
       }
