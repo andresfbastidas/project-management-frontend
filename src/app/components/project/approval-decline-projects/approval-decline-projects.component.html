@@ -35,11 +35,8 @@
                                 <th scope="col" style="width: 130px;color: white;">Estado</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
-                                <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
-                                <th scope="col" style="width: 110px;color: white;">Creado por</th>
-                                <th scope="col" style="width: 110px;color: white;">Participantes del Proyecto</th>
-                                <th scope="col" style="color: white;">Actvidades</th>
-                                <th scope="col" style="color: white;">Actualizar Proyecto</th>
+                                <th scope="col" style="width: 110px;color: white;">Objetivo general</th>
+                                <th scope="col" style="width: 110px;color: white;">información completa del proyecto</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +51,13 @@
                                 <td>{{projectRequest.project.state.stateName}}</td>
                                 <td>{{projectRequest.project.dateFrom}}</td>
                                 <td>{{projectRequest.project.dateUntil}}</td>
-                                <td>{{projectRequest.project.directorName}}</td>
+                                <td>
+                                    <button class="btn btn-md"
+                                    (click)="openModal()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
+                                    name="clean" type="button" >
+                                    Ver información
+                                </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

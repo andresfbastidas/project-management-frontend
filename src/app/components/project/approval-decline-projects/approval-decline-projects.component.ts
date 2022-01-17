@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ProjectRequest } from 'src/app/core/models/project-request';
 import { StateRequest } from 'src/app/core/models/stateProjectRequest';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
+import { ModalInformationProjectComponent } from 'src/app/shared/modal/modal-information-project.component';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 
 @Component({
@@ -25,8 +27,9 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   projectListRequest!: Array<ProjectRequest>;
   listStateProjectRequest!:Array<StateRequest>;
   selectedState!:any;
+  bsModalRef!: BsModalRef;
   constructor(private authService: AuthService, private projectService: ProjectService,
-    private dialog: DialogComponent, private genericService:GenericListService) { }
+    private dialog: DialogComponent, private genericService:GenericListService,   private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getListProjectRequestByUserName(this.firstState,this.secondState,this.thirdState,this.authService.getUser(), this.page, this.pageSize);
@@ -36,6 +39,14 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   clean(projectRequestListForm: any) {
     projectRequestListForm.resetForm();
     this.rowClicked = null;
+  }
+
+  openModal() {
+    this.bsModalRef = this.modalService.show(ModalInformationProjectComponent, {
+      animated: true,
+      backdrop: 'static',
+      class: 'modal-md'
+    });
   }
 
   getListStateProjectRequest(){

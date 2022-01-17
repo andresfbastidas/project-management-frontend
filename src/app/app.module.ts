@@ -30,7 +30,8 @@ import { CreateActivityComponent } from './components/project/activities/create-
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
-
+import { ModalInformationProjectComponent } from './shared/modal/modal-information-project.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { AddUserProjectComponent } from './components/project/add-user-project/a
     CreateActivityComponent,
     ApprovalDeclineProjectsComponent,
     AddUserProjectComponent,
+    ModalInformationProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,11 +64,14 @@ import { AddUserProjectComponent } from './components/project/add-user-project/a
     NgIdleModule.forRoot(),
     HttpClientModule,
     ToastModule,
-    NgxPaginationModule
-    
+    NgxPaginationModule,
+    ModalModule.forRoot()//<<======
   ],
   providers: [MessageService, DialogComponent,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ModalInformationProjectComponent //<<======
+  ]
 })
 export class AppModule { }
