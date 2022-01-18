@@ -21,8 +21,8 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   routerPag: any;
   page = 1;
   count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSize = 4;
+  pageSizes = [4, 8, 12];
   projectId!: number;
   rowClicked!: any;
   selectedProduct: any;
@@ -46,7 +46,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.getRol() == 'DIRECTOR') {
-      this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+      this.getListProjectRequestByUserDirector();
     } else {
       this.getListProjectRequestByUserName();
     }
@@ -94,15 +94,21 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.getListProjectRequestByUserName();
-    //this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+    if (this.authService.getRol() == 'DIRECTOR') {
+      this.getListProjectRequestByUserDirector();
+    } else {
+      this.getListProjectRequestByUserName();
+    }
   }
 
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getListProjectRequestByUserName();
-    //this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+    if (this.authService.getRol() == 'DIRECTOR') {
+      this.getListProjectRequestByUserDirector();
+    } else {
+      this.getListProjectRequestByUserName();
+    }
   }
 
 
@@ -155,9 +161,9 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     });
   }
 
-  getListProjectRequestByUserDirector(firstSate: number, secondSate: number, thirdState: number, userName: string, page: number, pageSize: number) {
-    const params = this.getRequestParams(page, pageSize);
-    this.projectService.getListProjectRequestByDirector(firstSate, secondSate, thirdState, userName, params).subscribe({
+  getListProjectRequestByUserDirector() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.projectService.getListProjectRequestByDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), params).subscribe({
       next: (response: any) => {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
         this.projectDirector = response.listProjectRequests.projectDirector;

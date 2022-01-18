@@ -29,7 +29,7 @@
                         </select>
                     </div>
                 </div>
-                Items per Page:
+                Elementos por pagina:
                 <select (change)="handlePageSizeChange($event)">
                   <option *ngFor="let size of pageSizes" [ngValue]="size">
                     {{ size }}
@@ -49,7 +49,7 @@
                                 <th scope="col" style="width: 110px;color: white;">Nombre de usuario</th>
                                 <th scope="col" style="width: 110px;color: white;">Estado solicitud del proyecto</th>
                                 <th scope="col" style="width: 110px;color: white;">Comentario</th>
-                                <th scope="col" style="width: 130px;color: white;">Añadir Comentario</th>
+                                <th  *ngIf="authService.getRol()=='DIRECTOR'" scope="col" style="width: 130px;color: white;">Añadir Comentario</th>
                                 <th scope="col" style="width: 110px;color: white;">Información completa del proyecto
                                 </th>
                                 <th *ngIf="authService.getRol()=='DIRECTOR'" scope="col"
