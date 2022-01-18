@@ -73,7 +73,7 @@
                                     {{projectRequest.details}}</td>
                                 <td *ngIf="authService.getRol()=='DIRECTOR'">
                                     <textarea class="ui-inputtext col-lg-10 border"  name="txtdetails" id="txtdetails"
-                                        type="text" [(ngModel)]="detailsText" required></textarea>
+                                        type="text" [ngModel]="detailsText" required></textarea>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm" (click)="openModal()"

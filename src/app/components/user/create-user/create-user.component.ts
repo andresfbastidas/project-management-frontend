@@ -23,6 +23,8 @@ export class CreateUserComponent implements OnInit {
   selectedProfile!:any;
   listProfiles!:Array<Profile>;
   signupRequest!:SignupRequest;
+  hidePassword=true;
+  public showPasswordOnPress!: boolean;
   constructor(private userService:UserService, private genericListService:GenericListService,
     private dialog:DialogComponent, private sharedMessage:SharedService) { }
 

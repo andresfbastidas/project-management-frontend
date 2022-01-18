@@ -58,6 +58,14 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   clean(projectRequestListForm: any) {
     projectRequestListForm.resetForm();
     this.rowClicked = null;
+    this.firstState = 1;
+    this.secondState = 2;
+    this.thirdState = 3;
+    if (this.authService.getRol() == 'DIRECTOR') {
+      this.getListProjectRequestByUserDirector();
+    } else {
+      this.getListProjectRequestByUserName();
+    }
   }
 
   openModal() {
@@ -74,9 +82,6 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     });
   }
 
-  valueChangeStateRequest(event: any) {
-    event.target.value = this.selectedState;
-  }
 
   getRequestParams(page: number, pageSize: number): any {
     let params: any = {};
@@ -90,6 +95,17 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     }
 
     return params;
+  }
+
+  valueChangeStateRequest(event: any): void {
+    this.firstState = event.target.value;
+    this.secondState = event.target.value;
+    this.thirdState = event.target.value;
+    if (this.authService.getRol() == 'DIRECTOR') {
+      this.getListProjectRequestByUserDirector();
+    } else {
+      this.getListProjectRequestByUserName();
+    }
   }
 
   handlePageChange(event: number): void {
@@ -110,6 +126,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
       this.getListProjectRequestByUserName();
     }
   }
+
 
 
   trackByIndex(index: number, obj: any): any {

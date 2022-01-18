@@ -46,8 +46,15 @@
                     <label style="color: red">*</label>
                 </div>
                 <div class="col-lg-6" >
-                    <input type="text" [(ngModel)]="passwordModel" id="inputPassword" #password="ngModel" name="inputPassword" 
-                    style="width: 200px;margin-bottom: 1%;" required>
+                    <input [type]="showPasswordOnPress ? 'text' : 'password'" [(ngModel)]="passwordModel" id="inputPassword" #password="ngModel" name="inputPassword" 
+                    style="width: 200px;margin-bottom: 1%;" required maxlength="20"
+                    [type]="hidePassword ? 'password' : 'text'">
+                    <span class="ui-inputgroup-addon pointer">
+                        <span class="ui-inputgroup-addon pointer" (click)="hidePassword = !hidePassword"></span>
+                        <em *ngIf="hidePassword" (mousedown)="showPasswordOnPress = !showPasswordOnPress"
+                            (mouseup)="showPasswordOnPress = !showPasswordOnPress" class="pi pi-eye"
+                            style="margin-left: 3px;"></em>
+                    </span>
                     <br>
                     <small *ngIf="password.invalid && password.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="password.errors?.['required']" class="required">No puede ser vacio.</span>
