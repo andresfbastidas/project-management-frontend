@@ -1,6 +1,10 @@
 <div id="approval-projects-component" class="card mx-auto mat-elevation-z2">
-    <div class="card-header" id="title-form">
+    <div *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'" class="card-header"
+        id="title-form">
         Proyectos Aprobados
+    </div>
+    <div *ngIf="authService.getRol()=='DIRECTOR'" class="card-header" id="title-form">
+        Solicitud de proyectos
     </div>
     <div class="card-body">
         <div class="table-responsive-xl">
@@ -14,12 +18,12 @@
                         </label>
                     </div>
                     <div class="col-lg-3">
-                        <select name="selectStateRequest" class="select-text" id="selectStateRequest" style="width: 85%;margin-bottom: 1%;"
-                            (change)="valueChangeStateRequest($event)" [(ngModel)]="selectedState"
-                            #selectStateValidate="ngModel" required>
+                        <select name="selectStateRequest" class="select-text" id="selectStateRequest"
+                            style="width: 85%;margin-bottom: 1%;" (change)="valueChangeStateRequest($event)"
+                            [(ngModel)]="selectedState" #selectStateValidate="ngModel" required>
                             <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
-                            <option [value]="option.stateProjectRequestId" *ngFor="let option of listStateProjectRequest;let x = index"
-                                class="dropdown-item">
+                            <option [value]="option.stateProjectRequestId"
+                                *ngFor="let option of listStateProjectRequest;let x = index" class="dropdown-item">
                                 {{option.stateNameProjectRequest}}
                             </option>
                         </select>
@@ -31,45 +35,71 @@
                         <caption>Proyectos aprobados/declinados</caption>
                         <thead class="table-head-color">
                             <tr>
-                                <th scope="col" style="width: 150px;color: white;">Nombre del Proyecto</th>
-                                <th scope="col" style="width: 130px;color: white;">Estado</th>
-                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
-                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
-                                <th scope="col" style="width: 110px;color: white;">Objetivo general</th>
-                                <th scope="col" style="width: 110px;color: white;">información completa del proyecto</th>
+                                <th scope="col" style="width: 110px;color: white;" *ngIf="authService.getRol()=='DIRECTOR'">
+                                    <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
+                                        (change)="selectAll()" (ngModelChange)="onNgModelChange($event)">
+                                    Seleccionar
+                                </th>
+                                <th scope="col" style="width: 110px;color: white;">Nombre de usuario</th>
+                                <th scope="col" style="width: 130px;color: white;">Estado solicitud del proyecto</th>
+                                <th scope="col" style="width: 150px;color: white;">Comentario</th>
+                                <th scope="col" style="width: 150px;color: white;">Información completa del proyecto
+                                </th>
+                                <th *ngIf="authService.getRol()=='DIRECTOR'" scope="col"
+                                    style="width: 150px;color: white;">Aprobar/rechazar proyecto</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let projectRequest of projectListRequest | paginate : {
                                 itemsPerPage: pageSize,
                                 currentPage: page
-                              };let idx=index; let even=even"
-                                (click)="RowSelected(projectRequest)"
-                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
-                                (click)="changeTableRowColor(idx)">
-                                <td>{{projectRequest.project.projectTitle}}</td>
-                                <td>{{projectRequest.project.state.stateName}}</td>
-                                <td>{{projectRequest.project.dateFrom}}</td>
-                                <td>{{projectRequest.project.dateUntil}}</td>
+                              };let idx=index; let even=even;let i = index;">
+                              <th *ngIf="authService.getRol()=='DIRECTOR'">
+                                <input type="checkbox" name="checkbox"
+                                    id="checkbox" [(ngModel)]="projectRequest.isSelected"
+                                    (change)="checkIfAllSelected()" >
+                            </th>
+                                <td>{{projectRequest.userName}}</td>
+                                <td>{{projectRequest.stateNameProjectRequest}}</td>
+                                <td *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'">
+                                    {{projectRequest.details}}</td>
+                                <td *ngIf="authService.getRol()=='DIRECTOR'">
+                                    <textarea class="ui-inputtext col-lg-10 border" [disabled]="projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3" name="txtdetails" id="txtdetails"
+                                        type="text" [value]="projectListRequest[i].details" required></textarea>
+                                </td>
                                 <td>
-                                    <button class="btn btn-md"
-                                    (click)="openModal()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
-                                    name="clean" type="button" >
-                                    Ver información
-                                </button>
+                                    <button class="btn btn-md" (click)="openModal()"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="clean" name="clean" type="button">
+                                        Ver información
+                                    </button>
+                                </td>
+                                <td *ngIf="authService.getRol()=='DIRECTOR'">
+                                    <div class="row" >
+                                        <div class="col-lg-12">
+                                            <button class="btn btn-sm"
+                                                [disabled]="checkedList==0 || projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
+                                                style="border-color:#999999;background-color: #999999;color: white;box-shadow: none;margin-right: 2%;"
+                                                (click)="approvalProject(projectRequestListForm)" id="approvalBtn" name="approvalBtn" type="button">
+                                                Aprobar
+                                            </button>
+                                            <button class="btn btn-sm"
+                                            [disabled]="checkedList==0 ||projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
+                                            style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                            id="declineBtn" name="declineBtn" type="button">
+                                            Rechazar
+                                        </button>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="row" style="text-align: center;">
                         <div class="col-md-12">
-                            <pagination-controls
-                              previousLabel="Atrás"
-                              nextLabel="Siguiente"
-                              [responsive]="true"
-                              (pageChange)="handlePageChange($event)"
-                            ></pagination-controls>
-                          </div>
+                            <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
                     </div>
                     <button class="btn btn-md"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"

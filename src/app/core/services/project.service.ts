@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, map, Observable, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ApprovalRequest } from "../models/approval-request";
 import { AssociatedUserProjectRequest } from "../models/associatedUserProject-request";
 import { CreateProjectRequest } from "../models/create-project-request";
 
@@ -61,6 +62,28 @@ export class ProjectService {
 
   getListProjectRequest(firstState:number, secondState:number, thirdState:number,userName: String, params: any): Observable<any> {
     return this.httpClient.get<any>(`${this.urlEndPoint}/project/findByProjectRequestStateUser/`+firstState+'+'+secondState+'+'+thirdState+'/'+ userName, { params }).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getListProjectRequestByDirector(firstState:number, secondState:number, thirdState:number,userName: String, params: any): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findByProjectRequestState/`+firstState+'+'+secondState+'+'+thirdState+'/'+ userName, { params }).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  approvalProjects(ApprovalRequest:ApprovalRequest): Observable<any> {
+    const allRequest: any = {
+      listProjectRequests:ApprovalRequest.listProjectRequests,
+      projectDirector:ApprovalRequest.projectDirector
+    }
+    return this.httpClient.put<any>(`${this.urlEndPoint}/project/approvalProjects`, allRequest).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

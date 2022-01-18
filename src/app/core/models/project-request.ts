@@ -6,5 +6,9 @@ export class ProjectRequest {
     projectRequestId!: number;
     stateProjectRequest!:StateRequest;
     details!:string;
-     
+    userName!:string;
+    stateNameProjectRequest!:string;
+    stateProjectRequestId!:number;
+    isSelected!:boolean;
+    projectDirector!:string;
 }
