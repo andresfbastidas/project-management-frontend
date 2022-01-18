@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import { ApprovalRequest } from "../models/approval-request";
 import { AssociatedUserProjectRequest } from "../models/associatedUserProject-request";
 import { CreateProjectRequest } from "../models/create-project-request";
+import { DeclineRequest } from "../models/decline-request";
 
 @Injectable({
   providedIn: 'root'
@@ -78,12 +79,26 @@ export class ProjectService {
     );
   }
 
-  approvalProjects(ApprovalRequest:ApprovalRequest): Observable<any> {
+  approvalProjects(approvalRequest:ApprovalRequest): Observable<any> {
     const allRequest: any = {
-      listProjectRequests:ApprovalRequest.listProjectRequests,
-      projectDirector:ApprovalRequest.projectDirector
+      listProjectRequests:approvalRequest.listProjectRequests,
+      projectDirector:approvalRequest.projectDirector,
+      details:approvalRequest.details
     }
     return this.httpClient.put<any>(`${this.urlEndPoint}/project/approvalProjects`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  declineProjects(declineRequest:DeclineRequest): Observable<any> {
+    const allRequest: any = {
+      listProjectRequests:declineRequest.listProjectRequests,
+      details:declineRequest.details
+    }
+    return this.httpClient.put<any>(`${this.urlEndPoint}/project/declineProjects`, allRequest).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

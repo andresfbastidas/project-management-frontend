@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApprovalRequest } from 'src/app/core/models/approval-request';
+import { DeclineRequest } from 'src/app/core/models/decline-request';
 import { ProjectRequest } from 'src/app/core/models/project-request';
 import { StateRequest } from 'src/app/core/models/stateProjectRequest';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -18,8 +19,10 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
 
   paginador: any;
   routerPag: any;
-  page = 0;
-  pageSize = 10;
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
   projectId!: number;
   rowClicked!: any;
   selectedProduct: any;
@@ -32,21 +35,24 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   bsModalRef!: BsModalRef;
   detailsText!: string;
   checkedList: any;
-  selectedAll!:boolean;
-  selectedOption:any;
-  projectDirector!:string;
+  selectedAll!: boolean;
+  selectedOption: any;
+  projectDirector!: string;
+  disabled!: boolean;
+  currentIndex = -1;
   constructor(public authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private genericService: GenericListService,
-    private modalService: BsModalService,  private sharedMessage:SharedService) { }
+    private modalService: BsModalService, private sharedMessage: SharedService) { }
 
   ngOnInit(): void {
     if (this.authService.getRol() == 'DIRECTOR') {
       this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
     } else {
-      this.getListProjectRequestByUserName(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+      this.getListProjectRequestByUserName();
     }
+    this.disabled = false;
     this.getListStateProjectRequest();
-    this.checkedList=0;
+    this.checkedList = 0;
   }
 
   clean(projectRequestListForm: any) {
@@ -76,7 +82,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     let params: any = {};
 
     if (page) {
-      params[`page`] = page - 1;
+      params[`numPage`] = page - 1;
     }
 
     if (pageSize) {
@@ -88,13 +94,15 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.getListProjectRequestByUserName(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+    this.getListProjectRequestByUserName();
+    //this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
   }
 
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getListProjectRequestByUserName(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
+    this.getListProjectRequestByUserName();
+    //this.getListProjectRequestByUserDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), this.page, this.pageSize);
   }
 
 
@@ -118,22 +126,24 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     }
   }
 
-  onNgModelChange($event:any){
-    this.selectedOption=$event;
+  onNgModelChange($event: any) {
+    this.selectedOption = $event;
 
   }
   checkIfAllSelected() {
-    this.selectedAll = this.projectListRequest.every(function(transactions:any) {
-        return transactions.isSelected;
-      })
-      this.getCheckedItemList();
+    this.selectedAll = this.projectListRequest.every(function (transactions: any) {
+      return transactions.isSelected;
+    })
+    this.getCheckedItemList();
   }
 
-  getListProjectRequestByUserName(firstSate: number, secondSate: number, thirdState: number, userName: string, page: number, pageSize: number) {
-    const params = this.getRequestParams(page, pageSize);
-    this.projectService.getListProjectRequest(firstSate, secondSate, thirdState, userName, params).subscribe({
+  getListProjectRequestByUserName() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    console.log(this.page);
+    this.projectService.getListProjectRequest(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), params).subscribe({
       next: (response: any) => {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
+        this.count = response.totalElements;
       },
       error: (err) => {
         this.dialog.show({
@@ -151,6 +161,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
       next: (response: any) => {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
         this.projectDirector = response.listProjectRequests.projectDirector;
+        this.count = response.totalElements;
         for (let index = 0; index < this.projectListRequest.length; index++) {
           const element = this.projectListRequest[index];
           this.projectDirector = element.projectDirector;
@@ -166,15 +177,34 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     });
   }
 
-  approvalProject(createProjectForm: any){
-    let approvalRequest = new ApprovalRequest(this.checkedList, this.projectDirector);
+  approvalProject(createProjectForm: any) {
+    let approvalRequest = new ApprovalRequest(this.checkedList, this.projectDirector, this.detailsText);
     this.projectService.approvalProjects(approvalRequest).subscribe({
-      next: (response: any) =>  {
+      next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(createProjectForm);
       },
       error: (err) => {
-        if(err.status == 500){
+        if (err.status == 500) {
+          this.dialog.show({
+            title: "Error",
+            content: this.dialog.formatError(err),
+            type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+          });
+        }
+      }
+    });
+  }
+
+  declineProject(createProjectForm: any) {
+    let declineRequest = new DeclineRequest(this.checkedList, this.detailsText);
+    this.projectService.declineProjects(declineRequest).subscribe({
+      next: (response: any) => {
+        this.sharedMessage.msgInfo(response.message);
+        this.clean(createProjectForm);
+      },
+      error: (err) => {
+        if (err.status == 500) {
           this.dialog.show({
             title: "Error",
             content: this.dialog.formatError(err),
