@@ -19,21 +19,25 @@ export class EditRemoveUserComponent implements OnInit {
   surnameModel!:string;
   secondSurnameModel!:string;
   selectedProfile!:any;
+  selectedProfileResponse!:any;
   listProfiles!:Array<Profile>;
   hidePassword=true;
   public showPasswordOnPress!: boolean;
+  disabledInputs:boolean=false;
   constructor(private dialog:DialogComponent, private userService:UserService, private sharedMessage: SharedService,
     private genericListService:GenericListService) { }
 
   ngOnInit(): void {
     this.getAllProfilesUser();
+    this.disabledInputs=false;
   }
 
   clean(editRemoveForm: any) {
     editRemoveForm.resetForm();
+    this.disabledInputs=false;
   }
   valueChangeProfile(event: any) {
-    event.target.value = this.selectedProfile;
+    event.target.value = this.selectedProfileResponse;
   }
 
   getAllProfilesUser(){
@@ -51,7 +55,7 @@ export class EditRemoveUserComponent implements OnInit {
         this.surnameModel=response.userapp.surname;
         this.secondSurnameModel=response.userapp.secondSurname;
         this.selectedProfile=response.userapp.profile.profileName;
-        console.log(this.selectedProfile);
+        this.disabledInputs=true;
       },
       error: (err) => {
         if(err.status == 500){

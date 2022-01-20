@@ -18,6 +18,11 @@
                              id="createUserbtn" name="createUserbtn" type="button">
                             Consultar usuario
                         </button>
+                        <button class="btn btn-sm"
+                            style="border-color:#999999;background-color: #999999;color: white;box-shadow: none;margin-left: 2%;"
+                            (click)="clean(editRemoveForm)" id="cleanUserbtn" name="cleanUserbtn" type="button">
+                            Limpiar
+                        </button>
                         <br>
                         <small *ngIf="userName.invalid && userName.touched" class="alert-danger p-2 rounded">
                             <small *ngIf="userName.errors?.['pattern']" class="required">Formato inválido</small>
@@ -32,7 +37,7 @@
                     </div>
                     <div class="col-lg-6">
                         <input type="text" [(ngModel)]="emailModel" id="inputEmail" #email="ngModel" name="inputEmail"
-                            style="width: 200px;margin-bottom: 1%;" required>
+                           [disabled]="disabledInputs==false" style="width: 200px;margin-bottom: 1%;" required>
                         <br>
                         <small *ngIf="email.invalid && email.touched" class="alert-danger p-2 rounded">
                             <small *ngIf="email.errors?.['pattern']" class="required">Formato inválido</small>
@@ -46,8 +51,8 @@
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <input [type]="showPasswordOnPress ? 'text' : 'password'" [(ngModel)]="passwordModel" placeholder="Escriba la conttraseña"
-                            id="inputPassword" #password="ngModel" name="inputPassword"
+                        <input [type]="showPasswordOnPress ? 'text' : 'password'" [(ngModel)]="passwordModel" placeholder="Escriba la nueva conttraseña"
+                        [disabled]="disabledInputs==false"  id="inputPassword" #password="ngModel" name="inputPassword"
                             style="width: 200px;margin-bottom: 1%;" required maxlength="20"
                             [type]="hidePassword ? 'password' : 'text'">
                         <span class="ui-inputgroup-addon pointer">
@@ -66,10 +71,10 @@
                     </div>
                     <div class="col-sm-6" style="width: 260px;">
                         <select name="profileSelect" class="select-text" id="profileSelect" style="width: 85%;"
-                            (change)="valueChangeProfile($event)" [(ngModel)]="selectedProfile" #selectProfile="ngModel"
+                        [disabled]="disabledInputs==false" (change)="valueChangeProfile($event)" [(ngModel)]="selectedProfile" #selectProfile="ngModel"
                             required>
-                            <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
-                            <option [value]="option.profileId" *ngFor="let option of listProfiles;let x = index" 
+                            <option disabled  [value]="selectedProfile">{{selectedProfile}}</option>
+                            <option [value]="option.profileId" *ngFor="let option of listProfiles;" 
                                 class="dropdown-item">
                                 {{option.profileName}}
                             </option>
@@ -83,7 +88,7 @@
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" [(ngModel)]="firstNameModel" id="inputfirstName" #firstName="ngModel"
+                        <input type="text" [disabled]="disabledInputs==false"  [(ngModel)]="firstNameModel" id="inputfirstName" #firstName="ngModel"
                             name="inputfirstName" style="width: 200px;margin-bottom: 1%;" required>
                         <br>
                         <small *ngIf="firstName.invalid && firstName.touched" class="alert-danger p-2 rounded">
@@ -98,7 +103,7 @@
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" [(ngModel)]="secondNameModel" id="inputsecondNameModel" #secondName="ngModel"
+                        <input type="text" [disabled]="disabledInputs==false" [(ngModel)]="secondNameModel" id="inputsecondNameModel" #secondName="ngModel"
                             name="inputsecondNameModel" style="width: 200px;margin-bottom: 1%;">
                         <small *ngIf="secondName.invalid && secondName.touched" class="alert-danger p-2 rounded">
                             <small *ngIf="secondName.errors?.['pattern']" class="required">Formato inválido</small>
@@ -112,7 +117,7 @@
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" [(ngModel)]="surnameModel" id="inputsurname" #surname="ngModel"
+                        <input type="text" [disabled]="disabledInputs==false" [(ngModel)]="surnameModel" id="inputsurname" #surname="ngModel"
                             name="inputsurname" style="width: 200px;margin-bottom: 1%;" required>
                         <br>
                         <small *ngIf="surname.invalid && surname.touched" class="alert-danger p-2 rounded">
@@ -127,7 +132,7 @@
                         </label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" [(ngModel)]="secondSurnameModel" id="inputsecondSurname"
+                        <input type="text" [disabled]="disabledInputs==false" [(ngModel)]="secondSurnameModel" id="inputsecondSurname"
                             #secondSurname="ngModel" name="inputsecondSurname" style="width: 200px;margin-bottom: 1%;">
                         <br>
                         <small *ngIf="secondSurname.invalid && secondSurname.touched" class="alert-danger p-2 rounded">
@@ -137,11 +142,18 @@
                 </div>
                 <br>
                 <div class="row ">
-                    <div class="col-lg-4">
-                        <button class="btn btn-sm"
+                    <div class="col-lg-7" style="text-align: end;">
+                        <button class="btn btn-sm" 
+                        [disabled]="disabledInputs==false" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                             id="createUserbtn" name="createUserbtn" type="button">
+                            Actualizar Usuario
+                        </button>
+                    </div>
+                    <div class="col-lg-5">
+                        <button class="btn btn-sm" [disabled]="disabledInputs==false"
                             style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                            (click)="clean(editRemoveForm)" id="cleanUserbtn" name="cleanUserbtn" type="button">
-                            Limpiar
+                             id="cleanUserbtn" name="cleanUserbtn" type="button">
+                            Borrar Usuario
                         </button>
                     </div>
                 </div>
