@@ -29,6 +29,7 @@
                         </select>
                     </div>
                 </div>
+                <br>
                 Elementos por pagina:
                 <select (change)="handlePageSizeChange($event)">
                   <option *ngFor="let size of pageSizes" [ngValue]="size">
@@ -73,7 +74,7 @@
                                     {{projectRequest.details}}</td>
                                 <td *ngIf="authService.getRol()=='DIRECTOR'">
                                     <textarea class="ui-inputtext col-lg-10 border"  name="txtdetails" id="txtdetails"
-                                        type="text" [ngModel]="detailsText" required></textarea>
+                                    [disabled]="projectRequest.isSelected" id="name" type="text" [ngModel]="detailsText" required></textarea>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm" (click)="openModal()"

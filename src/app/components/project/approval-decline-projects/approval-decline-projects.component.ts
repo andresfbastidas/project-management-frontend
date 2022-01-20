@@ -38,7 +38,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   selectedAll!: boolean;
   selectedOption: any;
   projectDirector!: string;
-  disabled!: boolean;
+  disabled =true;
   currentIndex = -1;
   constructor(public authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private genericService: GenericListService,
@@ -50,7 +50,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     } else {
       this.getListProjectRequestByUserName();
     }
-    this.disabled = false;
+    this.disabled = true;
     this.getListStateProjectRequest();
     this.checkedList = 0;
   }
@@ -167,6 +167,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
       next: (response: any) => {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
         this.count = response.totalElements;
+       
       },
       error: (err) => {
         this.dialog.show({

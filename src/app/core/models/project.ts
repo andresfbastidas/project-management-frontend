@@ -4,8 +4,8 @@ export class Project {
 
     projectId!:number;
     projectTitle!:String;
-    dateFrom!:Date;
-    dateUntil!:Date;
+    dateFrom!:string | null;
+    dateUntil!:string | null;
     generalObjetive!:String;
     justification!:String;
     projectMethology!:String;
@@ -20,7 +20,7 @@ export class Project {
     users!:string;
     createByNames!:string;
 
-    constructor(projectTitle:String, dateFrom:Date, dateUntil:Date, generalObjetive:String,
+    constructor(projectTitle:String, dateFrom:string | null, dateUntil:string | null, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,
         projectSummary:string, specificObjetive:string, projectDirector:string,createBy:string){
         this.projectTitle = projectTitle;

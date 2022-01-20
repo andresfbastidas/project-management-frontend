@@ -14,6 +14,7 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-createproject',
@@ -36,8 +37,8 @@ export class CreateprojectComponent implements OnInit {
   problemInvestigationModel!:string;
   justificationModel!:string;
   generalObjetiveModel!:string;
-  dateFromModel!:Date;
-  dateUntilModel!:Date;
+  dateFromModel!:string;
+  dateUntilModel!:string;
   summaryModel!:string;
   projectMethologyModel!:string;
   researchTypologyModel!:number;
@@ -47,6 +48,7 @@ export class CreateprojectComponent implements OnInit {
   specificObjetives!:string;
   createBy!:string;
   createProjectForm!:NgForm;
+  datePipe = new DatePipe('en-US');
   constructor(private userService:UserService, private genericListService:GenericListService,
     private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService,
    public authService:AuthService) { }
@@ -139,9 +141,14 @@ export class CreateprojectComponent implements OnInit {
     event.target.value = this.researchTypologyModel;
   }
 
+
+  
+
+
   createProject(createProjectForm: any){
+    const formatDate = this.datePipe.transform(this.dateFromModel,"dd-MM-yyyy");
     this.createBy = this.authService.getUser();
-    let project = new Project(this.titleProjectModel, this.dateFromModel, 
+    let project = new Project(this.titleProjectModel,formatDate, 
       this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
       this.specificObjetives, this.selectedDirectorModel,this.createBy);

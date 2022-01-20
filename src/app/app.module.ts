@@ -32,6 +32,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
 import { ModalInformationProjectComponent } from './shared/modal/modal-information-project.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit-remove-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ApprovalDeclineProjectsComponent,
     AddUserProjectComponent,
     ModalInformationProjectComponent,
+    EditRemoveUserComponent,
   ],
   imports: [
     BrowserModule,

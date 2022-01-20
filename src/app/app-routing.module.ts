@@ -9,6 +9,7 @@ import { CreateActivityComponent } from './components/project/activities/create-
 import { CreateUserComponent } from './components/user/create-user/create-user.component';
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
 import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
+import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit-remove-user.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'create-activity', component: CreateActivityComponent },
   { path: 'create-user', component: CreateUserComponent },
   { path: 'approval-projects', component: ApprovalDeclineProjectsComponent },
-  { path: 'add-user-project', component: AddUserProjectComponent }
+  { path: 'add-user-project', component: AddUserProjectComponent },
+  { path: 'edit-user', component: EditRemoveUserComponent }
 ];
 
 @NgModule({

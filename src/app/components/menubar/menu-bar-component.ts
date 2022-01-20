@@ -51,6 +51,11 @@ export class MenuBarComponent implements OnInit {
               icon: 'pi pi-fw pi-file',
               routerLink: ['create-user']
             },
+            {
+              label: 'Editar/Borrar Usuario', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['edit-user']
+            },
         ],
       }
     ];
