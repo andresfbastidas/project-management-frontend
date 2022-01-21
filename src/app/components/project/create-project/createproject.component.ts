@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 export class CreateprojectComponent implements OnInit {
 
   selectedOption:any;
+  userApp = {} as any;
   deliveriesList!:Array<Delivery>;
   researchTypologys!:Array<ResearchTypology>;
   userListProfile!:Array<UserApp>;
@@ -153,8 +154,7 @@ export class CreateprojectComponent implements OnInit {
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
       this.specificObjetives, this.selectedDirectorModel,this.createBy);
       let state = new State(this.selectedStateModel);
-      let profile = new Profile();
-      let userapp = new UserApp("","","","","","",this.authService.getUser());
+      let userapp = new UserApp("","","","","","",this.authService.getUser(), this.userApp.profile);
      this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
      this.projectService.createProject(this.createProjectRequest).subscribe({
       next: (response: any) =>  {

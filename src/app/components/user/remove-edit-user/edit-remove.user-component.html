@@ -73,8 +73,8 @@
                         <select name="profileSelect" class="select-text" id="profileSelect" style="width: 85%;"
                         [disabled]="disabledInputs==false" (change)="valueChangeProfile($event)" [(ngModel)]="selectedProfile" #selectProfile="ngModel"
                             required>
-                            <option disabled  [value]="selectedProfile">{{selectedProfile}}</option>
-                            <option [value]="option.profileId" *ngFor="let option of listProfiles;" 
+                            <option disabled default [ngValue]="selectedProfile">{{selectedProfile}}</option>
+                            <option  [ngValue]="option" *ngFor="let option of listProfiles;" 
                                 class="dropdown-item">
                                 {{option.profileName}}
                             </option>
@@ -145,14 +145,14 @@
                     <div class="col-lg-7" style="text-align: end;">
                         <button class="btn btn-sm" 
                         [disabled]="disabledInputs==false" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                             id="createUserbtn" name="createUserbtn" type="button">
+                            (click)="updateUser(editRemoveForm)" id="updateuser" name="updateuser" type="button">
                             Actualizar Usuario
                         </button>
                     </div>
                     <div class="col-lg-5">
                         <button class="btn btn-sm" [disabled]="disabledInputs==false"
                             style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                             id="cleanUserbtn" name="cleanUserbtn" type="button">
+                             id="removeUser" name="removeUser" type="button">
                             Borrar Usuario
                         </button>
                     </div>

@@ -1,11 +1,9 @@
+import { Profile } from "./profile";
 import { UserApp } from "./userApp";
 
 export class SignupRequest{
     userapp!:UserApp;
-    profileId!:number;
-
-    constructor(userapp:UserApp, profileId:number){
+    constructor(userapp:UserApp){
         this.userapp = userapp;
-        this.profileId = profileId;
     }
 }
