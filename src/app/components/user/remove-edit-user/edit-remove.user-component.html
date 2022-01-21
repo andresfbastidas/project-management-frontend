@@ -74,7 +74,7 @@
                         [disabled]="disabledInputs==false" (change)="valueChangeProfile($event)" [(ngModel)]="selectedProfile" #selectProfile="ngModel"
                             required>
                             <option disabled default [ngValue]="selectedProfile">{{selectedProfile}}</option>
-                            <option  [ngValue]="option" *ngFor="let option of listProfiles;" 
+                            <option  [ngValue]="option.profileName" *ngFor="let option of listProfiles;" 
                                 class="dropdown-item">
                                 {{option.profileName}}
                             </option>

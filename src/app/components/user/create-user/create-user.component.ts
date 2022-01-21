@@ -20,7 +20,7 @@ export class CreateUserComponent implements OnInit {
   secondNameModel!:string;
   surnameModel!:string;
   secondSurnameModel!:string;
-  selectedProfile!:Profile;
+  selectedProfile!:any;
   listProfiles!:Array<Profile>;
   signupRequest!:SignupRequest;
   hidePassword=true;
@@ -46,7 +46,7 @@ export class CreateUserComponent implements OnInit {
  }
 
   createUser(createUserForm: any){
-    let profile = new Profile(this.selectedProfile.profileId, this.selectedProfile.profileName);
+    let profile = new Profile(this.selectedProfile, this.selectedProfile);
     let userApp = new UserApp(this.emailModel, this.firstNameModel, this.passwordModel,
       this.secondNameModel, this.secondSurnameModel, this.surnameModel, 
       this.userNameModel, profile);

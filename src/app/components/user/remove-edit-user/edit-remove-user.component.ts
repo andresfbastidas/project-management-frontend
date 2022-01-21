@@ -43,6 +43,7 @@ export class EditRemoveUserComponent implements OnInit {
   }
   valueChangeProfile(event: any) {
     event.target.value = this.selectedProfile;
+    console.log(event.target);
   }
 
 
