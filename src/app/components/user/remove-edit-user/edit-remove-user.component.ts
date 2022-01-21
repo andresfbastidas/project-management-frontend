@@ -72,7 +72,6 @@ export class EditRemoveUserComponent implements OnInit {
         this.secondSurnameModel = response.userapp.secondSurname;
         this.selectedProfile = response.userapp.profile.profileName;
         this.selectedProfileId = response.userapp.profile.profileId;
-        this.passwordModel = response.userapp.password;
         this.disabledInputs = true;
       },
       error: (err) => {

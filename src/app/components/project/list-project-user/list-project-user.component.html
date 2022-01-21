@@ -8,6 +8,12 @@
                 No hay proyectos asignados.
             </div>
             <form #projectListForm="ngForm">
+                Elementos por pagina:
+                <select (change)="handlePageSizeChange($event)">
+                  <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
                 <div class="table-responsive">
                     <table id="tbl-list" style="text-align: center;"
                         class="table table-bordered table-hover caption-top border-color">
@@ -28,8 +34,9 @@
                         <tbody>
                             <tr *ngFor="let project of projectList | paginate : {
                                 itemsPerPage: pageSize,
-                                currentPage: page
-                              };let idx=index; let even=even"
+                                currentPage: page,
+                                totalItems: count
+                              };let idx=index; let even=even" [class.active]="idx == currentIndex"
                                 (click)="RowSelected(project)"
                                 [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
                                 (click)="changeTableRowColor(idx)">
@@ -59,12 +66,8 @@
                     </table>
                     <div class="row" style="text-align: center;">
                         <div class="col-md-12">
-                            <pagination-controls
-                              previousLabel="Atrás"
-                              nextLabel="Siguiente"
-                              [responsive]="true"
-                              (pageChange)="handlePageChange($event)"
-                            ></pagination-controls>
+                            <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
+                            (pageChange)="handlePageChange($event)"></pagination-controls>
                           </div>
                     </div>
                     <button class="btn btn-md"

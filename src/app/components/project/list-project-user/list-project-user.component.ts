@@ -17,12 +17,15 @@ export class ListProjectUserComponent implements OnInit {
   projectList!: Array<Project>;
   projectListForm!: NgForm;
   selectedProduct: any;
+  page = 1;
+  count = 0;
+  pageSize = 4;
+  pageSizes = [4, 8, 12];
+  currentIndex = -1;
   rowClicked!: any;
   enabled!: boolean;
   paginador: any;
   routerPag: any;
-  page=0;
-  pageSize=10;
   projectId!:number;
   @Output() projectEvent = new EventEmitter<any>();
 
@@ -31,7 +34,7 @@ export class ListProjectUserComponent implements OnInit {
     private router: Router, private readonly activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-      this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+      this.getListProjectsByUserName();
     
   }
 
@@ -68,7 +71,7 @@ export class ListProjectUserComponent implements OnInit {
     let params: any = {};
 
     if (page) {
-      params[`page`] = page - 1;
+      params[`numPage`] = page - 1;
     }
 
     if (pageSize) {
@@ -80,20 +83,21 @@ export class ListProjectUserComponent implements OnInit {
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+    this.getListProjectsByUserName();
   }
 
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.getListProjectsByUserName(this.authService.getUser(), this.page, this.pageSize);
+    this.getListProjectsByUserName();
   }
 
-  getListProjectsByUserName(userName: string, page:number, pageSize:number) {
-    const params = this.getRequestParams(page, pageSize);
-    this.projectService.getListProjectsByUserName(userName, params).subscribe({
+  getListProjectsByUserName() {
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.projectService.getListProjectsByUserName(this.authService.getUser(), params).subscribe({
       next: (response: any) => {
         this.projectList = response.projectList as Array<Project>;
+        this.count = response.totalElements;
       },
       error: (err) => {
         this.dialog.show({
