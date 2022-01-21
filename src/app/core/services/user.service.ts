@@ -43,8 +43,11 @@ export class UserService {
     );
   }
 
-  updateUser(params: any, operations: any): Observable<any> {
-    return this.httpClient.patch<any>(`${this.urlEndPoint}/user/updateUser`, operations,{ params }).pipe(
+  updateUser(signupRequest: SignupRequest): Observable<any> {
+    const allRequest: any = {
+      userapp: signupRequest.userapp,
+    }
+    return this.httpClient.put<any>(`${this.urlEndPoint}/user/updateUser`, allRequest).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

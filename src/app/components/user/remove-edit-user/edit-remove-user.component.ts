@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/core/services/shared.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 import { UserApp } from 'src/app/core/models/userApp';
-import { generate } from 'json-merge-patch'
+import { SignupRequest } from 'src/app/core/models/signup-request';
 
 @Component({
   selector: 'app-edit-remove-user',
@@ -26,9 +26,9 @@ export class EditRemoveUserComponent implements OnInit {
   hidePassword = true;
   public showPasswordOnPress!: boolean;
   disabledInputs: boolean = false;
-  userCopy!: UserApp;
-  newUser!: UserApp;
   patch!: any;
+  newUser!:UserApp;
+  signupRequest!:SignupRequest;
   constructor(private dialog: DialogComponent, private userService: UserService, private sharedMessage: SharedService,
     private genericListService: GenericListService) { }
 
@@ -53,6 +53,15 @@ export class EditRemoveUserComponent implements OnInit {
     })
   }
 
+  getRequestParams(userName: string): any {
+    let params: any = {};
+
+    if (userName) {
+      params[`userName`] = userName;
+    }
+    return params;
+  }
+
   findUser() {
     this.userService.findUserName(this.userNameModel).subscribe({
       next: (response: any) => {
@@ -65,7 +74,6 @@ export class EditRemoveUserComponent implements OnInit {
         this.selectedProfileId = response.userapp.profile.profileId;
         this.passwordModel = response.userapp.password;
         this.disabledInputs = true;
-        this.userCopy = response.userapp;
       },
       error: (err) => {
         if (err.status == 500) {
@@ -80,23 +88,12 @@ export class EditRemoveUserComponent implements OnInit {
   }
 
 
-  getRequestParams(userName: string): any {
-    let params: any = {};
-
-    if (userName) {
-      params[`userName`] = userName;
-    }
-    return params;
-  }
-
   updateUser(editRemoveForm: any) {
-    const params = this.getRequestParams(this.userNameModel);
     const profile = new Profile(this.selectedProfileId, this.selectedProfile);
     this.newUser = new UserApp(this.emailModel, this.firstNameModel, this.passwordModel, this.secondNameModel,
       this.secondSurnameModel, this.surnameModel, this.userNameModel, profile);
-    this.patch = generate(this.userCopy, this.newUser);
-
-    this.userService.updateUser(params, this.patch).subscribe({
+      this.signupRequest = new SignupRequest(this.newUser);
+    this.userService.updateUser(this.signupRequest).subscribe({
       next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(editRemoveForm);
