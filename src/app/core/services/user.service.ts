@@ -52,5 +52,14 @@ export class UserService {
     );
   }
 
+  deleteUser(params: any): Observable<any> {
+    return this.httpClient.delete<any>(`${this.urlEndPoint}/user/deleteUser`,{ params }).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
 
 }

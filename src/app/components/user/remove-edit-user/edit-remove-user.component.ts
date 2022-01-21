@@ -94,14 +94,14 @@ export class EditRemoveUserComponent implements OnInit {
     this.newUser = new UserApp(this.emailModel, this.firstNameModel, this.passwordModel, this.secondNameModel,
       this.secondSurnameModel, this.surnameModel, this.userNameModel, profile);
     this.patch = generate(this.userCopy, this.newUser);
-    
+
     this.userService.updateUser(params, this.patch).subscribe({
-      next: (response: any) =>  {
+      next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(editRemoveForm);
       },
       error: (err) => {
-        if(err.status == 500){
+        if (err.status == 500) {
           this.dialog.show({
             title: "Error",
             content: this.dialog.formatError(err),
@@ -110,6 +110,24 @@ export class EditRemoveUserComponent implements OnInit {
         }
       }
     });
-    
+  }
+
+  deleteUser(editRemoveForm: any){
+    const params = this.getRequestParams(this.userNameModel);
+    this.userService.deleteUser(params).subscribe({
+      next: (response: any) => {
+        this.sharedMessage.msgInfo(response.message);
+        this.clean(editRemoveForm);
+      },
+      error: (err) => {
+        if (err.status == 500) {
+          this.dialog.show({
+            title: "Error",
+            content: this.dialog.formatError(err),
+            type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+          });
+        }
+      }
+    });
   }
 }
