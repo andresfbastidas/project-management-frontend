@@ -34,7 +34,7 @@ export class EditRemoveUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProfilesUser();
-    this.disabledInputs = true;
+    this.disabledInputs = false;
   }
 
   clean(editRemoveForm: any) {
@@ -43,7 +43,6 @@ export class EditRemoveUserComponent implements OnInit {
   }
   valueChangeProfile(event: any) {
     event.target.value = this.selectedProfile;
-    console.log(this.selectedProfile);
   }
 
 
