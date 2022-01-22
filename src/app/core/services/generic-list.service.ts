@@ -29,17 +29,8 @@ export class GenericListService {
     );
   }
 
-  getStates(): Observable<any> {
-    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findStatesProgressAvalaible`).pipe(
-      map((response: any) => response),
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
-  }
-
-  getStateSolini(): Observable<any> {
-    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findStateSolini`).pipe(
+  getAllStates(solini:number, decline:number, finished:number, progress:number, avalaible:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/genericList/findAllStatesProjects/`+solini+'+'+decline+'+'+finished+'+'+progress+'+'+avalaible).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

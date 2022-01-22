@@ -32,6 +32,11 @@ export class CreateprojectComponent implements OnInit {
   stateSolini!:Array<State>;
   selectedAll!:boolean;
   checkedList: any;
+  solini:number =1;
+  decline:number=2;
+  finished:number=3;
+  progress:number = 4;
+  avalaible:number = 5;
   idDelivery!: number;
   titleProjectModel!:String;
   selectedDirectorModel!:string;
@@ -59,7 +64,7 @@ export class CreateprojectComponent implements OnInit {
      this.getResearchTypologys();
      this.getUsersDirectors();
      if(this.authService.getRol() == 'DIRECTOR'){
-      this.getStates();
+      this.getStatesProgressAvalaible();
      }else{
        this.getStateSolini();
      }
@@ -84,17 +89,17 @@ export class CreateprojectComponent implements OnInit {
      })
   }
 
-  getStates(){
-    this.genericListService.getStates().subscribe(response => {
+  getStateSolini(){
+    this.genericListService.getAllStates(this.solini, 0, 0, 0, 0).subscribe(response => {
+      this.stateSolini = response.genericList as Array<State>;
+    });
+  }
+  getStatesProgressAvalaible(){
+    this.genericListService.getAllStates(0, 0, 0, this.progress, this.avalaible).subscribe(response => {
       this.statesList = response.genericList as Array<State>;
     });
   }
 
-  getStateSolini(){
-    this.genericListService.getStateSolini().subscribe(response => {
-      this.stateSolini = response.genericList as Array<State>;
-    });
-  }
 
   getCheckedItemList() {
     this.checkedList = [];
