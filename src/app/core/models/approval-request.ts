@@ -1,10 +1,8 @@
 export class ApprovalRequest{
     listProjectRequests!:any;
-    projectDirector!:string
-    details!:string
-    constructor(listProjectRequests:any, projectDirector:string, details:string){
+    projectDirector!:string;
+    constructor(listProjectRequests:any, projectDirector:string){
         this.listProjectRequests = listProjectRequests;
         this.projectDirector = projectDirector;
-        this.details = details;
     }
 }

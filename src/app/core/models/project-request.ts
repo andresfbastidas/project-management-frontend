@@ -4,11 +4,10 @@ import { StateRequest } from "./stateProjectRequest";
 export class ProjectRequest {
     project!:Project;
     projectRequestId!: number;
-    stateProjectRequest!:StateRequest;
+    stateProjectRequestId!:number;
+    stateNameProjectRequest!:string;
     details!:string;
     userName!:string;
-    stateNameProjectRequest!:string;
-    stateProjectRequestId!:number;
-    isSelected!:boolean;
     projectDirector!:string;
+    isSelected!:boolean;
 }

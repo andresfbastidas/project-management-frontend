@@ -82,8 +82,7 @@ export class ProjectService {
   approvalProjects(approvalRequest:ApprovalRequest): Observable<any> {
     const allRequest: any = {
       listProjectRequests:approvalRequest.listProjectRequests,
-      projectDirector:approvalRequest.projectDirector,
-      details:approvalRequest.details
+      projectDirector:approvalRequest.projectDirector
     }
     return this.httpClient.put<any>(`${this.urlEndPoint}/project/approvalProjects`, allRequest).pipe(
       map((response: any) => response),
@@ -95,8 +94,7 @@ export class ProjectService {
 
   declineProjects(declineRequest:DeclineRequest): Observable<any> {
     const allRequest: any = {
-      listProjectRequests:declineRequest.listProjectRequests,
-      details:declineRequest.details
+      listProjectRequests:declineRequest.listProjectRequests
     }
     return this.httpClient.put<any>(`${this.urlEndPoint}/project/declineProjects`, allRequest).pipe(
       map((response: any) => response),

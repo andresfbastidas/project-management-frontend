@@ -49,7 +49,7 @@
                                 </th>
                                 <th scope="col" style="width: 110px;color: white;">Nombre de usuario</th>
                                 <th scope="col" style="width: 110px;color: white;">Estado solicitud del proyecto</th>
-                                <th scope="col" style="width: 110px;color: white;">Comentario</th>
+                                <th *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'" scope="col" style="width: 110px;color: white;">Comentario</th>
                                 <th  *ngIf="authService.getRol()=='DIRECTOR'" scope="col" style="width: 130px;color: white;">Añadir Comentario</th>
                                 <th scope="col" style="width: 110px;color: white;">Información completa del proyecto
                                 </th>
@@ -70,11 +70,11 @@
                             </th>
                                 <td>{{projectRequest.userName}}</td>
                                 <td>{{projectRequest.stateNameProjectRequest}}</td>
-                                <td >
+                                <td *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'">
                                     {{projectRequest.details}}</td>
                                 <td *ngIf="authService.getRol()=='DIRECTOR'">
                                     <textarea class="ui-inputtext col-lg-10 border"  name="txtdetails" id="txtdetails"
-                                    [disabled]="projectRequest.isSelected" id="name" type="text" [ngModel]="detailsText" required></textarea>
+                                     id="name" type="text" [(ngModel)]="projectRequest.details" required></textarea>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm" (click)="openModal()"
@@ -87,13 +87,13 @@
                                     <div class="row" >
                                         <div class="col-lg-12">
                                             <button class="btn btn-sm"
-                                                [disabled]="checkedList==0 || projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
+                                                [disabled]="projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
                                                 style="border-color:#999999;background-color: #999999;color: white;box-shadow: none;margin-right: 2%;"
                                                 (click)="approvalProject(projectRequestListForm)" id="approvalBtn" name="approvalBtn" type="button">
                                                 Aprobar
                                             </button>
                                             <button class="btn btn-sm"
-                                            [disabled]="checkedList==0 ||projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
+                                            [disabled]="projectRequest.stateProjectRequestId==2 || projectRequest.stateProjectRequestId==3"
                                             (click)="declineProject(projectRequestListForm)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                             id="declineBtn" name="declineBtn" type="button">
                                             Rechazar

@@ -29,7 +29,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   firstState: number = 1;
   secondState: number = 2;
   thirdState: number = 3;
-  projectListRequest!: Array<ProjectRequest>;
+  projectListRequest: Array<ProjectRequest>= [];
   listStateProjectRequest!: Array<StateRequest>;
   selectedState!: any;
   bsModalRef!: BsModalRef;
@@ -69,11 +69,13 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   }
 
   openModal() {
+    console.log(this.projectListRequest);
     this.bsModalRef = this.modalService.show(ModalInformationProjectComponent, {
       animated: true,
       backdrop: 'static',
       class: 'modal-md'
     });
+
   }
 
   getListStateProjectRequest() {
@@ -147,6 +149,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
         this.checkedList.push(this.projectListRequest[i]);
       }
     }
+    console.log(this.checkedList);
   }
 
   onNgModelChange($event: any) {
@@ -162,12 +165,11 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
 
   getListProjectRequestByUserName() {
     const params = this.getRequestParams(this.page, this.pageSize);
-    console.log(this.page);
     this.projectService.getListProjectRequest(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), params).subscribe({
       next: (response: any) => {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
         this.count = response.totalElements;
-       
+        this.detailsText = response.listProjectRequests.details;
       },
       error: (err) => {
         this.dialog.show({
@@ -179,6 +181,11 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     });
   }
 
+  refresh(){
+    this.getListProjectRequestByUserDirector();
+    this.getListProjectRequestByUserName();
+  }
+
   getListProjectRequestByUserDirector() {
     const params = this.getRequestParams(this.page, this.pageSize);
     this.projectService.getListProjectRequestByDirector(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), params).subscribe({
@@ -186,10 +193,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
         this.projectListRequest = response.listProjectRequests as Array<ProjectRequest>;
         this.projectDirector = response.listProjectRequests.projectDirector;
         this.count = response.totalElements;
-        for (let index = 0; index < this.projectListRequest.length; index++) {
-          const element = this.projectListRequest[index];
-          this.projectDirector = element.projectDirector;
-        }
+        //this.refresh();
       },
       error: (err) => {
         this.dialog.show({
@@ -202,11 +206,12 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   }
 
   approvalProject(createProjectForm: any) {
-    let approvalRequest = new ApprovalRequest(this.checkedList, this.projectDirector, this.detailsText);
+    let approvalRequest = new ApprovalRequest(this.checkedList, this.authService.getUser());
     this.projectService.approvalProjects(approvalRequest).subscribe({
       next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(createProjectForm);
+        this.refresh();
       },
       error: (err) => {
         if (err.status == 500) {
@@ -221,7 +226,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   }
 
   declineProject(createProjectForm: any) {
-    let declineRequest = new DeclineRequest(this.checkedList, this.detailsText);
+    let declineRequest = new DeclineRequest(this.checkedList);
     this.projectService.declineProjects(declineRequest).subscribe({
       next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
