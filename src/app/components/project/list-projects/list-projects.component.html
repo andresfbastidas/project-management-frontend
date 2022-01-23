@@ -1,0 +1,39 @@
+<div id="list-all-projects-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Proyectos Asignados
+    </div>
+    <div class="card-body">
+        <div *ngIf="projectList?.length==0" class="alert alert-info my-a mat-elevation-z1">
+            No hay proyectos asignados.
+        </div>
+        <form #projectListForm="ngForm">
+            Elementos por pagina:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+            <div class="table-responsive">
+                <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de proyectos</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 100px;color: white;">Nombre del Proyecto</th>
+                                <th scope="col" style="width: 100px;color: white;">Nombre del Proyecto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectList | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };let idx=index; let even=even" [class.active]="idx == currentIndex">
+                                <td>{{project.projectTitle}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </form>
+    </div>
+</div>

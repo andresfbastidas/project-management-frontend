@@ -30,6 +30,11 @@ export class MenuBarComponent implements OnInit {
               label: 'Añadir usuario a proyecto', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['add-user-project']
+            },
+            {
+              label: 'Listado de proyectos', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['list-projects']
             }
         ],
       },
@@ -73,6 +78,11 @@ export class MenuBarComponent implements OnInit {
               label: 'Proyectos asignados', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['list-project-user']
+            },
+            {
+              label: 'Listado de proyectos', 
+              icon: 'pi pi-fw pi-file',
+              routerLink: ['list-projects']
             }
         ]
       },

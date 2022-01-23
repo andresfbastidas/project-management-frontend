@@ -10,6 +10,7 @@ import { CreateUserComponent } from './components/user/create-user/create-user.c
 import { ApprovalDeclineProjectsComponent } from './components/project/approval-decline-projects/approval-decline-projects.component';
 import { AddUserProjectComponent } from './components/project/add-user-project/add-user-project.component';
 import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit-remove-user.component';
+import { ListProjectsComponent } from './components/project/list-projects/list-projects.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'create-user', component: CreateUserComponent },
   { path: 'approval-projects', component: ApprovalDeclineProjectsComponent },
   { path: 'add-user-project', component: AddUserProjectComponent },
-  { path: 'edit-user', component: EditRemoveUserComponent }
+  { path: 'edit-user', component: EditRemoveUserComponent },
+  { path: 'list-projects', component: ListProjectsComponent }
 ];
 
 @NgModule({

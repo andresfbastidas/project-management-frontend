@@ -22,79 +22,79 @@ import { DatePipe } from '@angular/common';
 })
 export class CreateprojectComponent implements OnInit {
 
-  selectedOption:any;
+  selectedOption: any;
   userApp = {} as any;
-  deliveriesList!:Array<Delivery>;
-  researchTypologys!:Array<ResearchTypology>;
-  userListProfile!:Array<UserApp>;
-  userListProfileS!:Array<UserApp>;
-  statesList!:Array<State>;
-  stateSolini!:Array<State>;
-  selectedAll!:boolean;
+  deliveriesList!: Array<Delivery>;
+  researchTypologys!: Array<ResearchTypology>;
+  userListProfile!: Array<UserApp>;
+  userListProfileS!: Array<UserApp>;
+  statesList!: Array<State>;
+  stateSolini!: Array<State>;
+  selectedAll!: boolean;
   checkedList: any;
-  solini:number =1;
-  decline:number=2;
-  finished:number=3;
-  progress:number = 4;
-  avalaible:number = 5;
+  solini: number = 1;
+  decline: number = 2;
+  finished: number = 3;
+  progress: number = 4;
+  avalaible: number = 5;
   idDelivery!: number;
-  titleProjectModel!:String;
-  selectedDirectorModel!:string;
-  problemInvestigationModel!:string;
-  justificationModel!:string;
-  generalObjetiveModel!:string;
-  dateFromModel!:string;
-  dateUntilModel!:string;
-  summaryModel!:string;
-  projectMethologyModel!:string;
-  researchTypologyModel!:number;
-  selectedStateModel!:any;
-  createProjectRequest!:CreateProjectRequest;
-  state!:State;
-  specificObjetives!:string;
-  createBy!:string;
-  createProjectForm!:NgForm;
+  titleProjectModel!: String;
+  selectedDirectorModel!: string;
+  problemInvestigationModel!: string;
+  justificationModel!: string;
+  generalObjetiveModel!: string;
+  dateFromModel!: string;
+  dateUntilModel!: string;
+  summaryModel!: string;
+  projectMethologyModel!: string;
+  researchTypologyModel!: number;
+  selectedStateModel!: any;
+  createProjectRequest!: CreateProjectRequest;
+  state!: State;
+  specificObjetives!: string;
+  createBy!: string;
+  createProjectForm!: NgForm;
   datePipe = new DatePipe('en-US');
-  constructor(private userService:UserService, private genericListService:GenericListService,
-    private projectService:ProjectService, private dialog:DialogComponent, private sharedMessage:SharedService,
-   public authService:AuthService) { }
+  constructor(private userService: UserService, private genericListService: GenericListService,
+    private projectService: ProjectService, private dialog: DialogComponent, private sharedMessage: SharedService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
-     this.getDeliveries();
-     this.getResearchTypologys();
-     this.getUsersDirectors();
-     if(this.authService.getRol() == 'DIRECTOR'){
+    this.getDeliveries();
+    this.getResearchTypologys();
+    this.getUsersDirectors();
+    if (this.authService.getRol() == 'DIRECTOR') {
       this.getStatesProgressAvalaible();
-     }else{
-       this.getStateSolini();
-     }
-     this.checkedList=0;
+    } else {
+      this.getStateSolini();
+    }
+    this.checkedList = 0;
   }
 
-  getDeliveries(){
+  getDeliveries() {
     this.genericListService.getDeliveries().subscribe(response => {
       this.deliveriesList = response.genericList as Array<Delivery>;
     });
   }
 
-  getResearchTypologys(){
+  getResearchTypologys() {
     this.genericListService.getResearchTypologys().subscribe(response => {
       this.researchTypologys = response.genericList as Array<ResearchTypology>;
     });
   }
 
-  getUsersDirectors(){
-     this.userService.getUsersProfileDirectors().subscribe(response =>{
-       this.userListProfile = response.genericList as Array<UserApp>
-     })
+  getUsersDirectors() {
+    this.userService.getUsersProfileDirectors().subscribe(response => {
+      this.userListProfile = response.genericList as Array<UserApp>
+    })
   }
 
-  getStateSolini(){
+  getStateSolini() {
     this.genericListService.getAllStates(this.solini, 0, 0, 0, 0).subscribe(response => {
       this.stateSolini = response.genericList as Array<State>;
     });
   }
-  getStatesProgressAvalaible(){
+  getStatesProgressAvalaible() {
     this.genericListService.getAllStates(0, 0, 0, this.progress, this.avalaible).subscribe(response => {
       this.statesList = response.genericList as Array<State>;
     });
@@ -120,14 +120,14 @@ export class CreateprojectComponent implements OnInit {
 
 
   checkIfAllSelected() {
-    this.selectedAll = this.deliveriesList.every(function(transactions:any) {
-        return transactions.isSelected;
-      })
-      this.getCheckedItemList();
+    this.selectedAll = this.deliveriesList.every(function (transactions: any) {
+      return transactions.isSelected;
+    })
+    this.getCheckedItemList();
   }
 
-  onNgModelChange($event:any){
-    this.selectedOption=$event;
+  onNgModelChange($event: any) {
+    this.selectedOption = $event;
 
   }
 
@@ -147,27 +147,24 @@ export class CreateprojectComponent implements OnInit {
     event.target.value = this.researchTypologyModel;
   }
 
-
-  
-
-
-  createProject(createProjectForm: any){
-    const formatDate = this.datePipe.transform(this.dateFromModel,"dd-MM-yyyy");
+  createProject(createProjectForm: any) {
+    const formatDateFrom = this.datePipe.transform(this.dateFromModel, "dd-MM-yyyy");
+    const formatDateUntil = this.datePipe.transform(this.dateUntilModel, "dd-MM-yyyy");
     this.createBy = this.authService.getUser();
-    let project = new Project(this.titleProjectModel,formatDate, 
-      this.dateUntilModel, this.generalObjetiveModel,this.justificationModel, 
+    let project = new Project(this.titleProjectModel, formatDateFrom,
+      formatDateUntil, this.generalObjetiveModel, this.justificationModel,
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
-      this.specificObjetives, this.selectedDirectorModel,this.createBy);
-      let state = new State(this.selectedStateModel);
-      let userapp = new UserApp("","","","","","",this.authService.getUser(), this.userApp.profile);
-     this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
-     this.projectService.createProject(this.createProjectRequest).subscribe({
-      next: (response: any) =>  {
+      this.specificObjetives, this.selectedDirectorModel, this.createBy);
+    let state = new State(this.selectedStateModel);
+    let userapp = new UserApp("", "", "", "", "", "", this.authService.getUser(), this.userApp.profile);
+    this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
+    this.projectService.createProject(this.createProjectRequest).subscribe({
+      next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(createProjectForm);
       },
       error: (err) => {
-        if(err.status == 500){
+        if (err.status == 500) {
           this.dialog.show({
             title: "Error",
             content: this.dialog.formatError(err),
