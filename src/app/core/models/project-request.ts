@@ -8,6 +8,7 @@ export class ProjectRequest {
     stateNameProjectRequest!:string;
     details!:string;
     userName!:string;
+    projectId!:number;
     projectDirector!:string;
     isSelected!:boolean;
 }

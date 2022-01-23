@@ -34,6 +34,7 @@ import { ModalInformationProjectComponent } from './shared/modal/modal-informati
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit-remove-user.component';
 import { ListProjectsComponent } from './components/project/list-projects/list-projects.component';
+import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { ListProjectsComponent } from './components/project/list-projects/list-p
     ModalInformationProjectComponent,
     EditRemoveUserComponent,
     ListProjectsComponent,
+    EditProjectComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,6 +55,7 @@
                                 </th>
                                 <th *ngIf="authService.getRol()=='DIRECTOR'" scope="col"
                                     style="width: 160px;color: white;">Aprobar/rechazar proyecto</th>
+                                    <th *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'" scope="col" style="width: 110px;color: white;">Editar solicitud</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,6 +82,13 @@
                                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                         id="clean" name="clean" type="button">
                                         Ver información
+                                    </button>
+                                </td>
+                                <td *ngIf="authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'">
+                                    <button class="btn btn-sm" (click)="getProjectId(projectRequest.projectId, projectRequest.projectRequestId)"
+                                       [disabled]="projectRequest.stateProjectRequestId==1 || projectRequest.stateProjectRequestId==2" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="clean" name="clean" type="button">
+                                        Editar solicitud
                                     </button>
                                 </td>
                                 <td *ngIf="authService.getRol()=='DIRECTOR'">

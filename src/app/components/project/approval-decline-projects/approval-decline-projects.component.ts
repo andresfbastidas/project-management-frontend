@@ -163,6 +163,10 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     this.getCheckedItemList();
   }
 
+  getProjectId(projectId:any, projectRequestId:any){
+    console.log(projectId, projectRequestId);
+  }
+
   getListProjectRequestByUserName() {
     const params = this.getRequestParams(this.page, this.pageSize);
     this.projectService.getListProjectRequest(this.firstState, this.secondState, this.thirdState, this.authService.getUser(), params).subscribe({
