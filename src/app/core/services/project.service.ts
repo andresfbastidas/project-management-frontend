@@ -104,8 +104,8 @@ export class ProjectService {
     );
   }
 
-  getAllProjectsByState(stateId: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsState/` + stateId).pipe(
+  getAllProjectsByState(stateId: number, params:any): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsState/` + stateId, {params}).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

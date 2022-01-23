@@ -4,7 +4,6 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { State } from 'src/app/core/models/state';
-
 @Component({
   selector: 'app-list-projects',
   templateUrl: './list-projects.component.html'
@@ -14,11 +13,11 @@ export class ListProjectsComponent implements OnInit {
   projectList!: Array<Project>;
   page = 1;
   count = 0;
-  pageSize = 4;
-  pageSizes = [4, 8, 12];
+  pageSize = 5;
+  pageSizes = [5, 10, 15];
   currentIndex = -1;
   selectedState!: any;
-  stateProject:number=4;
+  stateProject:number=5;
   solini:number =1;
   decline:number=2;
   finished:number=3;
@@ -30,6 +29,7 @@ export class ListProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProjects();
+    this.getStatesProject();
   }
   getStatesProject(){
     this.genericService.getAllStates(0, this.decline, this.finished, this.progress, this.avalaible).subscribe(response => {
@@ -53,9 +53,24 @@ export class ListProjectsComponent implements OnInit {
     this.getAllProjects();
   }
 
+  getRequestParams(page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (page) {
+      params[`numPage`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
 
   getAllProjects() {
-    this.projectService.getAllProjectsByState(this.stateProject).subscribe({
+    const params = this.getRequestParams(this.page, this.pageSize);
+    this.projectService.getAllProjectsByState(this.stateProject, params).subscribe({
       next: (response: any) => {
         this.projectList = response.projectList as Array<Project>;
         this.count = response.totalElements;

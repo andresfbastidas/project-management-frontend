@@ -1,3 +1,4 @@
+import { StringMapWithRename } from "@angular/compiler/src/compiler_facade_interface";
 import { State } from "./state";
 
 export class Project {
@@ -19,6 +20,9 @@ export class Project {
     createBy!:string;
     users!:string;
     createByNames!:string;
+    deliverys!:string;
+    stateName!:string;
+    typologyDescription!:string;
 
     constructor(projectTitle:String, dateFrom:string | null, dateUntil:string | null, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,
