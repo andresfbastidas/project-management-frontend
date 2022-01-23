@@ -6,6 +6,7 @@ import { ApprovalRequest } from "../models/approval-request";
 import { AssociatedUserProjectRequest } from "../models/associatedUserProject-request";
 import { CreateProjectRequest } from "../models/create-project-request";
 import { DeclineRequest } from "../models/decline-request";
+import { UpdateProjectRequest } from "../models/update-project-request";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,32 @@ export class ProjectService {
       userapp: createProjectRequest.userapp
     }
     return this.httpClient.post<any>(`${this.urlEndPoint}/project/createProject`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateProject(updateProjectRequest: UpdateProjectRequest): Observable<any> {
+    const allRequest: any = {
+      project: updateProjectRequest.project,
+      state: updateProjectRequest.state,
+      deliveries: updateProjectRequest.deliveries,
+      userapp: updateProjectRequest.userapp,
+      projectId:updateProjectRequest.projectid,
+      projectRequestId:updateProjectRequest.projectRequestId
+    }
+    return this.httpClient.post<any>(`${this.urlEndPoint}/project/updateProjectAndprojectRequest`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  findProjectById(projectId:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findProjectById/` + projectId).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);
