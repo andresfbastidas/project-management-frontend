@@ -134,12 +134,12 @@
                 <div class="col-lg-3">
                     <div class="ui-inputgroup pb-2">
                         <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
-                        <input matInput [matDatepicker]="dateUntilDate" name="dateUntilDate" id="dateUntilDate"
+                        <input matInput [matDatepicker]="dateUntilDate" name="inputDateUntil" id="inputDateUntil"
                             placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
                             #currentDateUntilTmp="ngModel" [(ngModel)]="dateUntilModel">
                         <mat-datepicker-toggle matSuffix [for]="dateUntilDate" id="dpt-birthdate">
                         </mat-datepicker-toggle>
-                        <mat-datepicker #dateUntilDate disabled="false" id="date-pickerDateUntilDate"></mat-datepicker>
+                        <mat-datepicker #dateUntilDate [startAt]="dateUntilModel" disabled="false" id="date-pickerDateUntilDate"></mat-datepicker>
                         <small *ngIf="currentDateUntilTmp.invalid && currentDateUntilTmp.touched"
                         class="alert-danger p-2 rounded">
                         <span *ngIf="currentDateUntilTmp.errors?.['required']" class="required">No puede ser
@@ -267,16 +267,9 @@
             </div>
             <br>
             <div class="row ">
-                <div class="col-lg-6" style="text-align: right;">
+                <div class="col-lg-8" style="text-align: center;">
                     <button class="btn btn-info btn btn-space"
-                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                         id="cleanBtn" name="cleanBtn" type="button">
-                        Limpiar
-                    </button>
-                </div>
-                <div class="col-lg-6">
-                    <button class="btn btn-info btn btn-space"
-                        [disabled]="!editProjectForm.form.valid || checkedList==0"
+                        [disabled]="!editProjectForm.form.valid && checkedList==0"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                         id="cleanBtn" name="cleanBtn" type="button" (click)="editProject()">
                         Editar proyecto

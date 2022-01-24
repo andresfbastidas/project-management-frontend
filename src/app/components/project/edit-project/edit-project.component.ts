@@ -1,6 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Delivery } from 'src/app/core/models/delivery';
+import { Project } from 'src/app/core/models/project';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
 import { State } from 'src/app/core/models/state';
 import { UpdateProjectRequest } from 'src/app/core/models/update-project-request';
@@ -8,6 +11,7 @@ import { UserApp } from 'src/app/core/models/userApp';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
+import { ShareDataService } from 'src/app/core/services/share-data.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
@@ -43,16 +47,28 @@ export class EditProjectComponent implements OnInit {
   updateProjectRequest!: UpdateProjectRequest;
   projectId!: number;
   projectRequestId!: number;
+  datePipe = new DatePipe('en-US');
+  userApp = {} as any;
+  dataReceive = {} as any;
   constructor(private userService: UserService, private genericListService: GenericListService,
     private projectService: ProjectService, private dialog: DialogComponent, private sharedMessage: SharedService,
-    public authService: AuthService) { }
+    public authService: AuthService, private shareData: ShareDataService, private router:Router ) { }
 
   ngOnInit(): void {
+    this.getData();
     this.getDeliveries();
     this.getResearchTypologys();
     this.getUsersDirectors();
     this.getStateSolini();
     this.findProject();
+  }
+
+  getData():any {
+    this.shareData.data.subscribe(response => {
+      this.dataReceive = response;
+      this.projectId = this.dataReceive.projectId;
+      this.projectRequestId = this.dataReceive.projectRequestId;
+    });
   }
 
   getDeliveries() {
@@ -118,10 +134,22 @@ export class EditProjectComponent implements OnInit {
     event.target.value = this.selectedDirectorModel;
   }
 
+
   editProject() {
-    this.projectService.createProject(this.updateProjectRequest).subscribe({
+    const formatDateFrom = this.datePipe.transform(this.dateFromModel, "dd-MM-yyyy");
+    const formatDateUntil = this.datePipe.transform(this.dateUntilModel, "dd-MM-yyyy");
+    this.createBy = this.authService.getUser();
+    let project = new Project(this.titleProjectModel, formatDateFrom,
+      formatDateUntil, this.generalObjetiveModel, this.justificationModel,
+      this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
+      this.specificObjetives, this.selectedDirectorModel, this.createBy, this.problemInvestigationModel);
+    let state = new State(this.selectedStateModel);
+    let userapp = new UserApp("", "", "", "", "", "", this.authService.getUser(), this.userApp.profile);
+    this.updateProjectRequest = new UpdateProjectRequest(project, state, this.checkedList, userapp, this.projectId, this.projectRequestId);
+    this.projectService.updateProject(this.updateProjectRequest).subscribe({
       next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
+        this.router.navigate(['/approval-projects']);
       },
       error: (err) => {
         if (err.status == 500) {
@@ -136,7 +164,6 @@ export class EditProjectComponent implements OnInit {
   }
 
   findProject() {
-    this.projectId=83;
     this.projectService.findProjectById(this.projectId).subscribe({
       next: (response: any) => {
         this.dateFromModel = response.project.dateFrom;
@@ -152,7 +179,6 @@ export class EditProjectComponent implements OnInit {
         this.problemInvestigationModel = response.project.investigationProblem;
         this.selectedStateModel = response.project.state.stateId;
         this.checkedList = response.projectDeliveries as Array<Delivery>
-        console.log(this.checkedList);
       },
       error: (err) => {
         if (err.status == 500) {

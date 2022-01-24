@@ -12,11 +12,11 @@ export class ShareDataService {
   castUser = this.dataArr.asObservable();
   constructor() { }
 
-  public updateDataProjectId(newData:any): void {
-    this.dataArr.next(newData); 
+  sendData(data: string) {
+    this.dataSource.next(data);
   }
 
-  sendData(data: string) {
+  sendDataProjectRequest(data: string) {
     this.dataSource.next(data);
   }
 }

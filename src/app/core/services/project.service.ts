@@ -41,7 +41,7 @@ export class ProjectService {
       projectId:updateProjectRequest.projectid,
       projectRequestId:updateProjectRequest.projectRequestId
     }
-    return this.httpClient.post<any>(`${this.urlEndPoint}/project/updateProjectAndprojectRequest`, allRequest).pipe(
+    return this.httpClient.put<any>(`${this.urlEndPoint}/project/updateProjectAndprojectRequest`, allRequest).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApprovalRequest } from 'src/app/core/models/approval-request';
 import { DeclineRequest } from 'src/app/core/models/decline-request';
@@ -7,6 +8,7 @@ import { StateRequest } from 'src/app/core/models/stateProjectRequest';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
+import { ShareDataService } from 'src/app/core/services/share-data.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { ModalInformationProjectComponent } from 'src/app/shared/modal/modal-information-project.component';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
@@ -42,7 +44,8 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
   currentIndex = -1;
   constructor(public authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private genericService: GenericListService,
-    private modalService: BsModalService, private sharedMessage: SharedService) { }
+    private modalService: BsModalService, private sharedMessage: SharedService,
+    private shareData: ShareDataService,  private router:Router ) { }
 
   ngOnInit(): void {
     if (this.authService.getRol() == 'DIRECTOR') {
@@ -163,8 +166,15 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
     this.getCheckedItemList();
   }
 
+  sendData(data: any) {
+    this.shareData.sendData(data);
+  }
+  
+
   getProjectId(projectId:any, projectRequestId:any){
-    console.log(projectId, projectRequestId);
+    const params = {projectId, projectRequestId};
+    this.sendData(params);
+    this.router.navigate(['/edit-project']);
   }
 
   getListProjectRequestByUserName() {
