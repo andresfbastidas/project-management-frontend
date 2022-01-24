@@ -43,8 +43,8 @@ export class CreateprojectComponent implements OnInit {
   problemInvestigationModel!: string;
   justificationModel!: string;
   generalObjetiveModel!: string;
-  dateFromModel!: string;
-  dateUntilModel!: string;
+  dateFromModel!: Date;
+  dateUntilModel!: Date;
   summaryModel!: string;
   projectMethologyModel!: string;
   researchTypologyModel!: number;
@@ -150,6 +150,7 @@ export class CreateprojectComponent implements OnInit {
   createProject(createProjectForm: any) {
     const formatDateFrom = this.datePipe.transform(this.dateFromModel, "dd-MM-yyyy");
     const formatDateUntil = this.datePipe.transform(this.dateUntilModel, "dd-MM-yyyy");
+    console.log(formatDateFrom);
     this.createBy = this.authService.getUser();
     let project = new Project(this.titleProjectModel, formatDateFrom,
       formatDateUntil, this.generalObjetiveModel, this.justificationModel,

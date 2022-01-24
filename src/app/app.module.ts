@@ -12,7 +12,7 @@ import { MenuBarComponent } from './components/menubar/menu-bar-component';
 import {MenuModule} from 'primeng/menu';
 import { CreateprojectComponent } from './components/project/create-project/createproject.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-    import { MatNativeDateModule } from '@angular/material/core';
+    import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -35,6 +35,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit-remove-user.component';
 import { ListProjectsComponent } from './components/project/list-projects/list-projects.component';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DATE_FORMATS } from './core/models/date-formats';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,10 +73,12 @@ import { EditProjectComponent } from './components/project/edit-project/edit-pro
     HttpClientModule,
     ToastModule,
     NgxPaginationModule,
-    ModalModule.forRoot()//<<======
+    ModalModule.forRoot(),//<<======,
+    BsDatepickerModule.forRoot()
   ],
   providers: [MessageService, DialogComponent,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalInformationProjectComponent //<<======
