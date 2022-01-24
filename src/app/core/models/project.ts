@@ -9,7 +9,7 @@ export class Project {
     dateUntil!:string | null;
     generalObjetive!:String;
     justification!:String;
-    problemInvestigationModel!: string;
+    researchProblem!: string;
     projectMethology!:String;
     projectResearchTypologyId!:number;
     projectSummary!:String;
@@ -27,7 +27,7 @@ export class Project {
 
     constructor(projectTitle:String, dateFrom:string | null, dateUntil:string | null, generalObjetive:String,
         justification:string, projectMethology:string, projectResearchTypologyId:number,
-        projectSummary:string, specificObjetive:string, projectDirector:string,createBy:string, problemInvestigationModel: string){
+        projectSummary:string, specificObjetive:string, projectDirector:string,createBy:string, researchProblem: string){
         this.projectTitle = projectTitle;
         this.dateFrom = dateFrom;
         this.dateUntil = dateUntil;
@@ -39,6 +39,6 @@ export class Project {
         this.specificObjetive = specificObjetive;
         this.createBy = createBy;
         this.projectDirector = projectDirector;
-        this.problemInvestigationModel = problemInvestigationModel;
+        this.researchProblem = researchProblem;
     }
 }

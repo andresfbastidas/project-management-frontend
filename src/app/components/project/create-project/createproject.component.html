@@ -52,7 +52,7 @@
                 <div class="col-lg-3">
                     <textarea class="ui-inputtext col-lg-10 border " name="textProblemInvestigation"
                         id="textProblemInvestigation" type="text" #investigation="ngModel"
-                        [(ngModel)]="problemInvestigationModel" required></textarea>
+                        [(ngModel)]="researchProblemModel" required></textarea>
                     <br>
                     <small *ngIf="investigation.invalid && investigation.touched" class="alert-danger p-2 rounded">
                         <span *ngIf="investigation.errors?.['required']" class="required">No puede ser vacio.</span>

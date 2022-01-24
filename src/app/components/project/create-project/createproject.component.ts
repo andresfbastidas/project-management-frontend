@@ -40,7 +40,7 @@ export class CreateprojectComponent implements OnInit {
   idDelivery!: number;
   titleProjectModel!: String;
   selectedDirectorModel!: string;
-  problemInvestigationModel!: string;
+  researchProblemModel!: string;
   justificationModel!: string;
   generalObjetiveModel!: string;
   dateFromModel!: Date;
@@ -155,7 +155,7 @@ export class CreateprojectComponent implements OnInit {
     let project = new Project(this.titleProjectModel, formatDateFrom,
       formatDateUntil, this.generalObjetiveModel, this.justificationModel,
       this.projectMethologyModel, this.researchTypologyModel, this.summaryModel,
-      this.specificObjetives, this.selectedDirectorModel, this.createBy, this.problemInvestigationModel);
+      this.specificObjetives, this.selectedDirectorModel, this.createBy, this.researchProblemModel);
     let state = new State(this.selectedStateModel);
     let userapp = new UserApp("", "", "", "", "", "", this.authService.getUser(), this.userApp.profile);
     this.createProjectRequest = new CreateProjectRequest(project, state, this.checkedList, userapp);
