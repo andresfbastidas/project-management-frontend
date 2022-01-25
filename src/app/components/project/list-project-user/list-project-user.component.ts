@@ -25,7 +25,6 @@ export class ListProjectUserComponent implements OnInit {
   pageSizes = [4, 8, 12];
   currentIndex = -1;
   rowClicked!: any;
-  enabled!: boolean;
   paginador: any;
   routerPag: any;
   finishedState: number = 3;
@@ -61,7 +60,6 @@ export class ListProjectUserComponent implements OnInit {
     this.projectId = this.selectedProduct.projectId;
     this.getProjectId(this.projectId);
     event.target.value = this.selectedProduct;
-    console.log(this.selectedProduct);
     if (this.selectedProduct.state.stateId == 3) {
       this.disabled = true;
     } else {
