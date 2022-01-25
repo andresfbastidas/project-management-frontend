@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Project } from 'src/app/core/models/project';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/core/services/project.service';
+import { ShareDataService } from 'src/app/core/services/share-data.service';
 import { DialogComponent } from '../notification/dialog.component';
 
 @Component({
@@ -12,7 +12,7 @@ export class ModalInformationProjectComponent implements OnInit {
 
   justificationModel!: string;
   generalObjetiveModel!: string;
-  dateFromModel!: string;
+  dateFromModel!: Date;
   dateUntilModel!: string;
   summaryModel!: string;
   projectMethologyModel!: string;
@@ -25,30 +25,37 @@ export class ModalInformationProjectComponent implements OnInit {
   deliverys!:string;
   createBy!:string;
   projectId!:number;
-  bsModalRef!: BsModalRef;
   constructor(private projectService:ProjectService,
-    private dialog: DialogComponent) { }
+    private dialog: DialogComponent, private shareData: ShareDataService, private router:Router ) { }
 
   ngOnInit(): void {
+    this.getData();
     this.findProject();
   }
 
+  back(){
+    this.router.navigate(['/approval-projects']);
+  }
 
+  getData():any {
+    this.shareData.data.subscribe(response => {
+      this.projectId = response;
+    });
+  }
   findProject() {
-    this.projectId=1;
-    this.projectService.findProjectById(this.projectId).subscribe({
+    this.projectService.findProjectDTO(this.projectId).subscribe({
       next: (response: any) => {
         this.dateFromModel = response.projectsListDTO.dateFrom;
         this.dateUntilModel = response.projectsListDTO.dateUntil;
         this.generalObjetiveModel = response.projectsListDTO.generalObjetive;
         this.justificationModel = response.projectsListDTO.justification;
         this.projectMethologyModel = response.projectsListDTO.projectMethology;
-        this.researchTypologyModel = response.projectsListDTO.projectResearchTypologyId;
+        this.researchTypologyModel = response.projectsListDTO.typologyDescription;
         this.summaryModel = response.projectsListDTO.projectSummary;
         this.titleProjectModel = response.projectsListDTO.projectTitle;
         this.specificObjetives = response.projectsListDTO.specificObjetive;
         this.projectDirector = response.projectsListDTO.projectDirector;
-        this.researchProblemModel = response.project.researchProblem;
+        this.researchProblemModel = response.projectsListDTO.researchProblem;
         this.stateName = response.projectsListDTO.stateName;
         this.deliverys = response.projectsListDTO.deliverys;
         this.createBy = response.projectsListDTO.createBy;

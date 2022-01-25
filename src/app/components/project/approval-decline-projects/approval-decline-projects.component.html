@@ -78,8 +78,8 @@
                                      id="name" type="text" [(ngModel)]="projectRequest.details" required></textarea>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm" (click)="openModal()"
-                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                    <button class="btn btn-sm"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                       (click)="projectInformation(projectRequest.projectId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                         id="clean" name="clean" type="button">
                                         Ver información
                                     </button>
