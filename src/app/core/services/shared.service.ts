@@ -31,5 +31,15 @@ export class SharedService {
         showFooter: false
     });
   }
+
+  msgError(msg:any) : void {
+    const title = this.titleService.getTitle();
+    this.dialog.show({
+        title,
+        content: msg,
+        type: "error",
+        showFooter: false
+    });
+  }
  
 }

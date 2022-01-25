@@ -29,20 +29,22 @@ export class ListProjectUserComponent implements OnInit {
   paginador: any;
   routerPag: any;
   finishedState: number = 3;
-  progressState:number = 4;
-  avalaibleState:number =5;
-  projectId!:number;
+  progressState: number = 4;
+  avalaibleState: number = 5;
+  projectId!: number;
   states!: Array<State>;
   selectedStateModel!: any;
+  disabled: boolean = false;
   @Output() projectEvent = new EventEmitter<any>();
 
   constructor(private authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private sharedMessage: SharedService, private shareData: ShareDataService,
-    private router: Router, private readonly activatedRoute:ActivatedRoute, private genericListService: GenericListService) { }
+    private router: Router, private readonly activatedRoute: ActivatedRoute, private genericListService: GenericListService) { }
 
   ngOnInit(): void {
-      this.getListProjectsByUserName();
-      this.getStates();
+    this.getListProjectsByUserName();
+    this.getStates();
+    this.selectedStateModel = 0;
   }
 
   sendData(data: any) {
@@ -50,15 +52,22 @@ export class ListProjectUserComponent implements OnInit {
   }
 
   valueChangeState(event: any) {
-    event.target.value;
-    console.log(event.target.value);
+    event.target.value = this.selectedStateModel;
   }
 
 
-  RowSelected(u: any) {
+  RowSelected(u: any, event: any) {
     this.selectedProduct = u;
     this.projectId = this.selectedProduct.projectId;
     this.getProjectId(this.projectId);
+    event.target.value = this.selectedProduct;
+    console.log(this.selectedProduct);
+    if (this.selectedProduct.state.stateId == 3) {
+      this.disabled = true;
+    } else {
+      this.disabled = false;
+    }
+
   }
 
   clean(projectListForm: any) {
@@ -70,7 +79,7 @@ export class ListProjectUserComponent implements OnInit {
     else this.rowClicked = idx;
   }
 
-  getProjectId(projectId:any) {
+  getProjectId(projectId: any) {
     this.projectEvent.emit(projectId);
   }
 
@@ -79,8 +88,9 @@ export class ListProjectUserComponent implements OnInit {
     this.router.navigate(['/list-activities']);
   }
 
+
   getStates() {
-    this.genericListService.getAllStates(0, 0, 0, this.progressState, this.avalaibleState).subscribe(response => {
+    this.genericListService.getAllStates(0, 0, this.finishedState, this.progressState, this.avalaibleState).subscribe(response => {
       this.states = response.genericList as Array<State>;
     });
   }
@@ -126,5 +136,31 @@ export class ListProjectUserComponent implements OnInit {
         });
       }
     });
+  }
+
+  updateProjectStateAndDate() {
+    if (this.selectedProduct.projectId ==undefined) {
+      this.sharedMessage.msgError("Debe seleccionar un proyecto en la tabla");
+    } else if (this.selectedProduct.state.stateId == this.selectedStateModel) {
+      this.sharedMessage.msgError("El estado del proyecto es igual al seleccionado");
+    }
+    else if (this.selectedProduct.state.stateId == 4 && this.selectedStateModel == 5) {
+      this.sharedMessage.msgError("Acción no permitida: No puede cambiar de un estado en progreso a disponible");
+    }
+    else {
+      this.projectService.updateProjectStateAndDate(this.selectedProduct.projectId).subscribe({
+        next: (response: any) => {
+          this.sharedMessage.msgInfo(response.message);
+          this.getListProjectsByUserName();
+        },
+        error: (err) => {
+          this.dialog.show({
+            title: "Error",
+            content: this.dialog.formatError(err),
+            type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+          });
+        }
+      });
+    }
   }
 }

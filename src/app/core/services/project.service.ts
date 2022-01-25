@@ -49,6 +49,18 @@ export class ProjectService {
     );
   }
 
+  updateProjectStateAndDate(projectId:number): Observable<any> {
+    const allRequest: any = {
+      projectId
+    }
+    return this.httpClient.put<any>(`${this.urlEndPoint}/project/updateProject`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   findProjectById(projectId:number): Observable<any> {
     return this.httpClient.get<any>(`${this.urlEndPoint}/project/findProjectById/` + projectId).pipe(
       map((response: any) => response),
