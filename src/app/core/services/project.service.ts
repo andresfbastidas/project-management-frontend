@@ -70,6 +70,15 @@ export class ProjectService {
     );
   }
 
+  findProjectDTO(projectId:number): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/project/findProjectDTO/` + projectId).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   getListProjectsByUserName(userName: String, params: any): Observable<any> {
     return this.httpClient.get<any>(`${this.urlEndPoint}/project/findAllProjectsByUserName/` + userName, { params }).pipe(
       map((response: any) => response),
