@@ -43,6 +43,7 @@ export class EditProjectComponent implements OnInit {
   specificObjetives!: string;
   createBy!: string;
   solini: number = 1;
+  decline:number =2;
   researchTypologys!: Array<ResearchTypology>;
   updateProjectRequest!: UpdateProjectRequest;
   projectId!: number;
@@ -59,7 +60,7 @@ export class EditProjectComponent implements OnInit {
     this.getDeliveries();
     this.getResearchTypologys();
     this.getUsersDirectors();
-    this.getStateSolini();
+    this.getStates();
     this.findProject();
   }
 
@@ -89,8 +90,8 @@ export class EditProjectComponent implements OnInit {
     })
   }
 
-  getStateSolini() {
-    this.genericListService.getAllStates(this.solini, 0, 0, 0, 0).subscribe(response => {
+  getStates() {
+    this.genericListService.getAllStates(this.solini, this.decline, 0, 0, 0).subscribe(response => {
       this.stateSolini = response.genericList as Array<State>;
     });
   }
@@ -176,7 +177,7 @@ export class EditProjectComponent implements OnInit {
         this.titleProjectModel = response.project.projectTitle;
         this.specificObjetives = response.project.specificObjetive;
         this.selectedDirectorModel = response.project.projectDirector;
-        this.researchProblemModel = response.project.investigationProblem;
+        this.researchProblemModel = response.project.researchProblem;
         this.selectedStateModel = response.project.state.stateId;
         this.checkedList = response.projectDeliveries as Array<Delivery>
       },

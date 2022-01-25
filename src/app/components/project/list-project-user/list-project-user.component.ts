@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/core/models/project';
+import { State } from 'src/app/core/models/state';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { GenericListService } from 'src/app/core/services/generic-list.service';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { ShareDataService } from 'src/app/core/services/share-data.service';
 import { SharedService } from 'src/app/core/services/shared.service';
@@ -26,27 +28,37 @@ export class ListProjectUserComponent implements OnInit {
   enabled!: boolean;
   paginador: any;
   routerPag: any;
+  finishedState: number = 3;
+  progressState:number = 4;
+  avalaibleState:number =5;
   projectId!:number;
+  states!: Array<State>;
+  selectedStateModel!: any;
   @Output() projectEvent = new EventEmitter<any>();
 
   constructor(private authService: AuthService, private projectService: ProjectService,
     private dialog: DialogComponent, private sharedMessage: SharedService, private shareData: ShareDataService,
-    private router: Router, private readonly activatedRoute:ActivatedRoute) { }
+    private router: Router, private readonly activatedRoute:ActivatedRoute, private genericListService: GenericListService) { }
 
   ngOnInit(): void {
       this.getListProjectsByUserName();
-    
+      this.getStates();
   }
 
   sendData(data: any) {
     this.shareData.sendData(data);
   }
 
+  valueChangeState(event: any) {
+    event.target.value;
+    console.log(event.target.value);
+  }
+
+
   RowSelected(u: any) {
     this.selectedProduct = u;
     this.projectId = this.selectedProduct.projectId;
     this.getProjectId(this.projectId);
-    console.log(this.projectId);
   }
 
   clean(projectListForm: any) {
@@ -66,6 +78,13 @@ export class ListProjectUserComponent implements OnInit {
     this.sendData(this.selectedProduct.projectId);
     this.router.navigate(['/list-activities']);
   }
+
+  getStates() {
+    this.genericListService.getAllStates(0, 0, 0, this.progressState, this.avalaibleState).subscribe(response => {
+      this.states = response.genericList as Array<State>;
+    });
+  }
+
 
   getRequestParams(page: number, pageSize: number): any {
     let params: any = {};

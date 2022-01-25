@@ -10,9 +10,9 @@
             <form #projectListForm="ngForm">
                 Elementos por pagina:
                 <select (change)="handlePageSizeChange($event)">
-                  <option *ngFor="let size of pageSizes" [ngValue]="size">
-                    {{ size }}
-                  </option>
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
                 </select>
                 <div class="table-responsive">
                     <table id="tbl-list" style="text-align: center;"
@@ -21,7 +21,7 @@
                         <thead class="table-head-color">
                             <tr>
                                 <th scope="col" style="width: 150px;color: white;">Nombre del Proyecto</th>
-                                <th scope="col" style="width: 130px;color: white;">Estado</th>
+                                <th scope="col" style="width: 150px;color: white;">Estado</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
                                 <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
@@ -41,7 +41,16 @@
                                 [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
                                 (click)="changeTableRowColor(idx)">
                                 <td>{{project.projectTitle}}</td>
-                                <td>{{project.state.stateName}}</td>
+                                <select name="selectState" class="select-text" (change)="valueChangeState($event)"
+                                    style="width: 85%;" [(ngModel)]="project.state.stateId" #validateState="ngModel"
+                                    required>
+                                    <option class="dropdown-item" disabled selected value="undefined">Seleccione
+                                    </option>
+                                    <option [value]="project.state.stateId" *ngFor="let option of states;let x = index"
+                                        class="dropdown-item">
+                                        {{option.stateName}}
+                                    </option>
+                                </select>
                                 <td>{{project.dateFrom}}</td>
                                 <td>{{project.dateUntil}}</td>
                                 <td>{{project.directorName}}</td>
@@ -67,8 +76,8 @@
                     <div class="row" style="text-align: center;">
                         <div class="col-md-12">
                             <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
-                            (pageChange)="handlePageChange($event)"></pagination-controls>
-                          </div>
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
                     </div>
                     <button class="btn btn-md"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"

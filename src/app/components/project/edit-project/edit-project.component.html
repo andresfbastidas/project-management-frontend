@@ -212,9 +212,9 @@
                 </div>
                 <div class="col-lg-3" *ngIf="authService.getRol()=='PROFESOR' || authService.getRol()=='ESTUDIANTE'">
                     <select name="selectState" class="select-text" (change)="valueChangeState($event)" style="width: 85%;"
-                        [(ngModel)]="selectedStateModel" #validateState="ngModel" required>
+                       [(ngModel)]="selectedStateModel" #validateState="ngModel" required>
                         <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
-                        <option [value]="option.stateId" *ngFor="let option of stateSolini;let x = index"
+                        <option [value]="option.stateId" [disabled]="option.stateId==2"  *ngFor="let option of stateSolini;let x = index"
                             class="dropdown-item">
                             {{option.stateName}}
                         </option>
@@ -250,7 +250,7 @@
                                 <tr *ngFor="let delivery of deliveriesList">
                                     <th scope="row" class="text-center">
                                         <input type="checkbox" name="chk-{{delivery.deliveryId}}"
-                                        [checked]="delivery.deliveryId"  id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
+                                        #deliveryVal="ngModel" [checked]="delivery.deliveryId"  id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
                                             (change)="checkIfAllSelected()" [value]="delivery.deliveryId">
                                     </th>
                                     <td>{{delivery.deliveryName}}</td>
@@ -269,7 +269,7 @@
             <div class="row ">
                 <div class="col-lg-8" style="text-align: center;">
                     <button class="btn btn-info btn btn-space"
-                        [disabled]="!editProjectForm.form.valid && checkedList==0"
+                        [disabled]="!editProjectForm.form.valid || selectedStateModel==2"
                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                         id="cleanBtn" name="cleanBtn" type="button" (click)="editProject()">
                         Editar proyecto
