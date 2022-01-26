@@ -41,7 +41,7 @@ export class ListActivitiesComponent implements OnInit {
   }
 
   sendData(data: any) {
-    this.shareData.sendData(data);
+    this.shareData.sendDataComment(data);
     this.router.navigate(['/create-comment']);
   }
 

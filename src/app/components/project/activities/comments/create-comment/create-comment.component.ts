@@ -38,18 +38,18 @@ export class CreateCommentComponent implements OnInit {
   }
 
   getData():any {
-    this.shareData.data.subscribe(response => {
+    this.shareData.dataCommentObs.subscribe(response => {
       this.activity = response;
     });
   }
 
-  createComment(createCommentForm:any){
+  createComment(){
     this.comment= new Comment(this.commentDescription);
     this.commentRequest = new CommentRequest(this.comment, this.activity);
      this.commentService.createComment(this.commentRequest).subscribe({
        next: (response: any) =>  {
          this.sharedMessage.msgInfo(response.message);
-         this.clean(createCommentForm);
+         this.router.navigate(['/list-activities']);
        },
        error: (err) => {
          if(err.status == 500){
