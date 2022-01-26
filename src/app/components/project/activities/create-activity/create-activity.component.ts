@@ -43,7 +43,6 @@ export class CreateActivityComponent implements OnInit {
     this.shareData.data.subscribe(response => {
       this.projectId = response;
     });
-    console.log(this.projectId);
   }
 
   clean(createActivityForm: any) {
@@ -51,6 +50,10 @@ export class CreateActivityComponent implements OnInit {
   }
   valueChangeUserAssigned(event: any) {
     event.target.value = this.assignedUserModel;
+  }
+
+  back(){
+    this.router.navigate(['/list-activities']);
   }
 
   valueChangeStateActivity(event: any) {

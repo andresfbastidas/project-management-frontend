@@ -13,6 +13,7 @@ import { EditRemoveUserComponent } from './components/user/remove-edit-user/edit
 import { ListProjectsComponent } from './components/project/list-projects/list-projects.component';
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { ModalInformationProjectComponent } from './shared/modal/modal-information-project.component';
+import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'list-projects', component: ListProjectsComponent },
   { path: 'edit-project', component: EditProjectComponent },
   { path: 'project-information', component: ModalInformationProjectComponent },
+  { path: 'create-comment', component: CreateCommentComponent },
 ];
 
 @NgModule({

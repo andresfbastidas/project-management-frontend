@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Activity } from 'src/app/core/models/activity';
 import { ActivityService } from 'src/app/core/services/activity.service';
 import { ShareDataService } from 'src/app/core/services/share-data.service';
+import { SharedService } from 'src/app/core/services/shared.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 
 @Component({
@@ -16,7 +17,7 @@ export class ListActivitiesComponent implements OnInit {
   selectedProduct: any;
   rowClicked!: any;
   constructor( private dialog:DialogComponent, private activityService:ActivityService,
-    private shareData:ShareDataService, private router:Router) { }
+    private shareData:ShareDataService, private router:Router, private shareMessage:SharedService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -33,6 +34,15 @@ export class ListActivitiesComponent implements OnInit {
 
   RowSelected(u: any) {
     this.selectedProduct = u;
+  }
+
+  getComments(activityid:any){
+    this.sendData(activityid);
+  }
+
+  sendData(data: any) {
+    this.shareData.sendData(data);
+    this.router.navigate(['/create-comment']);
   }
 
   clean(projectListForm: any) {

@@ -37,6 +37,7 @@ import { ListProjectsComponent } from './components/project/list-projects/list-p
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DATE_FORMATS } from './core/models/date-formats';
+import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { DATE_FORMATS } from './core/models/date-formats';
     EditRemoveUserComponent,
     ListProjectsComponent,
     EditProjectComponent,
+    CreateCommentComponent,
   ],
   imports: [
     BrowserModule,

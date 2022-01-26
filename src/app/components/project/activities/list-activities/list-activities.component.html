@@ -19,8 +19,7 @@
                                 <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
                                 <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
                                 <th scope="col" style="width: 110px;color: white;">Usuario asignado</th>
-                                <th scope="col" style="color: white;">Enlaces</th>
-                                <th scope="col" style="color: white;">Comenterios</th>
+                                <th scope="col" style="color: white;">Comentarios</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,14 +34,7 @@
                                 <td>{{activity.assignedUser}}</td>
                                 <td>
                                     <button class="btn btn-sm"
-                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                                         id="links" name="links" type="button">
-                                        Adjuntar enlaces
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm"
-                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                       (click)="getComments(activity.activityId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                         id="comments" name="comments" type="button">
                                         Comentarios
                                     </button>

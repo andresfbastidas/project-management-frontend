@@ -7,6 +7,7 @@ export class Activity{
     dateUntil!:Date;
     assignedUser!:string;
     stateActivity!:StateActivity;
+    activityId!:number;
 
     constructor(activityName:string, dateFrom:Date, dateUntil:Date, 
         assignedUser:string, stateActivity:StateActivity){
