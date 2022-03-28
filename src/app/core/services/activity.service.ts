@@ -12,8 +12,8 @@ export class ActivityService {
   private readonly urlEndPoint: string = environment.backendBasePath;
   constructor(private readonly httpClient: HttpClient) { }
 
-  getListActivitiesByProject(projectId: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.urlEndPoint}/activity/findAllActivitiesByProject/` + projectId).pipe(
+  getListActivitiesByProject(projectId: number, progressState: number, createState: number, finishedState: number, params:any): Observable<any> {
+    return this.httpClient.get<any>(`${this.urlEndPoint}/activity/findAllActivitiesByProject/` + projectId+"+"+progressState+"+"+createState+"+"+finishedState, {params}).pipe(
       map((response: any) => response),
       catchError(error => {
         return throwError(() => error);

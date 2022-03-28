@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Activity } from 'src/app/core/models/activity';
 import { Comment } from 'src/app/core/models/comment';
 import { CommentRequest } from 'src/app/core/models/comment-request';
 import { CommentService } from 'src/app/core/services/comment.service';
@@ -26,7 +25,6 @@ export class CreateCommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    console.log(this.activity);
   }
 
   back(){
