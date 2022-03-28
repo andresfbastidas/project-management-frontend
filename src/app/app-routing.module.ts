@@ -14,6 +14,8 @@ import { ListProjectsComponent } from './components/project/list-projects/list-p
 import { EditProjectComponent } from './components/project/edit-project/edit-project.component';
 import { ModalInformationProjectComponent } from './shared/modal/modal-information-project.component';
 import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
+import { ListCommentsComponent } from './components/project/activities/comments/list-comments/list-comments.component';
+import { EditCommentComponent } from './components/project/activities/comments/edit-comment/edit-comment.component';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -30,6 +32,8 @@ const routes: Routes = [
   { path: 'edit-project', component: EditProjectComponent },
   { path: 'project-information', component: ModalInformationProjectComponent },
   { path: 'create-comment', component: CreateCommentComponent },
+  { path: 'list-comments', component: ListCommentsComponent },
+  { path: 'edit-comment', component: EditCommentComponent }
 ];
 
 @NgModule({

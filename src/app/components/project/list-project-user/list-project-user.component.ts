@@ -81,8 +81,8 @@ export class ListProjectUserComponent implements OnInit {
     this.projectEvent.emit(projectId);
   }
 
-  listActivities() {
-    this.sendData(this.selectedProduct.projectId);
+  listActivities(projectId:number) {
+    this.sendData(projectId);
     this.router.navigate(['/list-activities']);
   }
 

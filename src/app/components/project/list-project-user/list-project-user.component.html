@@ -75,7 +75,7 @@
                                 <td>
                                     <button class="btn btn-sm" [disabled]="project.state.stateId==3"
                                         style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                                        (click)="listActivities()" id="activities" name="activities" type="button">
+                                        (click)="listActivities(project.projectId)" id="activities" name="activities" type="button">
                                         Gestionar actividades
                                     </button>
                                 </td>

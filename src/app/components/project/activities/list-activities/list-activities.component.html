@@ -53,10 +53,7 @@
                                 itemsPerPage: pageSize,
                                 currentPage: page,
                                 totalItems: count
-                              };let i = index;let idx=index; let even=even" [class.active]="i == currentIndex"
-                                (click)="RowSelected(activity)"
-                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
-                                (click)="changeTableRowColor(idx)">
+                              };let i = index" [class.active]="i == currentIndex">
                                 <td>{{activity.activityName}}</td>
                                 <td>{{activity.stateActivity.nameStateActivity}}</td>
                                 <td>{{activity.dateFrom}}</td>
@@ -100,8 +97,13 @@
                 </button>
                 <button class="btn btn-sm" (click)="clean(activitiesListForm)"
                     style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                    id="newActivity" name="newActivity" type="button">
+                    id="clean" name="clean" type="button">
                     Limpiar
+                </button>
+                <button class="btn btn-sm"
+                (click)="back()" style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                id="back" name="back" type="button">
+                Regresar
                 </button>
             </form>
         </div>

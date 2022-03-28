@@ -15,8 +15,6 @@ export class ListActivitiesComponent implements OnInit {
 
   listActivities!:Array<Activity>;
   projectId!:any;
-  selectedProduct: any;
-  rowClicked!: any;
   page = 1;
   count = 0;
   pageSize = 5;
@@ -32,9 +30,9 @@ export class ListActivitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.getListStatesActivities();
     if(this.projectId != null || this.projectId!=0){
       this.getListActivitiesByProject(this.projectId, this.progressState, this.createState, this.finishedState);
-      this.getListStatesActivities();
     }
   }
 
@@ -44,17 +42,16 @@ export class ListActivitiesComponent implements OnInit {
     });
   }
 
-  RowSelected(u: any) {
-    this.selectedProduct = u;
+  back(){
+    this.router.navigate(['/list-project-user']);
   }
-
   getComments(activityid:any){
     this.sendData(activityid);
   }
 
   sendData(data: any) {
     this.shareData.sendDataComment(data);
-    this.router.navigate(['/create-comment']);
+    this.router.navigate(['/list-comments']);
   }
 
   valueChangeStateRequest(event: any): void {
@@ -89,17 +86,12 @@ export class ListActivitiesComponent implements OnInit {
 
   clean(activityListForm: any) {
     activityListForm.resetForm();
-    this.rowClicked = null;
     this.progressState = 1;
     this.createState = 2;
     this.finishedState = 3;
     this.getListStatesActivities();
     this.selectedState = null;
     this.getListActivitiesByProject(this.projectId,  this.progressState, this.createState, this.finishedState);
-  }
-  changeTableRowColor(idx: any) {
-    if (this.rowClicked === idx) this.rowClicked = -1;
-    else this.rowClicked = idx;
   }
 
   createActivity(){

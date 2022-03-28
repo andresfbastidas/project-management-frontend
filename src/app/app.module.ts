@@ -38,6 +38,8 @@ import { EditProjectComponent } from './components/project/edit-project/edit-pro
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DATE_FORMATS } from './core/models/date-formats';
 import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
+import { ListCommentsComponent } from './components/project/activities/comments/list-comments/list-comments.component';
+import { EditCommentComponent } from './components/project/activities/comments/edit-comment/edit-comment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +60,8 @@ import { CreateCommentComponent } from './components/project/activities/comments
     ListProjectsComponent,
     EditProjectComponent,
     CreateCommentComponent,
+    ListCommentsComponent,
+    EditCommentComponent,
   ],
   imports: [
     BrowserModule,
