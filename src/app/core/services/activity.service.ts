@@ -42,4 +42,25 @@ export class ActivityService {
       })
     );
   }
+
+  updateActivity(activityId:number): Observable<any> {
+    const allRequest: any = {
+      activityId
+    }
+    return this.httpClient.put<any>(`${this.urlEndPoint}/activity/updateActivity`, allRequest).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  deleteActivity(params:any): Observable<any> {
+    return this.httpClient.delete<any>(`${this.urlEndPoint}/activity/deleteActivity`,{ params }).pipe(
+      map((response: any) => response),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
 }

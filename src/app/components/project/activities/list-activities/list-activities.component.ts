@@ -32,7 +32,7 @@ export class ListActivitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    if(this.projectId != null){
+    if(this.projectId != null || this.projectId!=0){
       this.getListActivitiesByProject(this.projectId, this.progressState, this.createState, this.finishedState);
       this.getListStatesActivities();
     }
@@ -124,6 +124,48 @@ export class ListActivitiesComponent implements OnInit {
     }
 
     return params;
+  }
+
+  getRequestParamsDelete(activityId: number): any {
+    let params: any = {};
+
+    if (activityId) {
+      params[`activityId`] = activityId;
+    }
+    return params;
+  }
+
+  deleteActivity(activityId:number){
+   const params = this.getRequestParamsDelete(activityId);
+   this.activityService.deleteActivity(params).subscribe({
+    next: (response: any) =>  {
+      this.shareMessage.msgInfo(response.message);
+      this.getListActivitiesByProject(this.projectId,  this.progressState, this.createState, this.finishedState);
+    },
+    error: (err) => {
+      this.dialog.show({
+        title: "Error",
+        content: this.dialog.formatError(err),
+        type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+      });
+    }
+  });
+  }
+
+  updateActivity(activityId:number){
+    this.activityService.updateActivity(activityId).subscribe({
+      next: (response: any) =>  {
+        this.shareMessage.msgInfo(response.message);
+        this.getListActivitiesByProject(this.projectId,  this.progressState, this.createState, this.finishedState);
+      },
+      error: (err) => {
+        this.dialog.show({
+          title: "Error",
+          content: this.dialog.formatError(err),
+          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+        });
+      }
+    });
   }
 
 

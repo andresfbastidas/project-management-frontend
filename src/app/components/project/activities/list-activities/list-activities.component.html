@@ -28,9 +28,9 @@
             <form #activitiesListForm="ngForm">
                 Elementos por pagina:
                 <select (change)="handlePageSizeChange($event)">
-                  <option *ngFor="let size of pageSizes" [ngValue]="size">
-                    {{ size }}
-                  </option>
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
                 </select>
                 <div class="table-responsive">
                     <table id="tbl-list" style="text-align: center;"
@@ -45,6 +45,7 @@
                                 <th scope="col" style="width: 110px;color: white;">Usuario asignado</th>
                                 <th scope="col" style="color: white;">Comentarios</th>
                                 <th scope="col" style="color: white;">Actualizar Actividad</th>
+                                <th scope="col" style="color: white;">Borrar Actividad</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,17 +63,24 @@
                                 <td>{{activity.dateUntil}}</td>
                                 <td>{{activity.assignedUser}}</td>
                                 <td>
-                                    <button class="btn btn-sm"
-                                       (click)="getComments(activity.activityId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                    <button class="btn btn-sm" (click)="getComments(activity.activityId)"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                         id="comments" name="comments" type="button">
                                         Comentarios
                                     </button>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm"
-                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                       (click)="updateActivity(activity.activityId)" [disabled]="activity.stateActivity.stateActivityId==3" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
                                         id="updateActivity" name="updateActivity" type="button">
                                         Actualizar Actividad
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                       (click)="deleteActivity(activity.activityId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="updateActivity" name="updateActivity" type="button">
+                                        Borrar Actividad
                                     </button>
                                 </td>
                             </tr>
@@ -85,16 +93,16 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-sm"
-                (click)="createActivity()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-                id="newActivity" name="newActivity" type="button">
-                Crear Actividad
-            </button>
-            <button class="btn btn-sm"
-            (click)="clean(activitiesListForm)" style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
-            id="newActivity" name="newActivity" type="button">
-            Limpiar
-        </button>
+                <button class="btn btn-sm" (click)="createActivity()"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newActivity" name="newActivity" type="button">
+                    Crear Actividad
+                </button>
+                <button class="btn btn-sm" (click)="clean(activitiesListForm)"
+                    style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newActivity" name="newActivity" type="button">
+                    Limpiar
+                </button>
             </form>
         </div>
     </div>
