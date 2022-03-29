@@ -50,6 +50,10 @@ export class ListCommentsComponent implements OnInit {
     this.router.navigate(['/edit-comment']);
   }
 
+  routerNewComment(){
+    this.router.navigate(['/create-comment']);
+  }
+
   getRequestParamsDelete(commentId:number): any {
     let params: any = {};
 

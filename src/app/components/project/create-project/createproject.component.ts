@@ -1,8 +1,6 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Delivery } from 'src/app/core/models/delivery';
-import { Profile } from 'src/app/core/models/profile';
 import { Project } from 'src/app/core/models/project';
 import { CreateProjectRequest } from 'src/app/core/models/create-project-request';
 import { ResearchTypology } from 'src/app/core/models/reserach-typology';
@@ -150,7 +148,6 @@ export class CreateprojectComponent implements OnInit {
   createProject(createProjectForm: any) {
     const formatDateFrom = this.datePipe.transform(this.dateFromModel, "dd-MM-yyyy");
     const formatDateUntil = this.datePipe.transform(this.dateUntilModel, "dd-MM-yyyy");
-    console.log(formatDateFrom);
     this.createBy = this.authService.getUser();
     let project = new Project(this.titleProjectModel, formatDateFrom,
       formatDateUntil, this.generalObjetiveModel, this.justificationModel,

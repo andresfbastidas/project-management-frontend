@@ -35,13 +35,13 @@ export class LoginComponent implements OnInit {
         this.idle.watch();
       },
       error: (err) => {
-        if(err.status == 500){
+          console.log(err);
           this.dialog.show({
             title: "Error",
             content: this.dialog.formatError(err),
             type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
           });
-        }
+        
       }
     });
   }
