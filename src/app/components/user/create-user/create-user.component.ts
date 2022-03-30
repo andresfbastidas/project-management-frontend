@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthLoadGuard } from 'src/app/core/guards/authLoad.guard';
 import { Profile } from 'src/app/core/models/profile';
 import { SignupRequest } from 'src/app/core/models/signup-request';
 import { UserApp } from 'src/app/core/models/userApp';
@@ -26,10 +27,11 @@ export class CreateUserComponent implements OnInit {
   hidePassword=true;
   public showPasswordOnPress!: boolean;
   constructor(private userService:UserService, private genericListService:GenericListService,
-    private dialog:DialogComponent, private sharedMessage:SharedService) { }
+    private dialog:DialogComponent, private sharedMessage:SharedService, private guard: AuthLoadGuard) { }
 
   ngOnInit(): void {
     this.getAllProfilesUser();
+    this.guard.canLoad();
   }
 
   clean(createUserForm: any) {

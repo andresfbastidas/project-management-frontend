@@ -40,6 +40,8 @@ import { DATE_FORMATS } from './core/models/date-formats';
 import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
 import { ListCommentsComponent } from './components/project/activities/comments/list-comments/list-comments.component';
 import { EditCommentComponent } from './components/project/activities/comments/edit-comment/edit-comment.component';
+import { AuthLoadGuard } from './core/guards/authLoad.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +84,7 @@ import { EditCommentComponent } from './components/project/activities/comments/e
     ModalModule.forRoot(),//<<======,
     BsDatepickerModule.forRoot()
   ],
-  providers: [MessageService, DialogComponent,
+  providers: [MessageService, DialogComponent,AuthLoadGuard, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }],
   bootstrap: [AppComponent],

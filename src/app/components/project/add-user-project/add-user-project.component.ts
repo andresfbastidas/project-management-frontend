@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthLoadGuard } from 'src/app/core/guards/authLoad.guard';
 import { AssociatedUserProjectRequest } from 'src/app/core/models/associatedUserProject-request';
 import { UserApp } from 'src/app/core/models/userApp';
 import { ProjectService } from 'src/app/core/services/project.service';
@@ -26,13 +27,15 @@ export class AddUserProjectComponent implements OnInit {
   projectId!:number;
   disabledBtn!:boolean;
   constructor(private dialog:DialogComponent, private userService:UserService,
-    private projectService: ProjectService,  private sharedMessage: SharedService) { }
+    private projectService: ProjectService,  private sharedMessage: SharedService,
+    private guard:AuthLoadGuard) { }
 
   ngOnInit(): void {
     if(this.userNameTable==null){
       this.disabled = true;
       this.disabledBtn = false;
     }
+    this.guard.canLoad();
   }
   receiveProjectId($event: any){
     this.projectId =$event;

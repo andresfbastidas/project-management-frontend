@@ -6,6 +6,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { DialogComponent } from 'src/app/shared/notification/dialog.component';
 import { UserApp } from 'src/app/core/models/userApp';
 import { SignupRequest } from 'src/app/core/models/signup-request';
+import { AuthLoadGuard } from 'src/app/core/guards/authLoad.guard';
 
 @Component({
   selector: 'app-edit-remove-user',
@@ -30,11 +31,12 @@ export class EditRemoveUserComponent implements OnInit {
   newUser!:UserApp;
   signupRequest!:SignupRequest;
   constructor(private dialog: DialogComponent, private userService: UserService, private sharedMessage: SharedService,
-    private genericListService: GenericListService) { }
+    private genericListService: GenericListService, private guard:AuthLoadGuard) { }
 
   ngOnInit(): void {
     this.getAllProfilesUser();
     this.disabledInputs = false;
+    this.guard.canLoad();
   }
 
   clean(editRemoveForm: any) {

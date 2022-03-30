@@ -16,24 +16,26 @@ import { ModalInformationProjectComponent } from './shared/modal/modal-informati
 import { CreateCommentComponent } from './components/project/activities/comments/create-comment/create-comment.component';
 import { ListCommentsComponent } from './components/project/activities/comments/list-comments/list-comments.component';
 import { EditCommentComponent } from './components/project/activities/comments/edit-comment/edit-comment.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthLoadGuard } from './core/guards/authLoad.guard';
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuBarComponent },
-  { path: 'create-project', component: CreateprojectComponent },
-  { path: 'list-project-user', component: ListProjectUserComponent },
-  { path: 'list-activities', component: ListActivitiesComponent },
-  { path: 'create-activity', component: CreateActivityComponent },
-  { path: 'create-user', component: CreateUserComponent },
+  { path: 'menu', component: MenuBarComponent,  canActivate: [AuthGuard] },
+  { path: 'create-project', component: CreateprojectComponent,  canActivate: [AuthGuard]},
+  { path: 'list-project-user', component: ListProjectUserComponent,  canActivate: [AuthGuard] },
+  { path: 'list-activities', component: ListActivitiesComponent,  canActivate: [AuthGuard] },
+  { path: 'create-activity', component: CreateActivityComponent,  canActivate: [AuthGuard] },
+  { path: 'create-user', component: CreateUserComponent, canActivate: [AuthGuard], canLoad:[AuthLoadGuard] },
   { path: 'approval-projects', component: ApprovalDeclineProjectsComponent },
-  { path: 'add-user-project', component: AddUserProjectComponent },
-  { path: 'edit-user', component: EditRemoveUserComponent },
-  { path: 'list-projects', component: ListProjectsComponent },
-  { path: 'edit-project', component: EditProjectComponent },
-  { path: 'project-information', component: ModalInformationProjectComponent },
-  { path: 'create-comment', component: CreateCommentComponent },
-  { path: 'list-comments', component: ListCommentsComponent },
-  { path: 'edit-comment', component: EditCommentComponent }
+  { path: 'add-user-project', component: AddUserProjectComponent, canActivate: [AuthGuard], canLoad:[AuthLoadGuard]  },
+  { path: 'edit-user', component: EditRemoveUserComponent, canActivate: [AuthGuard], canLoad:[AuthLoadGuard]  },
+  { path: 'list-projects', component: ListProjectsComponent,  canActivate: [AuthGuard] },
+  { path: 'edit-project', component: EditProjectComponent,  canActivate: [AuthGuard] },
+  { path: 'project-information', component: ModalInformationProjectComponent,  canActivate: [AuthGuard] },
+  { path: 'create-comment', component: CreateCommentComponent,  canActivate: [AuthGuard] },
+  { path: 'list-comments', component: ListCommentsComponent,  canActivate: [AuthGuard] },
+  { path: 'edit-comment', component: EditCommentComponent,  canActivate: [AuthGuard] }
 ];
 
 @NgModule({
