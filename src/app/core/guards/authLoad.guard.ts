@@ -16,7 +16,7 @@ import { SharedService } from "../services/shared.service";
     canLoad(): boolean {
         if (this.authService.isAuthenticated()) {
             if(this.authService.getRol() =='ESTUDIANTE' || this.authService.getRol() =='PROFESOR'){
-              this.sharedMessage.msgError("No tiene acceso para visitar esta pagina");
+              this.sharedMessage.msgError("No tiene autorización para visitar esta pagina");
               this.router.navigate(['/login']); 
               this.authService.logout();
               return false;
