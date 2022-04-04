@@ -90,7 +90,7 @@ export class MenuBarComponent implements OnInit {
         label: 'Gestión de Estados',
         items: [
             {
-              label: 'Proyectos aprobados', 
+              label: 'Mis Proyectos', 
               icon: 'pi pi-fw pi-file',
               routerLink: ['approval-projects']
             }

@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  deploy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - '127.0.0.1:4200:80'
+networks:  
+    project-manager-network:
+        driver: bridge       
