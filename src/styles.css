@@ -19,6 +19,13 @@ body {
     color: white;
 }
 
+.layout-menu {
+    position: fixed;
+    margin-top: 117px;
+    top: 0;
+    height: 100%;
+}
+
 .layout-header .page-title {
     font-size: 30px;
     padding-top: 30px;
@@ -26,4 +33,201 @@ body {
     float: left;
 }
 
+.layout-header .sesion {
+    float: right;
+    position: relative;
+    padding-top: 35px;
+    padding-right: 20px;
+}
+
+.layout-header .user-info {
+    font-size: 14px;
+    padding-top: 43px;
+    padding-left: 20px;
+    font-weight: bold;
+    float: left;
+}
+.layout-main {
+    height: auto;
+    min-height: calc(100% - 40px) !important;
+    padding: 10px;
+    padding-top: 126px;
+}
+
+.main-card>.card-header,
+.main-card>.card-footer {
+    background-color: #F78327;
+}
+
+
+.card-header,
+.card-footer {
+    background-color: #F78327;
+    font-weight: bold;
+    padding: .35rem 1rem;
+}
+
+#menu-left .ng-trigger {
+    width: 250px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.app-loading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.app-loading .spinner {
+    height: 200px;
+    width: 200px;
+    animation: rotate 2s linear infinite;
+    transform-origin: center center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.app-loading .spinner .path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: #ddd;
+}
+
+.dialog-icon em {
+    font-size: 3.75em;
+    margin-top: 5px;
+  }
+  
+  .dialog-icon.dialog-warning {
+    border-color: #facea8;
+    color: #f8bb86;
+  }
+  
+  .dialog-icon.dialog-error {
+    border-color: #f27474;
+    color: #f27474;
+  }
+  
+  .dialog-icon.dialog-success {
+    border-color: #a5dc86;
+    color: #a5dc86;
+  }
+  
+  .dialog-icon.dialog-info {
+    border-color: #9de0f6;
+    color: #3fc3ee;
+  }
+  
+  .dialog-icon.dialog-question {
+    border-color: #c9dae1;
+    color: #87adbd;
+  }
+  
+  .dialog-title {
+    max-width: 100%;
+    color: #595959;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+  }
+  
+  .dialog-content {
+    justify-content: center;
+    margin: 0;
+    padding: 0.571em 1em;
+    color: #545454;
+    font-weight: 300;
+    line-height: normal;
+    z-index: 1;
+    word-wrap: break-word;
+    font-size: 14px;
+    border: 1px solid #c8c8c8;
+  }
+  
+  .dialog-content-text {
+    font-size: 18px;
+  }
+  
+  .dialog-footer {
+    margin: 0;
+    color: #545454;
+    font-weight: 300;
+    line-height: normal;
+    z-index: 1;
+    word-wrap: break-word;
+    background-color: #ffffff;
+    padding: 0.571em 1em;
+    text-align: right;
+    position: relative;
+    font-size: 14px;
+  }
+  
+  .dialog-content #dialog-content {
+    text-align: center;
+  }
+  
+  .dialog-actions {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .dialog-actions .btn {
+    margin: 0 5px;
+  }
+  
+  .dialog-tech {
+    margin-top: 10px;
+  }
+  
+  .dialog-tech p {
+    margin-bottom: 0;
+  }
+  
+  .dialog-tech textarea {
+    border: 0;
+    min-height: 100px;
+    color: #545454;
+  }
+  
+  .dialog-titlebar {
+    background-color: #F78327 !important;
+    color: #333333;
+    padding: 1em;
+    font-weight: 400;
+    border-bottom: 0 none;
+    font-size: 14px;
+  }
+
+  .ui-progressbar {
+    height: 4px!important;
+}
+
+.layout-header .user-info {
+  font-size: 20px;
+  padding-top: 43px;
+  padding-left: 20px;
+  font-weight: bold;
+  float: left;
+  color: white;
+}
+
+.table-head-color{
+  background-color: #666666
+}
 

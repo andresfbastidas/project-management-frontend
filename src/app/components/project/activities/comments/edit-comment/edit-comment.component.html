@@ -1,0 +1,47 @@
+<div id="update-comment-component" class="card mat-elevation-z2" style="width: 800px;">
+    <div class="card-header" id="title-form">
+        Actualizar comentario
+    </div>
+    <div class="card-body">
+        <form #updateCommentForm="ngForm">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-sm-6" style="text-align: end;">
+                        <label for="comment">Actualizar comentario:
+                        </label>
+                        <label style="color: red">*</label>
+                    </div>
+                    <div class="col-lg-6">
+                        <textarea class="ui-inputtext col-10 border " name="textComment" type="text" id="textComment"
+                            #validateComment="ngModel" [(ngModel)]="commentDescription" required></textarea>
+                        <br>
+                        <small *ngIf="validateComment.invalid && validateComment.touched"
+                            class="alert-danger p-2 rounded">
+                            <span *ngIf="validateComment.errors?.['required']" class="required">No puede ser
+                                vacio.</span>
+                            <small *ngIf="validateComment.errors?.['pattern']" class="required">Formato inválido</small>
+                        </small>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-8" style="text-align: end;">
+                        <button class="btn btn-sm"
+                            style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                            (click)="updateComment()" id="updateComment" name="updateComment" type="button">
+                            Actualizar comentario
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <button class="btn btn-sm"
+                    (click)="back()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                        id="backComment" name="backComment" type="button">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

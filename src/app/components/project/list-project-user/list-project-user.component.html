@@ -1,0 +1,100 @@
+<div id="list-project-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Proyectos Asignados
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <div *ngIf="projectList?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay proyectos asignados.
+            </div>
+            <form #projectListForm="ngForm">
+                Elementos por pagina:
+                <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
+                </select>
+                <br>
+                <div class="table-responsive">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label for="selectStateProject">Actualizar estado proyecto:
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select name="selectStateRequest" class="select-text" id="selectStateRequest"
+                                style="width: 85%;margin-bottom: 1%;" (change)="valueChangeState($event)"
+                                [(ngModel)]="selectedStateModel" #selectStateValidate="ngModel" required>
+                                <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                                <option [value]="option.stateId" *ngFor="let option of states;let x = index"
+                                    class="dropdown-item">
+                                    {{option.stateName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-sm"
+                               [disabled]="disabled==true" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                (click)="updateProjectStateAndDate()" id="clean" name="clean" type="button">
+                                Actualizar proyecto
+                            </button>
+                        </div>
+                    </div>
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de proyectos</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Nombre del Proyecto</th>
+                                <th scope="col" style="width: 150px;color: white;">Estado</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
+                                <th scope="col" style="width: 110px;color: white;">Director del Proyecto</th>
+                                <th scope="col" style="width: 110px;color: white;">Creado por</th>
+                                <th scope="col" style="width: 110px;color: white;">Participantes del Proyecto</th>
+                                <th scope="col" style="color: white;">Actvidades</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projectList | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };let idx=index; let even=even" [class.active]="idx == currentIndex"
+                                (change)="RowSelected(project, $event)" (click)="RowSelected(project,$event)"
+                                [style.background-color]="rowClicked == idx ? '#999999' : (even ? 'white' : 'white')"
+                                (click)="changeTableRowColor(idx)">
+                                <td>{{project.projectTitle}}</td>
+                                <td>{{project.state.stateName}}</td>
+                                <td>{{project.dateFrom}}</td>
+                                <td>{{project.dateUntil}}</td>
+                                <td>{{project.directorName}}</td>
+                                <td>{{project.createByNames}}</td>
+                                <td>{{project.users}}</td>
+                                <td>
+                                    <button class="btn btn-sm" [disabled]="project.state.stateId==3"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        (click)="listActivities(project.projectId)" id="activities" name="activities" type="button">
+                                        Gestionar actividades
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
+                    </div>
+                    <button class="btn btn-md"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none" id="clean"
+                        name="clean" type="button" (click)="clean(projectListForm)">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div id="list-comments-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Comentarios
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <div *ngIf="listComments?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay comentarios creados en la actividad.
+            </div>
+             <form #listCommentsForm="ngForm">
+                Elementos por pagina:
+                <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
+                </select>
+                <div class="table-responsive">
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de comentarios</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Comentario</th>
+                                <th scope="col" style="width: 130px;color: white;">Fecha creación</th>
+                                <th scope="col" style="width: 110px;color: white;">Actualizar Comentario</th>
+                                <th scope="col" style="width: 110px;color: white;">Eliminar Comentario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let comment of listComments | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };let i = index" [class.active]="i == currentIndex">
+                                <td>{{comment.commentDescription}}</td>
+                                <td>{{comment.creationDate}}</td>
+                                <td>
+                                    <button class="btn btn-sm" 
+                                       (click)="routerUpdateComment(comment)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="updateComments" name="updateComments" type="button">
+                                        Actualizar Comentario
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                        (click)="deleteComment(comment.commentId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="deleteComments" name="deleteComments" type="button">
+                                        Eliminar Comentario
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-sm" 
+                   (click)="routerNewComment()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newComment" name="newComment" type="button">
+                    Crear Comentario
+                </button>
+                <button class="btn btn-sm"
+                (click)="back()" style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                id="back" name="back" type="button">
+                Regresar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

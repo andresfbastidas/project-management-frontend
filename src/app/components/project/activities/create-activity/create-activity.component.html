@@ -1,0 +1,149 @@
+<div id="create-activity-component" class="card mat-elevation-z2" style="width: 800px;">
+    <div class="card-header" id="title-form">
+        Crear Actividad
+    </div>
+    <div class="card-body">
+        <form #createActivityForm="ngForm">
+            <div class="container">
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="nameActivity">Nombre de la actividad:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6" >
+                    <input type="text" [(ngModel)]="activityNameModel" id="inputNameActivity" #activityName="ngModel" name="inputNameActivity" 
+                    style="width: 200px;margin-bottom: 1%;" required>
+                    <br>
+                    <small *ngIf="activityName.invalid && activityName.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="activityName.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="activityName.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+               
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="assignedUser">Asignado a:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6" style="width: 260px;">
+                    <select name="assignedUserSelector" (change)="valueChangeUserAssigned($event)" [(ngModel)]="assignedUserModel" 
+                   class="select-text" id="assignedUserSelector" style="width: 85%;" #assignedUser="ngModel"
+                         required>
+                        <option class="dropdown-item"  disabled selected value="undefined">Seleccione</option>
+                        <option style="margin-bottom: 1%;" [value]="option.userName" *ngFor="let option of listAssignedUsers;let x = index"
+                            class="dropdown-item">
+                            {{option.userName}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="assignedUser.invalid && assignedUser.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="assignedUser.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="dateFrom">Fecha inicio
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateFrom" name="dateFrom" id="dateFrom"
+                           placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateFromTmp="ngModel" [(ngModel)]="dateFromModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateFrom" id="dpt-dateFrom">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dateFrom disabled="false" id="date-pickerDateFrom"></mat-datepicker>
+                    <br>
+                    <small *ngIf="currentDateFromTmp.invalid && currentDateFromTmp.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="currentDateFromTmp.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>   
+                </div>
+            </div>
+            <br>
+            <div class="row " >
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="stateActivity">Estado:
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-sm-6" style="width: 260px;">
+                    <select name="stateActivitySelect" class="select-text" id="stateActivitySelect" style="width: 85%;"
+                    (change)="valueChangeStateActivity($event)" [(ngModel)]="selectedStateModel"
+                    #selectStateActivity="ngModel" required>
+                        <option class="dropdown-item"  disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.stateActivityId" *ngFor="let option of listStatesActivities;let x = index"
+                            class="dropdown-item">
+                            {{option.nameStateActivity}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="selectStateActivity.invalid && selectStateActivity.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="selectStateActivity.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-sm-6" style="text-align: end;">
+                    <label for="dateUntil">Fecha fin
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-6">
+                   
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateUntilDate" name="dateUntilDate" id="dateUntilDate"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateUntilTmp="ngModel" [(ngModel)]="dateUntilModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateUntilDate" id="dpt-birthdate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker style="margin-bottom: 1%;" #dateUntilDate disabled="false" id="date-pickerDateUntilDate"></mat-datepicker>
+                    <br>
+                    <small *ngIf="currentDateUntilTmp.invalid && currentDateUntilTmp.touched"
+                    class="alert-danger p-2 rounded">
+                    <span *ngIf="currentDateUntilTmp.errors?.['required']" class="required">No puede ser
+                        vacio.</span>
+                </small>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-lg-8" style="text-align: end;">
+                    <button class="btn btn-sm"
+                    [disabled]="!createActivityForm.form.valid" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    (click)="createActivity(createActivityForm)" id="newActivity" name="newActivity" type="button">
+                    Crear Actividad
+                </button>
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-sm"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    (click)="clean(createActivityForm)" id="newActivity" name="newActivity" type="button">
+                    Limpiar
+                </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <button class="btn btn-sm"
+                (click)="back()" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                id="newActivity" name="newActivity" type="button">
+                Regresar
+            </button>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>

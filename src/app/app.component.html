@@ -1,3 +1,19 @@
 <div class="h-100">
   <app-header class="layout-header mat-elevation-z2"></app-header>
+  <app-loader></app-loader>
+  <div [ngClass]="{}" class="layout-main">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="layout-menu">
+          <app-menubar></app-menubar>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <router-outlet *ngIf="!loading"></router-outlet>
+        <div *ngIf="loading" class="text-center text-warning"><em class="pi pi-spin pi-spinner"
+            style="font-size: 5em"></em></div>
+      </div>
+    </div> 
+  </div>
+  <app-footer class="layout-footer"></app-footer>
 </div>

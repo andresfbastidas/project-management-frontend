@@ -1,0 +1,50 @@
+<div class="dialog-titlebar">
+    <span class="dialog-title" id="dialog-title">{{data.title}}</span>
+</div>
+<div class="dialog-content">
+    <div *ngIf="data.type=='warning'" class="dialog-icon dialog-warning" style="display: flex;justify-content: center;"><em
+            class="pi pi-exclamation-triangle"></em></div>
+    <div *ngIf="data.type=='error'" class="dialog-icon dialog-error" style="text-align: center;"><em
+            class="pi pi-times"></em></div>
+    <div *ngIf="data.type=='success'" class="dialog-icon dialog-success" style="display: flex;justify-content: center;"><em
+            class="pi pi-check"></em></div>
+    <div *ngIf="data.type=='info'" class="dialog-icon dialog-info" style="display: flex;justify-content: center;"><em class="pi pi-info"></em>
+    </div>
+    <div *ngIf="data.type=='question'" class="dialog-icon dialog-question" style="display: flex;"><em
+            class="pi pi-question"></em></div>
+
+    <div class="dialog-content-text">
+        <div id="dialog-content" class="line-break">{{data.content}}</div>
+    </div>
+
+    <div class="dialog-actions">
+        <div *ngIf="data.type=='warning' || data.type=='question'">
+            <button *ngIf="!data.showCancelButton && !data.showConfirmButton" id="md-btn-default" 
+                class="btn {{data.defaultButtonClass}}" type="button"
+                mat-dialog-close>{{data.defaultButtonText}}</button>
+            <button *ngIf="data.showConfirmButton" type="button" id="md-btn-confirm"
+                class="btn {{data.confirmButtonClass}}" [mat-dialog-close]="true">{{data.confirmButtonText}}</button>
+            <button *ngIf="data.showCancelButton" type="button" id="md-btn-cancel"
+                class="btn {{data.cancelButtonClass}}" mat-dialog-close>{{data.cancelButtonText}}</button>
+        </div>
+        <div *ngIf="data.type=='error' || data.type=='success' || data.type=='info'">
+            <button class="btn {{data.defaultButtonClass}}" id="md-btn-default" mat-button style="box-shadow: none"
+                mat-dialog-close>{{data.defaultButtonText}}</button>
+        </div>
+    </div>
+    <div *ngIf="data.showTechInfo" class="dialog-tech">
+        <p class="text-right">
+          <a class="btn-outline-info" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            {{data.linkTech}}
+          </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card text-center">
+            <textarea readonly id="md-textarea-info">{{data.textTech}}</textarea>
+          </div>
+        </div>
+      </div>
+</div>
+<div class="dialog-footer">
+    {{data.footer}}
+</div>

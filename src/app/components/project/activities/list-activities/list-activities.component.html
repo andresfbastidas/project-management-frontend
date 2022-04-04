@@ -1,0 +1,111 @@
+<div id="list-activities-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Actividades
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <div *ngIf="listActivities?.length==0" class="alert alert-info my-a mat-elevation-z1">
+                No hay actividades asignadas al proyecto.
+            </div>
+            <div class="row">
+                <div class="col-lg-2" style="width: auto;">
+                    <label for="stateActivity">Filtrar por estado:
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectStateActivity" class="select-text" id="selectStateActivity"
+                        style="width: 85%;margin-bottom: 1%;" (change)="valueChangeStateRequest($event)"
+                        [(ngModel)]="selectedState" #selectStateValidate="ngModel" required>
+                        <option class="dropdown-item" default disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.stateActivityId"
+                            *ngFor="let option of listStatesActivities;let x = index" class="dropdown-item">
+                            {{option.nameStateActivity}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <form #activitiesListForm="ngForm">
+                Elementos por pagina:
+                <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                    </option>
+                </select>
+                <div class="table-responsive">
+                    <table id="tbl-list" style="text-align: center;"
+                        class="table table-bordered table-hover caption-top border-color">
+                        <caption>Listado de actividades</caption>
+                        <thead class="table-head-color">
+                            <tr>
+                                <th scope="col" style="width: 150px;color: white;">Nombre Actividad</th>
+                                <th scope="col" style="width: 130px;color: white;">Estado</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha inicio</th>
+                                <th scope="col" style="width: 110px;color: white;">Fecha fin</th>
+                                <th scope="col" style="width: 110px;color: white;">Usuario asignado</th>
+                                <th scope="col" style="color: white;">Comentarios</th>
+                                <th scope="col" style="color: white;">Actualizar Actividad</th>
+                                <th scope="col" style="color: white;">Borrar Actividad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let activity of listActivities | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };let i = index" [class.active]="i == currentIndex">
+                                <td>{{activity.activityName}}</td>
+                                <td>{{activity.stateActivity.nameStateActivity}}</td>
+                                <td>{{activity.dateFrom}}</td>
+                                <td>{{activity.dateUntil}}</td>
+                                <td>{{activity.assignedUser}}</td>
+                                <td>
+                                    <button class="btn btn-sm" (click)="getComments(activity.activityId)"
+                                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="comments" name="comments" type="button">
+                                        Comentarios
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                       (click)="updateActivity(activity.activityId)" [disabled]="activity.stateActivity.stateActivityId==3" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="updateActivity" name="updateActivity" type="button">
+                                        Actualizar Actividad
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm"
+                                       (click)="deleteActivity(activity.activityId)" style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                                        id="updateActivity" name="updateActivity" type="button">
+                                        Borrar Actividad
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <pagination-controls previousLabel="Atrás" nextLabel="Siguiente" [responsive]="true"
+                                (pageChange)="handlePageChange($event)"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-sm" (click)="createActivity()"
+                    style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="newActivity" name="newActivity" type="button">
+                    Crear Actividad
+                </button>
+                <button class="btn btn-sm" (click)="clean(activitiesListForm)"
+                    style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                    id="clean" name="clean" type="button">
+                    Limpiar
+                </button>
+                <button class="btn btn-sm"
+                (click)="back()" style="margin-left: 1%;border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                id="back" name="back" type="button">
+                Regresar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

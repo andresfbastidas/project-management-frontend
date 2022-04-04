@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendBasePath: 'http://localhost:8090/ProjectManager/api/1.0',
+  maxIdleSeconds: 40,
+  timeOutSeconds: 40,
+  idleIntervalAlert: 5,
 };
 
 /*

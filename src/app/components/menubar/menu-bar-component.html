@@ -1,0 +1,7 @@
+<div *ngIf="authService.isAuthenticated() && authService.getRol()=='DIRECTOR'">
+    <p-menu [model]="menuDirector" id="menu-left"></p-menu>
+  </div>
+  <div *ngIf="authService.isAuthenticated() && authService.getRol()=='ESTUDIANTE' || authService.getRol()=='PROFESOR'">
+    <p-menu [model]="menuEstudianteProfesor" id="menu-left"></p-menu>
+  </div>
+  

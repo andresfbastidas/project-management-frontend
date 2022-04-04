@@ -1,0 +1,281 @@
+<div id="edit-project-component" class="card mat-elevation-z2">
+    <div class="card-header" id="title-form">
+        Editar Proyecto
+    </div>
+    <div class="card-body">
+        <form #editProjectForm="ngForm">
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2" >
+                    <label for="titlleProject">Titulo del proyecto
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textTitleProject" type="text"
+                        id="textTitleProject" #titleProject="ngModel" [(ngModel)]="titleProjectModel"
+                         required></textarea>
+                    <br>
+                    <small *ngIf="titleProject.invalid && titleProject.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="titleProject.errors?.['required']" class="required">No puede ser vacio.</span>
+                        <small *ngIf="titleProject.errors?.['pattern']" class="required">Formato inválido</small>
+                    </small>
+                </div>
+                <div class="col-lg-2" style="width: auto;">
+                    <label for="projectDirector">Director del proyecto
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectDirector" class="select-text" id="selectDirector" style="width: 85%;"
+                        (change)="valueChangeDirector($event)" [(ngModel)]="selectedDirectorModel"
+                        #selectedDirector="ngModel" required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.userName" *ngFor="let option of userListProfile;let x = index"
+                            class="dropdown-item">
+                            {{option.firstName}} {{option.surname}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="selectedDirector.invalid && selectedDirector.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="selectedDirector.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="problemInvestigation">Problema u objeto de investigacion
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-lg-10 border " name="textProblemInvestigation"
+                        id="textProblemInvestigation" type="text" #investigation="ngModel"
+                        [(ngModel)]="researchProblemModel" required></textarea>
+                    <br>
+                    <small *ngIf="investigation.invalid && investigation.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="investigation.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-2">
+                    <label for="justification">Justificacion
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textJustification" id="textJustification"
+                        type="text" #justification="ngModel" [(ngModel)]="justificationModel"
+                        required></textarea>
+                    <br>
+                    <small *ngIf="justification.invalid && justification.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="justification.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="generalObjetive">Objetivo General
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textGeneralObjetive" id="textGeneralObjetive"
+                        type="text" #genObjetive="ngModel" [(ngModel)]="generalObjetiveModel" p
+                        required></textarea>
+                    <br>
+                    <small *ngIf="genObjetive.invalid && genObjetive.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="genObjetive.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-2">
+                    <label for="dateFrom">Fecha inicio
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateFrom" name="dateFrom" id="dateFrom"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateFromTmp="ngModel" [(ngModel)]="dateFromModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateFrom" id="dpt-dateFrom">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dateFrom disabled="false" id="date-pickerDateFrom"></mat-datepicker>
+                        <small *ngIf="currentDateFromTmp.invalid && currentDateFromTmp.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="currentDateFromTmp.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>
+                    </div>             
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="summary">Resumen de la propuesta
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textSummary" ç id="textSummary" type="text"
+                        #summaryValidate="ngModel" [(ngModel)]="summaryModel" required></textarea>
+                    <br>
+                    <small *ngIf="summaryValidate.invalid && summaryValidate.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="summaryValidate.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-2">
+                    <label for="dateUntil">Fecha fin
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ui-inputgroup pb-2">
+                        <span class="ui-inputgroup-addon"><em class="pi pi-calendar"></em></span>
+                        <input matInput [matDatepicker]="dateUntilDate" name="inputDateUntil" id="inputDateUntil"
+                            placeholder="Seleccione la fecha" class="ui-inputtext border" required [readonly]="true"
+                            #currentDateUntilTmp="ngModel" [(ngModel)]="dateUntilModel">
+                        <mat-datepicker-toggle matSuffix [for]="dateUntilDate" id="dpt-birthdate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dateUntilDate [startAt]="dateUntilModel" disabled="false" id="date-pickerDateUntilDate"></mat-datepicker>
+                        <small *ngIf="currentDateUntilTmp.invalid && currentDateUntilTmp.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="currentDateUntilTmp.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="projectMethology">Metodologia del proyecto
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textProjectMethology" id="textProjectMethology"
+                        type="text" #projectMethologyValidate="ngModel" [(ngModel)]="projectMethologyModel"
+                         required></textarea>
+                    <br>
+                    <small *ngIf="projectMethologyValidate.invalid && projectMethologyValidate.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="projectMethologyValidate.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-2">
+                    <label for="specificObjetives">Objetivos Especificos
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <textarea class="ui-inputtext col-10 border " name="textSpecificObjetives" type="text"
+                        id="textSpecificObjetives" #validateSpecificObjetives="ngModel" [(ngModel)]="specificObjetives"
+                     required></textarea>
+                    <br>
+                    <small *ngIf="validateSpecificObjetives.invalid && validateSpecificObjetives.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="validateSpecificObjetives.errors?.['required']" class="required">No puede ser
+                            vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="researchTypology">Tipologia de investigación
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="selectTypology" class="select-text" (change)="valueChangeResearch($event)" style="width: 85%;"
+                        [(ngModel)]="researchTypologyModel" #validateTypology="ngModel" required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.projectResearchTypologyId"
+                            *ngFor="let option of researchTypologys;let x = index" class="dropdown-item">
+                            {{option.typologyDescription}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="validateTypology.invalid && validateTypology.touched"
+                        class="alert-danger p-2 rounded">
+                        <span *ngIf="validateTypology.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+                <div class="col-lg-2">
+                    <label for="state">Estado
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3" *ngIf="authService.getRol()=='PROFESOR' || authService.getRol()=='ESTUDIANTE'">
+                    <select name="selectState" class="select-text" (change)="valueChangeState($event)" style="width: 85%;"
+                       [(ngModel)]="selectedStateModel" #validateState="ngModel" required>
+                        <option class="dropdown-item" disabled selected value="undefined">Seleccione</option>
+                        <option [value]="option.stateId" [disabled]="option.stateId==2"  *ngFor="let option of stateSolini;let x = index"
+                            class="dropdown-item">
+                            {{option.stateName}}
+                        </option>
+                    </select>
+                    <br>
+                    <small *ngIf="validateState.invalid && validateState.touched" class="alert-danger p-2 rounded">
+                        <span *ngIf="validateState.errors?.['required']" class="required">No puede ser vacio.</span>
+                    </small>
+                </div>
+            </div>
+            <br>
+            <div class="row " style="justify-content: center;">
+                <div class="col-lg-2">
+                    <label for="deliverys">Entregables
+                    </label>
+                    <label style="color: red">*</label>
+                </div>
+                <div class="col-lg-3">
+                    <div class="table-responsive-xl">
+                        <table id="tbl-list" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="colActions">
+                                        <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll"
+                                          (change)="selectAll()" (ngModelChange)="onNgModelChange($event)">
+                                        Seleccionar
+                                    </th>
+                                    <th scope="col">Nombre entregable</th>
+                                    <th scope="col">Tipo entregable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let delivery of deliveriesList">
+                                    <th scope="row" class="text-center">
+                                        <input type="checkbox" name="chk-{{delivery.deliveryId}}"
+                                        #deliveryVal="ngModel" [checked]="delivery.deliveryId"  id="chk-{{delivery.deliveryId}}" [(ngModel)]="delivery.isSelected"
+                                            (change)="checkIfAllSelected()" [value]="delivery.deliveryId">
+                                    </th>
+                                    <td>{{delivery.deliveryName}}</td>
+                                    <td>{{delivery.deliveryType}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-3">
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-lg-8" style="text-align: center;">
+                    <button class="btn btn-info btn btn-space"
+                        [disabled]="!editProjectForm.form.valid || selectedStateModel==2"
+                        style="border-color:#999999;background-color: #999999;color: white;box-shadow: none"
+                        id="cleanBtn" name="cleanBtn" type="button" (click)="editProject()">
+                        Editar proyecto
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
