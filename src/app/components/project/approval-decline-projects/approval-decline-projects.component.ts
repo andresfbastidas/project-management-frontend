@@ -237,6 +237,7 @@ export class ApprovalDeclineProjectsComponent implements OnInit {
       next: (response: any) => {
         this.sharedMessage.msgInfo(response.message);
         this.clean(createProjectForm);
+        this.refresh();
       },
       error: (err) => {
         if (err.status == 500) {
